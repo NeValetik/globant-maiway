@@ -5,6 +5,9 @@
 **The idea**: Lorem ipsum 
 
 ### Frontend
+Frontend uses React library with npm build tool. To install npm, you have to install node.js use the instructions provided on their official site.
+
+https://nodejs.org/en/download/package-manager
 
 ### Backend:
 Backend uses Spring boot with maven build tool. To install Maven, use the instructions provided on their official site. You also need a JDK installed (17+ version).
