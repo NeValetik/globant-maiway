@@ -5,7 +5,7 @@
 **The idea**: Lorem ipsum 
 
 ### Frontend
-Frontend uses React library with npm build tool. To install npm, you have to install node.js use the instructions provided on their official site.
+Frontend uses React library with npm build tool. To install npm, you have to install node.js use the instructions provided on their official site. Also for styling will be used library tailwindcss.
 
 https://nodejs.org/en/download/package-manager
 
