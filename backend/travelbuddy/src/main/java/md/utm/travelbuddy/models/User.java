@@ -4,23 +4,44 @@ import jakarta.persistence.*;
 import java.util.Arrays;
 
 @Entity
+@Table(name= "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Lob
+    @Column(name = "photo")
+
     private byte[] photo;
+    @Column(name = "username")
 
     private String username;
 
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "instagram_link")
+
+    private String instagramLink;
+
+    @Column(name = "telegram_link")
+    private String telegramLink;
+
+    @Column(name = "password")
     private String password;
 
+    @Column(name = "age")
     private int age;
+    @Column(name = "sex")
+    private char sex; // 'm' , 'f'
 
-    private char sex;
-
+    @Column(name = "about")
     private String about;
 
     public User() {
