@@ -1,6 +1,6 @@
 package md.utm.travelbuddy;
 
-import md.utm.travelbuddy.tables.OfferData;  // Correct import statement
+import md.utm.travelbuddy.tables.OfferData;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
