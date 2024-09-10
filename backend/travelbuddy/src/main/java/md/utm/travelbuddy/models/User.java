@@ -36,6 +36,9 @@ public class User {
     @Column(name = "facebook_link")
     private String facebookLink;
 
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "password")
     private String password;
 
@@ -50,8 +53,14 @@ public class User {
     public User() {
     }
 
+    public User(String username, String password) {
+
+        this.username = username;
+        this.password = password;
+
+    }
     public User(String username, String password, byte[] photo, int age, char sex, String about, String phoneNumber, String instagramLink,
-                String telegramLink, String facebookLink) {
+                String telegramLink, String facebookLink, String email) {
 //        this.id = id;
         this.username = username;
         this.password = password;
@@ -63,6 +72,7 @@ public class User {
         this.instagramLink = instagramLink;
         this.telegramLink = telegramLink;
         this.facebookLink = facebookLink;
+        this.email = email;
     }
 
     public Long getId() {
