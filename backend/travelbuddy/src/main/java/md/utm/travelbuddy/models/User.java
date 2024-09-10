@@ -13,8 +13,7 @@ public class User {
     private Long id;
 
     @Lob
-    @Column(name = "photo")
-
+    @Column(name = "photo", columnDefinition = "BYTEA")
     private byte[] photo;
     @Column(name = "username")
 
@@ -47,7 +46,7 @@ public class User {
     @Column(name = "sex")
     private char sex; // 'm' , 'f'
 
-    @Column(name = "about")
+    @Column(name = "about", columnDefinition = "TEXT")
     private String about;
 
     public User() {

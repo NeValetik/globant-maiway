@@ -20,18 +20,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("adduser")
-    private String addUser() {
-        userService.saveUser(new User("john", "ksksdf", null, 55, 'm', "travela", "", "", "", ""));
-        return "saved";
-    }
-
-    // Create a new user
-    @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userService.createUser(user);
-    }
-
     // Get user by ID
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
