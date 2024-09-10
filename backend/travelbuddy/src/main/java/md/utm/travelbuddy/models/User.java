@@ -50,9 +50,9 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String password, byte[] photo, int age, char sex, String about, String phoneNumber, String instagramLink,
+    public User(String username, String password, byte[] photo, int age, char sex, String about, String phoneNumber, String instagramLink,
                 String telegramLink, String facebookLink) {
-        this.id = id;
+//        this.id = id;
         this.username = username;
         this.password = password;
         this.photo = photo;
