@@ -4,36 +4,74 @@ import jakarta.persistence.*;
 import java.util.Arrays;
 
 @Entity
+@Table(name= "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Lob
+    @Column(name = "photo", columnDefinition = "BYTEA")
     private byte[] photo;
+    @Column(name = "username")
 
     private String username;
 
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "instagram_link")
+
+    private String instagramLink;
+
+    @Column(name = "telegram_link")
+    private String telegramLink;
+
+    @Column(name = "facebook_link")
+    private String facebookLink;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "password")
     private String password;
 
+    @Column(name = "age")
     private int age;
+    @Column(name = "sex")
+    private char sex; // 'm' , 'f'
 
-    private char sex;
-
+    @Column(name = "about", columnDefinition = "TEXT")
     private String about;
 
     public User() {
     }
 
-    public User(Long id, String username, String password, byte[] photo, int age, char sex, String about) {
-        this.id = id;
+    public User(String username, String password) {
+
+        this.username = username;
+        this.password = password;
+
+    }
+    public User(String username, String password, byte[] photo, int age, char sex, String about, String phoneNumber, String instagramLink,
+                String telegramLink, String facebookLink, String email) {
+//        this.id = id;
         this.username = username;
         this.password = password;
         this.photo = photo;
         this.age = age;
         this.sex = sex;
         this.about = about;
+        this.phoneNumber = phoneNumber;
+        this.instagramLink = instagramLink;
+        this.telegramLink = telegramLink;
+        this.facebookLink = facebookLink;
+        this.email = email;
     }
 
     public Long getId() {
