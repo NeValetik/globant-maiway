@@ -6,12 +6,13 @@ import jakarta.persistence.*;
 public class Offer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
-
+    @Column(name = "user_id")
     private Long user_id;
-
+    @Column(name = "title")
     private String title;
-    
+    @Column(name = "description")
     private String description;
     
     public Offer(Long id, Long user_id, String title, String description) {
