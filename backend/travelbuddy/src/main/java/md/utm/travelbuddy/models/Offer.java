@@ -28,6 +28,10 @@ public class Offer {
         this.description = description;
     }
 
+    public Offer() {
+
+    }
+
 
     @Override
     public String toString() {

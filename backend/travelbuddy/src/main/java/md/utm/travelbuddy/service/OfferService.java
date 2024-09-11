@@ -3,6 +3,9 @@ package md.utm.travelbuddy.service;
 import md.utm.travelbuddy.models.Offer;
 import md.utm.travelbuddy.repository.OfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,4 +28,13 @@ public class OfferService {
     // Get a list of all offers
     public List<Offer> getAllOffers() {
         return offerRepository.findAll();}
+
+
+
+    public List<Offer> getOffersPerPage(int page, int offerPerPageLimit) {
+        Pageable pageable = PageRequest.of(page, offerPerPageLimit);
+        Page<Offer> offerPage = offerRepository.findAll(pageable);
+        System.out.println(offerPage);
+        return offerPage.getContent(); // Converts Page to List
+    }
 }
