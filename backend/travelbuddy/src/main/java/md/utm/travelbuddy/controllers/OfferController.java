@@ -33,4 +33,10 @@ public class OfferController {
         List<Offer> offers = offerService.getAllOffers();
         return ResponseEntity.ok(offers);
     }
+    @PostMapping("/generate/{userId}")
+    public ResponseEntity<Offer> generateOfferByUserId(@PathVariable Long userId) {
+        Optional<Offer> generatedOffer = offerService.generateOfferByUser(userId);
+        return generatedOffer.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(500).build());  // 500 if offer generation fails
+    }
 }

@@ -5,13 +5,14 @@ import jakarta.persistence.*;
 @Entity
 @Table(name= "offers")
 public class Offer {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
     @Lob
+    @ManyToOne
     @Column(name = "user_id")
     private Long user_id;
 
@@ -20,7 +21,8 @@ public class Offer {
 
     @Column(name = "description")
     private String description;
-    
+    public Offer(){
+    }
     public Offer(Long id, Long user_id, String title, String description) {
         this.id = id;
         this.user_id = user_id;

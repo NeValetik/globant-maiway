@@ -25,4 +25,13 @@ public class OfferService {
     // Get a list of all offers
     public List<Offer> getAllOffers() {
         return offerRepository.findAll();}
+    
+    // Post an offer by the user_id
+    public Optional<Offer> generateOfferByUser(Long user_id){
+        Offer newOffer = new Offer(893L, user_id, "-", "sample");
+        newOffer.setUserId(user_id);
+        System.out.println("hey this is the user id that generated the offer: " + user_id);
+        Offer savedOffer = offerRepository.save(newOffer);
+        return Optional.of(savedOffer);
+    }
 }
