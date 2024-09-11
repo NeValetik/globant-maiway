@@ -4,7 +4,7 @@ import Card from  "./Card"
 const Offers = () => {
   const [offers, setOffers] = useState([])//here we need to load from database offers I'll be putting some constant data
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/photos')
+    fetch('http://localhost:6969/api/offer/page/1')
       .then((res) => {
         return res.json();
       })
