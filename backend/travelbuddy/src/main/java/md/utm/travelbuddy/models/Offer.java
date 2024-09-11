@@ -12,7 +12,6 @@ public class Offer {
     private Long id;
 
     @Lob
-    @ManyToOne
     @Column(name = "user_id")
     private Long user_id;
 
