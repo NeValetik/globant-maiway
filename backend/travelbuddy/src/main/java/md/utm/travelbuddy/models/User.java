@@ -15,8 +15,8 @@ public class User {
     @Lob
     @Column(name = "photo", columnDefinition = "BYTEA")
     private byte[] photo;
-    @Column(name = "username")
 
+    @Column(name = "username")
     private String username;
 
     @Column(name = "phone_number")
@@ -43,6 +43,7 @@ public class User {
 
     @Column(name = "age")
     private int age;
+    
     @Column(name = "sex")
     private char sex; // 'm' , 'f'
 

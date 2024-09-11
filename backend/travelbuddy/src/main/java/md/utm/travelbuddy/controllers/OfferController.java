@@ -29,7 +29,7 @@ public class OfferController {
 
     // Get a list of all offers
     @GetMapping
-    public ResponseEntity<List<Offer>> getAllUsers() {
+    public ResponseEntity<List<Offer>> getAllOffers() {
         List<Offer> offers = offerService.getAllOffers();
         return ResponseEntity.ok(offers);
     }

@@ -3,15 +3,21 @@ package md.utm.travelbuddy.models;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name= "offers")
 public class Offer {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @Lob
     @Column(name = "user_id")
     private Long user_id;
+
     @Column(name = "title")
     private String title;
+
     @Column(name = "description")
     private String description;
     
