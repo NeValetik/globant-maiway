@@ -1,77 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Card from  "./Card"
 
 const Offers = () => {
-  const [offers, setOffers] = useState([
-    {
-      username: 'Anton',
-      location: 'Warshaw',
-      description: 'Ne ducem dupa piva',
-      image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQgSvVwAdK_66hOT_ut0rKqjeYbqeD7qfjN31wUqpfiNKTAqhFv',
-    },
-    {
-      username: 'Anton',
-      location: 'Warshaw',
-      description: 'Ne ducem dupa piva',
-      image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQgSvVwAdK_66hOT_ut0rKqjeYbqeD7qfjN31wUqpfiNKTAqhFv',
-    },
-    {
-      username: 'Anton',
-      location: 'Warshaw',
-      description: 'Ne ducem dupa piva',
-      image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQgSvVwAdK_66hOT_ut0rKqjeYbqeD7qfjN31wUqpfiNKTAqhFv',
-    },
-    {
-      username: 'Anton',
-      location: 'Warshaw',
-      description: 'Ne ducem dupa piva',
-      image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQgSvVwAdK_66hOT_ut0rKqjeYbqeD7qfjN31wUqpfiNKTAqhFv',
-    },
-    {
-      username: 'Anton',
-      location: 'Warshaw',
-      description: 'Ne ducem dupa piva',
-      image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQgSvVwAdK_66hOT_ut0rKqjeYbqeD7qfjN31wUqpfiNKTAqhFv',
-    },
-    {
-      username: 'Anton',
-      location: 'Warshaw',
-      description: 'Ne ducem dupa piva',
-      image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQgSvVwAdK_66hOT_ut0rKqjeYbqeD7qfjN31wUqpfiNKTAqhFv',
-    },
-    {
-      username: 'Anton',
-      location: 'Warshaw',
-      description: 'Ne ducem dupa piva',
-      image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQgSvVwAdK_66hOT_ut0rKqjeYbqeD7qfjN31wUqpfiNKTAqhFv',
-    },
-    {
-      username: 'Anton',
-      location: 'Warshaw',
-      description: 'Ne ducem dupa piva',
-      image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQgSvVwAdK_66hOT_ut0rKqjeYbqeD7qfjN31wUqpfiNKTAqhFv',
-    },
-    {
-      username: 'Anton',
-      location: 'Warshaw',
-      description: 'Ne ducem dupa piva',
-      image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQgSvVwAdK_66hOT_ut0rKqjeYbqeD7qfjN31wUqpfiNKTAqhFv',
-    },
-    {
-      username: 'Anton',
-      location: 'Warshaw',
-      description: 'Ne ducem dupa piva',
-      image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQgSvVwAdK_66hOT_ut0rKqjeYbqeD7qfjN31wUqpfiNKTAqhFv',
-    },
-
-    {
-      username: 'Anton',
-      location: 'Warshaw',
-      description: 'Ne ducem dupa piva',
-      image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQgSvVwAdK_66hOT_ut0rKqjeYbqeD7qfjN31wUqpfiNKTAqhFv',
-    },
-  ])//here we need to load from database offers I'll be putting some constant data
-
+  const [offers, setOffers] = useState([])//here we need to load from database offers I'll be putting some constant data
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/photos')
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setOffers(data);
+      });
+  }, []);
 //   const handleOffer = async e => {
 //     setOffer({"username":"Anton", "location":"Warshaw", "description":"Ne ducem dupa piva"})//here we need to load from database offers I'll be putting some constant data
 //   };
@@ -87,7 +28,7 @@ const Offers = () => {
     <div className="flex flex-col gap-4 mx-auto justify-center items-center">
       {/* Render each group of offers in a new row */}
       {groupedOffers.map((group, groupIndex) => (
-        <div key={groupIndex} className="flex flex-row gap-10">
+        <div key={groupIndex} className="flex flex-row gap-4">
           {group.map((offer, index) => (
             <Card key={index} offer={offer} />
           ))}
