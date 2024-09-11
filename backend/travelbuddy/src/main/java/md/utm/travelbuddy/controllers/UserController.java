@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class UserController {
 
     private final UserService userService;
@@ -18,18 +18,6 @@ public class UserController {
     @Autowired
     UserController(UserService userService) {
         this.userService = userService;
-    }
-
-    @GetMapping("adduser")
-    private String addUser() {
-        userService.saveUser(new User("john", "ksksdf", null, 55, 'm', "travela", "", "", "", ""));
-        return "saved";
-    }
-
-    // Create a new user
-    @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userService.createUser(user);
     }
 
     // Get user by ID
