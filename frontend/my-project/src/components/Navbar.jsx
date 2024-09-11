@@ -4,6 +4,14 @@ import React, { useState, useEffect } from 'react';
 const Navbar = () => {
   const [user, setUser] = useState(true);
   const [userPfp,setUserPfp] = useState("");
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
+
+  const handleCascade = async e =>{
+    setDropdownVisible(true)
+  }
+  const handleBlur = async e =>{
+    setDropdownVisible(true) 
+  }
 
   const handleUser = async e => {
     setUser(!user)//TODO: JWT. Here there is need to work with the jwt tokens to get the account data from the user if he is logged
@@ -28,7 +36,20 @@ const Navbar = () => {
           {user ?<>
           <a href="#" onClick={handleUser} className="py-2 text-sm font-semibold leading-6 text-gray-900 hover:text-gray-500">Log in</a>
           <a href="#" onClick={handleUser} className="block rounded-lg py-2 pl-6 pr-6 text-sm font-semibold leading-7 text-gray-700 bg-indigo-200 hover:bg-indigo-300 ">Sign up</a></>:
-          <img className="rounded-full h-11  w-auto" src={userPfp || "https://i.pinimg.com/736x/c0/27/be/c027bec07c2dc08b9df60921dfd539bd.jpg"} alt=""></img>}
+          <img className="rounded-full h-11 w-auto" tabIndex="0" onFocus={handleCascade}  onBlur={handleBlur} src={userPfp || "https://i.pinimg.com/736x/c0/27/be/c027bec07c2dc08b9df60921dfd539bd.jpg"} alt=""></img>}
+          {isDropdownVisible &&( 
+            <div className="dropdown-menu">
+              <ul>
+                <li><a href="#account">Account</a></li>
+                <li><a href="#profile">Profile</a></li>
+                <li><a href="#private-session">Private Session</a></li>
+                <li><a href="#settings">Settings</a></li>
+                <li><a href="#logout">Log Out</a></li>
+              </ul>
+            </div>)
+          }
+          
+
         </div>
       </nav>
     </header>
