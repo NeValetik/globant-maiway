@@ -3,14 +3,14 @@ import React, { useState, useEffect } from 'react';
 
 const Navbar = () => {
   const [user, setUser] = useState(true);
-  const [userPfp,setUserPfp] = useState("");
   const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const [userPfp,setUserPfp] = useState("");
 
   const handleCascade = async e =>{
     setDropdownVisible(true)
   }
   const handleBlur = async e =>{
-    setDropdownVisible(true) 
+    setDropdownVisible(false) 
   }
 
   const handleUser = async e => {

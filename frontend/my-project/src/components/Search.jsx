@@ -22,7 +22,7 @@ const Search = () => {
     const formData = new FormData(form);
     // Or you can work with it as a plain object:
     const formJson = Object.fromEntries(formData.entries());
-    // console.log(formJson);
+    console.log(formJson);
   }
 
 
