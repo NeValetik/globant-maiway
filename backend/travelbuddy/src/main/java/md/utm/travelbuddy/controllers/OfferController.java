@@ -3,7 +3,7 @@ package md.utm.travelbuddy.controllers;
 import md.utm.travelbuddy.models.Offer;
 import md.utm.travelbuddy.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+// import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
