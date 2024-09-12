@@ -3,14 +3,14 @@ import Card from  "./Card"
 
 const Offers = () => {
   const [offers, setOffers] = useState([])//here we need to load from database offers I'll be putting some constant data
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(3)
   useEffect(() => {
     fetch(`http://localhost:6969/api/offer/page/${page}`)
       .then((res) => {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setOffers(data);
       });
   }, []);
@@ -26,15 +26,17 @@ const Offers = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-4 mx-auto justify-center items-center">
-      {/* Render each group of offers in a new row */}
-      {groupedOffers.map((group, groupIndex) => (
-        <div key={groupIndex} className="flex flex-row gap-4">
-          {group.map((offer, index) => (
-            <Card key={index} offer={offer} />
-          ))}
-        </div>
-      ))}
+    <div className="mx-[62px]">
+      <div className="flex flex-col gap-4 mx-auto justify-center items-center">
+        {/* Render each group of offers in a new row */}
+        {groupedOffers.map((group, groupIndex) => (
+          <div key={groupIndex} className="flex flex-row gap-4">
+            {group.map((offer, index) => (
+              <Card key={index} offer={offer} />
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
