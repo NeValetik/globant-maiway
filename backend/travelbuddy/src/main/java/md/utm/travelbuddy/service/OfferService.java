@@ -41,9 +41,7 @@ public class OfferService {
     
     // Post an offer by the user_id
     public Optional<Offer> generateOfferByUser(Long user_id){
-        Offer newOffer = new Offer(893L, user_id, "-", "sample");
-        newOffer.setUserId(user_id);
-        System.out.println("hey this is the user id that generated the offer: " + user_id);
+        Offer newOffer = new Offer(user_id, "-", "sample");
         Offer savedOffer = offerRepository.save(newOffer);
         return Optional.of(savedOffer);
     }

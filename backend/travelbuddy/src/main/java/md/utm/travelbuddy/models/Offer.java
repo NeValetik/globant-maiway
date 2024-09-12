@@ -22,8 +22,7 @@ public class Offer {
     private String description;
     public Offer(){
     }
-    public Offer(Long id, Long user_id, String title, String description) {
-        this.id = id;
+    public Offer(Long user_id, String title, String description) {
         this.user_id = user_id;
         this.title = title;
         this.description = description;
