@@ -5,15 +5,16 @@ const Offers = () => {
   const [offers, setOffers] = useState([])//[DONE line 8]here we need to load from database offers I'll be putting some constant data
   const [page, setPage] = useState(1)
   useEffect(() => {
-    fetch(`http://localhost:6969/api/offer/page/${page}`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        // console.log(data);
-        setOffers(data);
-      });
-  }, []);
+      fetch(`http://localhost:6969/api/offer/page/${page}`)
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          // console.log(data);
+          setOffers(data);
+        })
+        .catch(rejected => {console.log("rejected")});
+  }, [page]);
 //   const handleOffer = async e => {
 //     setOffer({"username":"Anton", "location":"Warshaw", "description":"Ne ducem dupa piva"})//here we need to load from database offers I'll be putting some constant data
 //   };
