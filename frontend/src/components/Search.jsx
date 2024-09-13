@@ -49,11 +49,11 @@ const Search = () => {
           <input type="search" name="search" id="default-search"
                  className={ThemeChangerDescriptionString(theme,
                      "text-gray-900 border-gray-300 bg-gray-50 border",
-                     "text-gray-900 bg-[#282a2c] border border-gray-950",
+                     "text-gray-100 bg-[#282a2c] border border-gray-950",
                      "block w-full p-4 ps-10 text-sm rounded-lg")}
                  placeholder="Search offers, users, meaning of life..." required/>
           <button type="submit"
-                  className="text-gray-700 absolute end-2.5 bottom-2.5 bg-indigo-200 hover:bg-indigo-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-indigo-200 dark:hover:bg-indigo-300 dark:focus:ring-blue-300">Search
+                  className="text-gray-700 absolute end-2.5 bottom-2.5 bg-indigo-200 hover:bg-indigo-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 ">Search
           </button>
         </div>
       </form>

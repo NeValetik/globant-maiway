@@ -28,7 +28,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className={themeChangerDescriptionString(theme, 'bg-white text-black', 'bg-[#1b1b1b] text-white')}>
+    <header className={themeChangerDescriptionString(theme, 'bg-gray-50 text-black', 'bg-[#1b1b1b] text-white')}>
       <nav
         className={`mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8 bg-[#000000]'`}
         aria-label="Header"
@@ -45,7 +45,7 @@ const Navbar = () => {
              className={`py-3 text-3xl font-mono font-bold leading-6 ${theme === 'light' ? 'text-gray-700' : 'text-gray-50'} ml-4`}>
             Măi Way
           </a>
-        <div>
+        <div className='pt-1.5 text-3xl font-mono font-bold leading-6'>
           <ThemeToggler/>
         </div>
         </div>
@@ -55,7 +55,7 @@ const Navbar = () => {
                 <a
                     href="#"
                 onClick={handleUser}
-                className="py-2 text-sm font-semibold leading-6 text-gray-900 hover:text-gray-500"
+                className={themeChangerDescriptionString(theme, 'py-2 text-sm font-semibold leading-6 text-gray-900 hover:text-gray-500', 'py-2 text-sm font-semibold leading-6 text-white hover:text-gray-100')}
               >
                 Log in
               </a>
