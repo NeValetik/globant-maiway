@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import headerLogoBlack from '../assets/header_logo_black.png'
 import headerLogoWhite from '../assets/header_logo_white.png'
+import {useTheme} from "../context/ThemeContext";
+import ThemeToggler from "./ThemeTogglerButton";
+
 
 const Navbar = () => {
   const [user, setUser] = useState(true);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [userPfp,setUserPfp] = useState("");
+
+
+  const {theme, toggleTheme} = useTheme()
 
   const handleCascade = async e =>{
     setDropdownVisible(true)
@@ -22,30 +28,32 @@ const Navbar = () => {
   };
 
   return (
-    <header className="">
+    <header className={`${theme === 'light' ? 'bg-white text-black' : 'bg-[#1b1b1b] textwhite'}`}>
       <nav
-        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+        className={`mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8'`}
         aria-label="Header"
       >
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
             <img
               className="h-12 w-auto"
-              src={headerLogoBlack}
+              src={theme === 'light' ? headerLogoBlack : headerLogoWhite}
               alt="insert header logo psl"
             />
           </a>
-          <a href="#">
-            <div className="py-3 text-3xl font-mono font-bold leading-6 text-gray-700 ml-4">
-              Măi Way
-            </div>
+          <a href="#"
+             className={`py-3 text-3xl font-mono font-bold leading-6 ${theme === 'light' ? 'text-gray-700' : 'text-gray-50'} ml-4`}>
+            Măi Way
           </a>
+        <div>
+          <ThemeToggler/>
+        </div>
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:space-x-8 lg:justify-end">
           {user ? (
-            <>
-              <a
-                href="#"
+              <>
+                <a
+                    href="#"
                 onClick={handleUser}
                 className="py-2 text-sm font-semibold leading-6 text-gray-900 hover:text-gray-500"
               >
