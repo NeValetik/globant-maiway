@@ -5,10 +5,12 @@ import Offers from '../components/Offers';
 
 function Homepage() {
     return (
-      <div className="Home">
+      <div className="Home flex flex-col min-h-screen">
+        <main className="flex-1">
         <Navbar />
         <Search />
         <Offers />
+        </main>
         <Footer />
       </div>
     );
