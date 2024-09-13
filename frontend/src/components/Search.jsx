@@ -1,7 +1,11 @@
 import React from 'react';
+import ThemeChangerDescriptionString from "./utils/themeChangerDescriptionString";
+import {useTheme} from "../context/ThemeContext";
 
 
 const Search = () => {
+
+  const {theme, toggleTheme} = useTheme()
 
   const handleSubmit = async e => {
     // Prevent the browser from reloading the page
@@ -30,18 +34,29 @@ const Search = () => {
 
 
   return (
-    <form className="max-w-screen-lg mx-auto my-5" onSubmit={handleSubmit}>   
-      <label for="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-      <div className="relative">
-        <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-          <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-          </svg>
+      <form className="max-w-screen-lg mx-auto my-5" onSubmit={handleSubmit}>
+        <label htmlFor="default-search" className={ThemeChangerDescriptionString(theme,
+            'mb-2 text-sm font-medium text-gray-900 sr-only',
+            'mb-2 text-sm font-medium text-white sr-only bg-[#282a2c]')}>Search</label>
+        <div className="relative">
+          <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <svg className=" w-4 h-4 text-blue-500 dark:text-gray-400" aria-hidden="true"
+                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+            </svg>
+          </div>
+          <input type="search" name="search" id="default-search"
+                 className={ThemeChangerDescriptionString(theme,
+                     "text-gray-900 border-gray-300 bg-gray-50 border",
+                     "text-gray-900 bg-[#282a2c] border border-gray-950",
+                     "block w-full p-4 ps-10 text-sm rounded-lg")}
+                 placeholder="Search offers, users, meaning of life..." required/>
+          <button type="submit"
+                  className="text-gray-700 absolute end-2.5 bottom-2.5 bg-indigo-200 hover:bg-indigo-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-indigo-200 dark:hover:bg-indigo-300 dark:focus:ring-blue-300">Search
+          </button>
         </div>
-        <input type="search" name="search" id="default-search" className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Search offers, users, meaning of life..." required />
-        <button type="submit" className="text-gray-700 absolute end-2.5 bottom-2.5 bg-indigo-200 hover:bg-indigo-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-indigo-200 dark:hover:bg-indigo-300 dark:focus:ring-blue-300">Search</button>
-      </div>
-    </form>
+      </form>
   );
 };
 

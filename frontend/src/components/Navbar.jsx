@@ -30,11 +30,11 @@ const Navbar = () => {
   return (
     <header className={themeChangerDescriptionString(theme, 'bg-white text-black', 'bg-[#1b1b1b] text-white')}>
       <nav
-        className={`mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 bg-[#000000]'`}
+        className={`mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8 bg-[#000000]'`}
         aria-label="Header"
       >
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
+          <a href="/" className="-m-1.5 p-1.5">
             <img
               className="h-12 w-auto"
               src={theme === 'light' ? headerLogoBlack : headerLogoWhite}
