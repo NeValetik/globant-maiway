@@ -2,16 +2,6 @@ import React from 'react';
 
 
 const Search = () => {
-  // const [srch, setSrch] = useState("");
-//   const [userPfp,setUserPfp] = useState("");
-
-// const handleUser = async e => {
-//   setSrch("Pivo")
-//   console.log(srch);
-//   // if (user){//This should be modified
-//   //   setUserPfp("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS3l4ZjaN7cVwzh-ISmjRTpyjgePCZ_BqJ6w&s")
-//   // }
-// };
 
   const handleSubmit = async e => {
     // Prevent the browser from reloading the page
@@ -22,7 +12,20 @@ const Search = () => {
     const formData = new FormData(form);
     // Or you can work with it as a plain object:
     const formJson = Object.fromEntries(formData.entries());
-    console.log(formJson);
+    fetch('http://localhost:6969/api/sendData', {
+      method: 'POST', // or 'GET' for fetching data
+      headers: {
+        'Content-Type': 'application/json', // Specify the content type
+      },
+      body: JSON.stringify(form), // Convert data to JSON
+    })
+      .then(response => response.json()) // Handle the response
+      .then(data => {
+        console.log('Success:', form);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   }
 
 
