@@ -3,7 +3,7 @@ import Card from  "./Card"
 
 const Offers = () => {
   const [offers, setOffers] = useState([])//[DONE line 8]here we need to load from database offers I'll be putting some constant data
-  const [page, setPage] = useState(3)
+  const [page, setPage] = useState(1)
   useEffect(() => {
     fetch(`http://localhost:6969/api/offer/page/${page}`)
       .then((res) => {
