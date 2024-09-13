@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
+import headerLogoBlack from '../assets/header_logo_black.png'
+import headerLogoWhite from '../assets/header_logo_white.png'
 
 const Navbar = () => {
   const [user, setUser] = useState(true);
@@ -30,13 +31,13 @@ const Navbar = () => {
           <a href="#" className="-m-1.5 p-1.5">
             <img
               className="h-12 w-auto"
-              src="https://i.ibb.co/DDb9pyC/photo-2024-09-11-20-05-50.jpg"
-              alt=""
+              src={headerLogoBlack}
+              alt="insert header logo psl"
             />
           </a>
           <a href="#">
-            <div className="py-3 text-xl font-mono font-bold leading-6 text-gray-700 ml-4">
-              TravelBuddy
+            <div className="py-3 text-3xl font-mono font-bold leading-6 text-gray-700 ml-4">
+              Măi Way
             </div>
           </a>
         </div>
