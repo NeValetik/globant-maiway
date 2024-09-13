@@ -30,7 +30,7 @@ const Navbar = () => {
           <a href="#" className="-m-1.5 p-1.5">
             <img
               className="h-12 w-auto"
-              src="https://i.ibb.co/yVV1bfW/photo-2024-09-06-18-24-29.jpg"
+              src="https://i.ibb.co/DDb9pyC/photo-2024-09-11-20-05-50.jpg"
               alt=""
             />
           </a>
