@@ -26,9 +26,8 @@ const Offers = () => {
   }, []);
 
   return (
-    <div className="mx-[62px]">
-      <div className="flex flex-col gap-4 mx-auto justify-center items-center">
-        {/* Render each group of offers in a new row */}
+    <div className="flex justify-center"> 
+      <div className="flex flex-col gap-4"> 
         {groupedOffers.map((group, groupIndex) => (
           <div key={groupIndex} className="flex flex-row gap-4">
             {group.map((offer, index) => (
