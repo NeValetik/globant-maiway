@@ -3,9 +3,10 @@
  * @param theme - string light or dark
  * @param light - light descriptors
  * @param dark - dark descriptors
+ * @return
  */
-const ThemeChangerDescriptionString = (theme, light, dark) => {
+const themeChangerDescriptionString = (theme, light, dark) => {
     return theme === "light" ? light : dark
 }
 
-export default ThemeChangerDescriptionString
+export default themeChangerDescriptionString

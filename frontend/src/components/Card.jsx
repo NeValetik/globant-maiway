@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {useTheme} from "../context/ThemeContext";
+import themeChangerDescriptionString from "./utils/themeChangerDescriptionString";
 
 const Card = ({offer}) =>{
 
@@ -16,7 +17,7 @@ const Card = ({offer}) =>{
         <div className="font-bold text-xl mb-2">
           {offer.title}
         </div>
-        <p className="text-gray-700 text-base">
+        <p className={themeChangerDescriptionString(theme, "text-gray-700 text-base", "text-gray-300")}>
           {offer.body}
         </p>
       </div>
