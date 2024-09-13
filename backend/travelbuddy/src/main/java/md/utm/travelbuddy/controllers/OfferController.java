@@ -60,16 +60,22 @@
         }
 
         // Generate offer by user ID
-        @PostMapping("/generate/{userId}")
-        public ResponseEntity<OfferResponseDTO> generateOfferByUserId(@PathVariable Long userId) {
-            Optional<Offer> generatedOffer = offerService.generateOfferByUser(userId);
+        @PostMapping("/generate/{userId}/{title}")
+        public ResponseEntity<OfferResponseDTO> generateOfferByUserId(@PathVariable Long userId, @PathVariable String title) {
+            Optional<Offer> generatedOffer = offerService.generateOfferByUser(userId, title);
             if (generatedOffer.isPresent()) {
                 OfferResponseDTO responseDTO = mapOfferToDTO(generatedOffer.get());
                 return ResponseEntity.ok(responseDTO);
             }
             return ResponseEntity.status(500).build(); // 500 if offer generation fails
         }
-
+        @GetMapping("/search")
+        public List<OfferResponseDTO> getSearch(@RequestParam String query) {
+            List<Offer> filteredOffers = offerService.searchOffers(query);
+            return filteredOffers.stream()
+                    .map(this::mapOfferToDTO)
+                    .collect(Collectors.toList());
+        }
         // Helper method to map Offer to OfferResponseDTO
         private OfferResponseDTO mapOfferToDTO(Offer offer) {
             // Fetch the user associated with the offer
