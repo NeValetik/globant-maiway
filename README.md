@@ -14,7 +14,7 @@ https://nodejs.org/en/download/package-manager
 https://react.dev/learn
 https://tailwindcss.com/docs/installation
 
-To install tailwindcss enter in this directory `frontend` write in terminal `npm install -D tailwindcss`(don't worry if any vulnerabilities appear just skip 'em).
+To install tailwindcss enter in this directory `frontend` write in terminal `npm install`(don't worry if any vulnerabilities appear just skip 'em).
 To start the server use `npm start` in the directory `frontend`
 
 ### Backend:

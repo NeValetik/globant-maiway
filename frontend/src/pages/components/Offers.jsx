@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react';
 import Card from  "./Card"
 
 const Offers = () => {
-  const [offers, setOffers] = useState([])//here we need to load from database offers I'll be putting some constant data
+  const [offers, setOffers] = useState([])//[DONE line 8]here we need to load from database offers I'll be putting some constant data
   const [page, setPage] = useState(3)
   useEffect(() => {
     fetch(`http://localhost:6969/api/offer/page/${page}`)
