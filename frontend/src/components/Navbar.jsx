@@ -28,7 +28,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className={themeChangerDescriptionString(theme, 'bg-gray-50 text-black', 'bg-[#1b1b1b] text-white')}>
+    <header className={themeChangerDescriptionString(theme, 'bg-[#fcfcfc] text-black shadow-[0_0px_0.3px_rgb(0,0,0,0.2)]', 'bg-[#1b1b1b] text-white')}>
       <nav
         className={`mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8 bg-[#000000]'`}
         aria-label="Header"
