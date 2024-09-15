@@ -20,6 +20,10 @@ public class Offer {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "photo", columnDefinition = "BYTEA")
+    private byte[] photo;
+
     public Offer(){
     }
     public Offer(Long user_id, String title, String description) {
@@ -28,6 +32,12 @@ public class Offer {
         this.description = description;
     }
 
+    public Offer(Long userId, String title, String body, byte[] photo) {
+        this.user_id = userId;
+        this.description = body;
+        this.title = title;
+        this.photo = photo;
+    }
 
     @Override
     public String toString() {
@@ -66,5 +76,13 @@ public class Offer {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
+
+    public byte[] getPhoto() {
+        return this.photo;
     }
 }

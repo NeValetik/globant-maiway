@@ -49,4 +49,5 @@ public class OfferService {
         System.out.println("Here might be bug: " + query);
         return offerRepository.findByTitle(query);
     }
+
 }

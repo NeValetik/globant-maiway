@@ -3,7 +3,7 @@ package md.utm.travelbuddy.dto;
 public class OfferResponseDTO {
     private Long id;
     private AuthorDTO author;
-    private String thumbnail; // base64 encoded string
+    private byte[] photo; // base64 encoded string
     private String title;
     private String body;
 
@@ -13,6 +13,8 @@ public class OfferResponseDTO {
         private String userName;
         private int userAge;
         private String userPfp; // base64 encoded string for user profile photo
+
+
 
         // Getters and Setters
         public Long getUserId() {
@@ -65,12 +67,12 @@ public class OfferResponseDTO {
         this.author = author;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
+    public byte[] getPhoto() {
+        return photo;
     }
 
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 
     public String getTitle() {

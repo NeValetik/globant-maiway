@@ -6,9 +6,12 @@
     import md.utm.travelbuddy.service.OfferService;
     import md.utm.travelbuddy.service.UserService;
     import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.http.HttpStatus;
     import org.springframework.http.ResponseEntity;
     import org.springframework.web.bind.annotation.*;
+    import org.springframework.web.multipart.MultipartFile;
 
+    import java.io.IOException;
     import java.util.Base64;
     import java.util.List;
     import java.util.Optional;
@@ -69,6 +72,31 @@
             }
             return ResponseEntity.status(500).build(); // 500 if offer generation fails
         }
+
+        @PostMapping("/new-offer")
+        public ResponseEntity<String> createOffer(
+                @RequestParam("userId") Long userId,
+                @RequestParam("photo") MultipartFile photo,
+                @RequestParam("title") String title,
+                @RequestParam("body") String body)  {
+
+            try {
+                // Convert MultipartFile to byte array
+                byte[] photoBytes = photo.getBytes();
+
+                // Create a new offer and save it to the database
+                Offer newOffer = new Offer(userId, title, body, photoBytes);
+
+                offerService.saveOffer(newOffer);
+
+                return new ResponseEntity<>("Offer created successfully", HttpStatus.CREATED);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                return new ResponseEntity<>("Error saving offer", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
         @GetMapping("/search")
         public List<OfferResponseDTO> getSearch(@RequestParam String query) {
             List<Offer> filteredOffers = offerService.searchOffers(query);
@@ -76,6 +104,9 @@
                     .map(this::mapOfferToDTO)
                     .collect(Collectors.toList());
         }
+
+
+
         // Helper method to map Offer to OfferResponseDTO
         private OfferResponseDTO mapOfferToDTO(Offer offer) {
             // Fetch the user associated with the offer
@@ -100,7 +131,7 @@
             responseDTO.setAuthor(authorDTO);
 
             // Set Thumbnail
-            responseDTO.setThumbnail(user.getPhoto() != null ? Base64.getEncoder().encodeToString(user.getPhoto()) : null);
+            responseDTO.setPhoto(offer.getPhoto() == null ? null: offer.getPhoto());
 
             return responseDTO;
         }
