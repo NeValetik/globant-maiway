@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {redirect} from "react-router-dom";
 
 const NewOffer = () => {
     const [Photo, setPhoto] = useState(null);  // For the image
@@ -22,22 +23,29 @@ const NewOffer = () => {
         formData.append('title', title);
 
 
-        console.log(formData)
-        // Send the formData to the server (adjust the URL to your backend API)
+        console.log(formData);
+
+// Send the formData to the server (adjust the URL to your backend API)
         fetch('http://localhost:6969/api/offer/new-offer', {
             method: 'POST',
             body: formData,
         })
-            .then((response) => response.json())
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+            })
             .then((data) => {
                 console.log('Offer created successfully:', data);
+                window.location.href = "/";
             })
             .catch((error) => {
                 console.error('Error creating offer:', error);
             });
-    };
+    }
 
-    return (
+
+        return (
         <form onSubmit={handleSubmit}>
             <div>
                 <label>Title Photo:</label>
