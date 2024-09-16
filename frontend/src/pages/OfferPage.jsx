@@ -71,7 +71,7 @@ function OfferPage() {
       <Navbar />
       <div className="flex-col relative mt-5">
         {/* Center the image */}
-        <img className="mx-auto w-[653px] h-80 rounded-lg" src={offer.photo} alt="Offer Image"/>
+        <img className="mx-auto w-[653px] h-80 object-cover rounded-lg" src={offer.photo} alt="Offer Image"/>
         
         {/* Align the text to the left of the image */}
         <div className={themeChangerDescriptionString(theme, 'text-black', 'text-white', `flex flex-col mx-auto w-[653px]`)}>
