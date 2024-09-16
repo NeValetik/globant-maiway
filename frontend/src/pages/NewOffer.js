@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {redirect} from "react-router-dom";
+import {redirect} from 'react-router-dom';
 
 const NewOffer = () => {
     const [Photo, setPhoto] = useState(null);  // For the image

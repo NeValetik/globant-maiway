@@ -85,4 +85,7 @@ public class Offer {
     public byte[] getPhoto() {
         return this.photo;
     }
+
+    // Getter and Setter
+   
 }
