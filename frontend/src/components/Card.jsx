@@ -11,7 +11,10 @@ const Card = ({offer}) =>{
   return(
         <>
             <div
-                className={`max-w-sm rounded overflow-hidden ${theme === 'dark' ? 'shadow-black bg-[#1e1f20]' : 'shadow-black bg-gray-100'}`}>
+                className={themeChangerDescriptionString(theme,
+                    'bg-gray-100 hover:shadow shadow-amber-50',
+                    'bg-[#1e1f20] hover:shadow hover:shadow-gray-500',
+                    'max-w-sm rounded overflow-hidden')}>
                 <div className={'w-full flex'}>
                     <img className={'rounded-full h-8 p-1'} src={'https://braverplayers.org/wp-content/uploads/2022/09/blank-pfp.png'}/>
                     <div className={themeChangerDescriptionString(theme, 'text-black', 'text-gray-50', 'lg:flex lg:flex-1 lg:justify-end')}>

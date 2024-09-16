@@ -10,7 +10,6 @@ const Navbar = () => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [userPfp,setUserPfp] = useState("");
 
-
   const {theme, toggleTheme} = useTheme()
 
   const handleCascade = async e =>{
@@ -61,8 +60,12 @@ const Navbar = () => {
               </a>
               <a
                 href="#"
+
                 onClick={handleUser}
-                className="block rounded-lg py-2 pl-6 pr-6 text-sm font-semibold leading-7 text-gray-700 bg-indigo-200 hover:bg-indigo-300"
+                  // hover:bg-[#016960] bg-[#629a8d]
+
+                className={themeChangerDescriptionString(theme, 'text-white bg-[#629a8d] hover:bg-[#016960]', 'hover:bg-[#629a8d] bg-[#016960]',
+                    'block rounded-lg py-2 pl-6 pr-6 text-sm font-semibold leading-7 text-white')}
               >
                 Sign up
               </a>
@@ -129,5 +132,7 @@ const Navbar = () => {
     </header>
   );
 };
+
+// hover:bg-[#016960] bg-[#629a8d]
 
 export default Navbar;
