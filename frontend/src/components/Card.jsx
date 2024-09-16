@@ -10,9 +10,8 @@ const Card = ({offer}) =>{
   // console.log(author)
   return(
       <div className={`max-w-sm rounded overflow-hidden ${theme === 'dark' ? 'shadow-black bg-[#1e1f20]' : 'shadow-black bg-gray-100'}`}>
-      <img className="w-full h-40" src={offer.thumbnail} alt="Sunset in the mountains" />
+      <img className="w-full h-40" src={offer.photo} alt="Sunset in the mountains" />
       <div className={`px-6 py-4 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-
 
         <div className="font-bold text-xl mb-2">
           {offer.title}
