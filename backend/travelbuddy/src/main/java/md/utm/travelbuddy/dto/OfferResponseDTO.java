@@ -6,6 +6,9 @@ public class OfferResponseDTO {
     private byte[] photo; // base64 encoded string
     private String title;
     private String body;
+    private String search;
+
+    
 
     // Inner class for Author details
     public static class AuthorDTO {
@@ -89,5 +92,14 @@ public class OfferResponseDTO {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    // Getter and Setter
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
     }
 }

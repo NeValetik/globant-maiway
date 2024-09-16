@@ -6,6 +6,7 @@ import md.utm.travelbuddy.models.User;
 import md.utm.travelbuddy.service.OfferService;
 import md.utm.travelbuddy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.MergedAnnotations.Search;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -104,7 +105,15 @@ public class OfferController {
                 .collect(Collectors.toList());
     }
 
+    @PostMapping("/sendData")
+    public ResponseEntity<String> receiveData(
+        @RequestBody OfferResponseDTO search) {
+        // Process the received data
+        System.out.println("Received data: " + search.getSearch());
 
+        // Respond to the client
+        return ResponseEntity.ok("Data received successfully!");
+    }
 
     // Helper method to map Offer to OfferResponseDTO
     private OfferResponseDTO mapOfferToDTO(Offer offer) {

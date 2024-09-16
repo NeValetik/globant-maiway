@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ThemeChangerDescriptionString from "./utils/themeChangerDescriptionString";
 import {useTheme} from "../context/ThemeContext";
 import themeChangerDescriptionString from "./utils/themeChangerDescriptionString";
@@ -6,27 +6,30 @@ import themeChangerDescriptionString from "./utils/themeChangerDescriptionString
 
 const Search = () => {
 
-  const {theme, toggleTheme} = useTheme()
+  const {theme, toggleTheme} = useTheme();
+  const [search,setSearch] = useState("");
 
   const handleSubmit = async e => {
     // Prevent the browser from reloading the page
     e.preventDefault();
-
+    console.log("Search value from state:", search);
     // Read the form data
     const form = e.target;
-    const formData = new FormData(form);
+    const formData = {
+      "search":search
+    };
+    console.log(formData)
     // Or you can work with it as a plain object:
-    const formJson = Object.fromEntries(formData.entries());
-    fetch('http://localhost:6969/api/sendData', {
+    fetch('http://localhost:6969/api/offer/sendData', {
       method: 'POST', // or 'GET' for fetching data
       headers: {
         'Content-Type': 'application/json', // Specify the content type
       },
-      body: JSON.stringify(form), // Convert data to JSON
+      body: JSON.stringify(formData), // Convert data to JSON
     })
-      .then(response => response.json()) // Handle the response
+      .then(response => response) // Handle the response
       .then(data => {
-        console.log('Success:', form);
+        console.log('Success:', data);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -52,7 +55,9 @@ const Search = () => {
                      "text-gray-900 border-gray-300 bg-gray-50 border",
                      "text-gray-100 bg-[#282a2c] border border-gray-950",
                      "block w-full p-4 ps-10 text-sm rounded-lg")}
-                 placeholder="Search offers, users, meaning of life..." required/>
+                 placeholder="Search offers, users, meaning of life..."
+                 value={search} // Bind input value to state
+                 onChange={e => setSearch(e.target.value)} required/>
           <button type="submit"
 
                   className={themeChangerDescriptionString(theme, 'hover:bg-[#016960] bg-[#629a8d] ',
