@@ -33,10 +33,10 @@ const Offers = () => {
 
     return (
         <div className="flex justify-center w-full">
-            <div className="flex flex-col gap-4 w-full max-w-screen-lg px-4">
+            <div className="flex flex-col gap-4 w-full max-w-screen-lg px-[32px]">
                 <div
                     className="grid gap-4"
-                    style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))' }}
+                    style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))' }}
                 >
                     {offers.map((offer, index) => (
                         <Card key={index} offer={offer} />
