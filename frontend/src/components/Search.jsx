@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import ThemeChangerDescriptionString from "./utils/themeChangerDescriptionString";
 import {useTheme} from "../context/ThemeContext";
+import themeChangerDescriptionString from "./utils/themeChangerDescriptionString";
 
 
 const Search = () => {
@@ -58,7 +59,12 @@ const Search = () => {
                  value={search} // Bind input value to state
                  onChange={e => setSearch(e.target.value)} required/>
           <button type="submit"
-                  className="text-gray-700 absolute end-2.5 bottom-2.5 bg-indigo-200 hover:bg-indigo-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 ">Search
+
+                  className={themeChangerDescriptionString(theme, 'hover:bg-[#016960] bg-[#629a8d] ',
+                      'bg-[#016960] hover:bg-[#629a8d] text-white',
+                      'text-gray-200 absolute end-2.5 bottom-2.5 focus:ring-4' +
+                      ' focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2  ')}>
+            Search
           </button>
         </div>
       </form>
