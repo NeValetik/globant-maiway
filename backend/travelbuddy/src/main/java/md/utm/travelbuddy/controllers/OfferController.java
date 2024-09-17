@@ -6,13 +6,14 @@ import md.utm.travelbuddy.models.User;
 import md.utm.travelbuddy.service.OfferService;
 import md.utm.travelbuddy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.MergedAnnotations.Search;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -131,7 +132,12 @@ public class OfferController {
         responseDTO.setId(offer.getId());
         responseDTO.setTitle(offer.getTitle());
         responseDTO.setBody(offer.getDescription());
-
+        //Format the date object into a string object
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime createdDateTime = offer.getCreatedAt();
+        if (createdDateTime != null) {
+            responseDTO.setCreationDate(createdDateTime.format(formatter1));
+        }
         // Set Author details
         OfferResponseDTO.AuthorDTO authorDTO = new OfferResponseDTO.AuthorDTO();
         authorDTO.setUserId(user.getId());

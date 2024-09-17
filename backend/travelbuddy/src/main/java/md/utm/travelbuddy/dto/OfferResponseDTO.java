@@ -6,8 +6,7 @@ public class OfferResponseDTO {
     private byte[] photo; // base64 encoded string
     private String title;
     private String body;
-    private String search;
-
+    private String creationDate;
     
 
     // Inner class for Author details
@@ -93,13 +92,10 @@ public class OfferResponseDTO {
     public void setBody(String body) {
         this.body = body;
     }
-
-    // Getter and Setter
-    public String getSearch() {
-        return search;
+    public void setCreationDate(String creationDate){
+        this.creationDate = creationDate;
     }
-
-    public void setSearch(String search) {
-        this.search = search;
+    public String getCreationDate(){
+        return this.creationDate;
     }
 }

@@ -1,5 +1,5 @@
 package md.utm.travelbuddy.models;
-
+import java.time.LocalDateTime;
 import jakarta.persistence.*;
 
 @Entity
@@ -23,6 +23,9 @@ public class Offer {
 
     @Column(name = "photo", columnDefinition = "BYTEA")
     private byte[] photo;
+
+    @Column(name = "created_at")
+    private LocalDateTime created_at = LocalDateTime.now();
 
     public Offer(){
     }
@@ -85,7 +88,10 @@ public class Offer {
     public byte[] getPhoto() {
         return this.photo;
     }
-
+    // No setter for this offer
+    public LocalDateTime getCreatedAt() {
+        return this.created_at;
+    }
     // Getter and Setter
    
 }
