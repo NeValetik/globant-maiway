@@ -12,7 +12,6 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @Lob
     @Column(name = "photo", columnDefinition = "BYTEA")
     private byte[] photo;
 
