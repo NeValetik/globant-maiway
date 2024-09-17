@@ -97,22 +97,24 @@ public class OfferController {
         }
     }
 
-    @GetMapping("/search")
-    public List<OfferResponseDTO> getSearch(@RequestParam String query) {
-        List<Offer> filteredOffers = offerService.searchOffers(query);
-        return filteredOffers.stream()
-                .map(this::mapOfferToDTO)
-                .collect(Collectors.toList());
-    }
+    // @GetMapping("/search")
+    // public List<OfferResponseDTO> getSearch(@RequestParam String query) {
+    //     List<Offer> filteredOffers = offerService.searchOffers(query);
+    //     return filteredOffers.stream()
+    //             .map(this::mapOfferToDTO)
+    //             .collect(Collectors.toList());
+    // }
 
     @PostMapping("/sendData")
-    public ResponseEntity<String> receiveData(
+    public ResponseEntity<List<OfferResponseDTO>> receiveData(
         @RequestBody OfferResponseDTO search) {
         // Process the received data
         System.out.println("Received data: " + search.getSearch());
+        List<Offer> filteredOffers = offerService.searchOffers(search.getSearch());
 
-        // Respond to the client
-        return ResponseEntity.ok("Data received successfully!");
+        return new ResponseEntity<>(filteredOffers.stream()
+                .map(this::mapOfferToDTO)
+                .collect(Collectors.toList()), HttpStatus.OK);
     }
 
     // Helper method to map Offer to OfferResponseDTO
