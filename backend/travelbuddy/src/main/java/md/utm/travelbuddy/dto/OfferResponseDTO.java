@@ -6,9 +6,9 @@ public class OfferResponseDTO {
     private byte[] photo; // Still in byte[] format
     private String title;
     private String body;
-    private String search;
+    private String creationDate;
+   
 
-    // Inner class for Author details
     public static class AuthorDTO {
         private Long userId;
         private String userName;
@@ -90,11 +90,10 @@ public class OfferResponseDTO {
         this.body = body;
     }
 
-    public String getSearch() {
-        return search;
+    public void setCreationDate(String creationDate){
+        this.creationDate = creationDate;
     }
-
-    public void setSearch(String search) {
-        this.search = search;
+    public String getCreationDate(){
+        return this.creationDate;
     }
 }
