@@ -11,6 +11,7 @@ import { IoIosSettings } from "react-icons/io";
 const NewOffer = () => {
 
     const {theme, toggleTheme} = useTheme()
+
     const [photo, setPhoto] = useState(null);
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
