@@ -16,6 +16,7 @@ const Search = () => {
 
     navigate(`/search?query=${search}`);
 
+    window.location.reload();
     // console.log("Search value from state:", search);
     // // Read the form data
     // const formData = {

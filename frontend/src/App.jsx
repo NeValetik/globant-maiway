@@ -3,7 +3,6 @@ import { useTheme } from "./context/ThemeContext";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NewOffer from "./pages/NewOffer";
 import { useEffect } from 'react';
-import SearchPage from "./pages/SearchPage";
 
 function App() {
     const { theme, toggleTheme } = useTheme();
@@ -22,7 +21,7 @@ function App() {
                 <Routes>
                     <Route path='/' element={<Homepage />} />
                     <Route path='/newoffer' element={<NewOffer />} />
-                    {/* <Route path='/search' element={<SearchPage />} /> */}
+                    <Route path='/search' element={<Homepage />} />
                 </Routes>
             </Router>
         </div>
