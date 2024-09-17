@@ -50,8 +50,13 @@ public class User {
     @Column(name = "about", columnDefinition = "TEXT")
     private String about;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user",cascade = CascadeType.ALL)
     private List<Offer> offerList;
+
+
+    private List<Offer> getOfferList() {
+        return this.offerList;
+    }
 
     public User() {
     }

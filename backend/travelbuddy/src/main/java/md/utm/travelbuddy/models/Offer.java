@@ -15,10 +15,10 @@ public class Offer {
     @JoinColumn(name="user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
-    @Column(name = "title", length = 800)
+    @Column(name = "title", length = 80)
     private String title;
 
-    @Column(name = "description", length = 999)
+    @Column(name = "description", length = 3000)
     private String description;
 
     @Column(name = "photo", columnDefinition = "BYTEA")
