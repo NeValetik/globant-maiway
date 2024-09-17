@@ -16,11 +16,17 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 
 @RestController
 @RequestMapping("/api/offer")
 public class OfferController {
 
+
+    private static final Logger logger = LoggerFactory.getLogger(OfferController.class);
     private final OfferService offerService;
     private final UserService userService; // Assuming you have a UserService to fetch user data
 
@@ -88,7 +94,7 @@ public class OfferController {
             Offer newOffer = new Offer(userId, title, body, photoBytes);
 
             offerService.saveOffer(newOffer);
-
+            logger.info("New offer created with title " + title);
             return new ResponseEntity<>("Fine", HttpStatus.OK);
 
         } catch (IOException e) {
