@@ -40,14 +40,13 @@ public class OfferService {
     }
     
     // Post an offer by the user_id
-    public Optional<Offer> generateOfferByUser(Long user_id, String title){
-        Offer newOffer = new Offer(user_id, title, "sample");
-        Offer savedOffer = offerRepository.save(newOffer);
-        return Optional.of(savedOffer);
-    }
+//    public Optional<Offer> generateOfferByUser(Long user_id, String title){
+//        Offer newOffer = new Offer(user_id, title, "sample");
+//        Offer savedOffer = offerRepository.save(newOffer);
+//        return Optional.of(savedOffer);
+//    }
     public List<Offer> searchOffers(String query){
         System.out.println("Here might be bug: " + query);
         return offerRepository.findByTitle(query);
     }
-
 }
