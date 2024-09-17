@@ -38,7 +38,7 @@ const Search = () => {
 
 
   return (
-      <form className="max-w-screen-lg mx-auto my-5" onSubmit={handleSubmit}>
+      <form className="max-w-screen-lg mx-auto my-5 px-3" onSubmit={handleSubmit}>
         <label htmlFor="default-search" className={ThemeChangerDescriptionString(theme,
             'mb-2 text-sm font-medium text-gray-900 sr-only',
             'mb-2 text-sm font-medium text-white sr-only bg-[#282a2c]')}>Search</label>

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Card from './Card';
+import loading_cat from '../assets/loading_cat.gif'
 
 const Offers = () => {
-    const [offers, setOffers] = useState([]);
+    const [offers, setOffers] = useState(null);
     const [page, setPage] = useState(1);
 
     useEffect(() => {
@@ -32,19 +33,29 @@ const Offers = () => {
     }, [page]);
 
     return (
-        <div className="flex justify-center w-full">
-            <div className="flex flex-col gap-4 w-full max-w-screen-lg px-[32px]">
-                <div
-                    className="grid gap-4"
-                    style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))' }}
-                >
-                    {offers.map((offer, index) => (
-                        <Card key={index} offer={offer} />
-                    ))}
+        <>
+            {offers === null ? (
+                <div className="flex justify-center items-center">
+                    <img src={loading_cat} alt="Loading" />
                 </div>
-            </div>
-        </div>
+            ) : (
+                <div className="flex justify-center w-full">
+                    <div className="flex flex-col gap-3 w-full max-w-screen-xl px-[32px]">
+                        <div
+                            className="grid gap-5"
+                            style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 2fr))' }}
+                        >
+                            {offers.map((offer, index) => (
+                                <Card key={index} offer={offer} />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
     );
+
+
 };
 
 export default Offers;
