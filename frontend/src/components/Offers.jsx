@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Card from './Card';
 import loading_cat from '../assets/loading_cat.gif'
 
-const Offers = () => {
+const Offers = ({query}) => {
     const [offers, setOffers] = useState(null);
     const [page, setPage] = useState(1);
-
     useEffect(() => {
         fetch(`http://localhost:6969/api/offer/page/${page}`)
             .then((res) => res.json())

@@ -8,7 +8,7 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-function Homepage() {
+function SearchPage() {
   const query = useQuery().get('query');
     return (
       <div className="Home flex flex-col min-h-screen">
@@ -22,4 +22,4 @@ function Homepage() {
     );
   }
 
-export default Homepage;
+export default SearchPage;
