@@ -14,11 +14,11 @@ const Search = () => {
     e.preventDefault();
     console.log("Search value from state:", search);
     // Read the form data
-    const form = e.target;
     const formData = {
       "search":search
     };
-    console.log(formData)
+    window.href = `/query?=${search}`;
+    console.log(formData);
     // Or you can work with it as a plain object:
     fetch('http://localhost:6969/api/offer/sendData', {
       method: 'POST', // or 'GET' for fetching data
@@ -27,7 +27,7 @@ const Search = () => {
       },
       body: JSON.stringify(formData), // Convert data to JSON
     })
-      .then(response => response) // Handle the response
+      .then(response => {console.log(response.json())}) // Handle the response
       .then(data => {
         console.log('Success:', data);
       })
