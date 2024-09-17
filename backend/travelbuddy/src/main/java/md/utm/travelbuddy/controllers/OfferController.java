@@ -135,7 +135,7 @@ public class OfferController {
         authorDTO.setUserId(user.getId());
         authorDTO.setUserName(user.getUsername());
         authorDTO.setUserAge(user.getAge());
-        authorDTO.setUserPfp(user.getPhoto() != null ? Base64.getEncoder().encodeToString(user.getPhoto()) : null);
+        authorDTO.setUserPfp(user.getPhoto());
         responseDTO.setAuthor(authorDTO);
 
         // Set Thumbnail

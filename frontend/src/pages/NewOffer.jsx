@@ -88,8 +88,8 @@ const NewOffer = () => {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         placeholder="Enter the offer title"
-                        className={themeChangerDescriptionString(theme, '', 'bg-[#282a2c]', "w-full p-2 rounded")}
-                        required
+                        className={themeChangerDescriptionString(theme, '', 'text-gray-300  bg-[#282a2c]', "w-full p-2 rounded")}
+                        required maxLength={80}
                     />
                 </div>
 
@@ -100,7 +100,7 @@ const NewOffer = () => {
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
                         placeholder="Enter the offer details"
-                        className={themeChangerDescriptionString(theme, '', 'bg-[#282a2c]', "w-full p-2 rounded")}
+                        className={themeChangerDescriptionString(theme, '', 'text-gray-300 bg-[#282a2c]', "w-full p-2 rounded")}
                         rows={4}
                         required
                     />

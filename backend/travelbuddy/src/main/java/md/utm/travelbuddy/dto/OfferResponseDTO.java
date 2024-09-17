@@ -15,7 +15,7 @@ public class OfferResponseDTO {
         private Long userId;
         private String userName;
         private int userAge;
-        private String userPfp; // base64 encoded string for user profile photo
+        private byte[] userPfp;
 
 
 
@@ -44,11 +44,11 @@ public class OfferResponseDTO {
             this.userAge = userAge;
         }
 
-        public String getUserPfp() {
+        public byte[] getUserPfp() {
             return userPfp;
         }
 
-        public void setUserPfp(String userPfp) {
+        public void setUserPfp(byte[] userPfp) {
             this.userPfp = userPfp;
         }
     }

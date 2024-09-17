@@ -15,10 +15,10 @@ public class Offer {
     @Column(name = "user_id")
     private Long user_id;
 
-    @Column(name = "title")
+    @Column(name = "title", length = 800)
     private String title;
 
-    @Column(name = "description")
+    @Column(name = "description", length = 999)
     private String description;
 
     @Column(name = "photo", columnDefinition = "BYTEA")
