@@ -3,21 +3,17 @@ package md.utm.travelbuddy.dto;
 public class OfferResponseDTO {
     private Long id;
     private AuthorDTO author;
-    private byte[] photo; // base64 encoded string
+    private byte[] photo; // Still in byte[] format
     private String title;
     private String body;
     private String search;
-
-    
 
     // Inner class for Author details
     public static class AuthorDTO {
         private Long userId;
         private String userName;
         private int userAge;
-        private byte[] userPfp;
-
-
+        private byte[] userPfp; // Still in byte[] format
 
         // Getters and Setters
         public Long getUserId() {
@@ -94,7 +90,6 @@ public class OfferResponseDTO {
         this.body = body;
     }
 
-    // Getter and Setter
     public String getSearch() {
         return search;
     }

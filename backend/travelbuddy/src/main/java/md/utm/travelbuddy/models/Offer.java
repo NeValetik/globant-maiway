@@ -11,9 +11,9 @@ public class Offer {
     @Column(name = "id")
     private Long id;
 
-    @Lob
-    @Column(name = "user_id")
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name="user_id", referencedColumnName = "id", nullable = false)
+    private User user;
 
     @Column(name = "title", length = 800)
     private String title;
@@ -24,18 +24,21 @@ public class Offer {
     @Column(name = "photo", columnDefinition = "BYTEA")
     private byte[] photo;
 
-    public Offer(){
+    public Offer() {
     }
-    public Offer(Long user_id, String title, String description) {
-        this.userId = user_id;
+
+    // Constructor with user object
+    public Offer(User user, String title, String description) {
+        this.user = user;
         this.title = title;
         this.description = description;
     }
 
-    public Offer(Long userId, String title, String body, byte[] photo) {
-        this.userId = userId;
-        this.description = body;
+    // Constructor with user object and photo
+    public Offer(User user, String title, String description, byte[] photo) {
+        this.user = user;
         this.title = title;
+        this.description = description;
         this.photo = photo;
     }
 
@@ -43,12 +46,13 @@ public class Offer {
     public String toString() {
         return "Offer{" +
                 "id=" + id +
-                ", user_id=" + userId +
+                ", user_id=" + user.getId() +
                 ", title=" + title +
                 ", description='" + description + '\'' +
                 '}';
     }
-    // Getters/Setters:
+
+    // Getters/Setters
     public Long getId() {
         return id;
     }
@@ -56,13 +60,15 @@ public class Offer {
     public void setId(Long id) {
         this.id = id;
     }
-    public Long getUserId() {
-        return userId;
+
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
+
     public String getTitle() {
         return title;
     }
@@ -70,6 +76,7 @@ public class Offer {
     public void setTitle(String title) {
         this.title = title;
     }
+
     public String getDescription() {
         return description;
     }
@@ -78,14 +85,11 @@ public class Offer {
         this.description = description;
     }
 
+    public byte[] getPhoto() {
+        return photo;
+    }
+
     public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
-
-    public byte[] getPhoto() {
-        return this.photo;
-    }
-
-    // Getter and Setter
-   
 }
