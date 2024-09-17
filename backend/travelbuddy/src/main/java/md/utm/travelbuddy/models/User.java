@@ -2,6 +2,7 @@ package md.utm.travelbuddy.models;
 
 import jakarta.persistence.*;
 import java.util.Arrays;
+import java.util.List;
 
 @Entity
 @Table(name= "users")
@@ -48,6 +49,14 @@ public class User {
 
     @Column(name = "about", columnDefinition = "TEXT")
     private String about;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Offer> offerList;
+
+
+    private List<Offer> getOfferList() {
+        return this.offerList;
+    }
 
     public User() {
     }
