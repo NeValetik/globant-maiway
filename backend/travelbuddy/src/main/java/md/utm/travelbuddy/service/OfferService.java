@@ -35,7 +35,7 @@ public class OfferService {
     public List<Offer> getOffersPerPage(int page, int offerPerPageLimit) {
         Pageable pageable = PageRequest.of(page, offerPerPageLimit, Sort.by(Sort.Direction.DESC, "id"));
         Page<Offer> offerPage = offerRepository.findAll(pageable);
-        System.out.println(offerPage);
+//        System.out.println(offerPage);
         return offerPage.getContent(); // Converts Page to List
     }
     

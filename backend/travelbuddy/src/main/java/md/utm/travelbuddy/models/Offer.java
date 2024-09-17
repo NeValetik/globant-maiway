@@ -13,7 +13,7 @@ public class Offer {
 
     @Lob
     @Column(name = "user_id")
-    private Long user_id;
+    private Long userId;
 
     @Column(name = "title", length = 800)
     private String title;
@@ -27,13 +27,13 @@ public class Offer {
     public Offer(){
     }
     public Offer(Long user_id, String title, String description) {
-        this.user_id = user_id;
+        this.userId = user_id;
         this.title = title;
         this.description = description;
     }
 
     public Offer(Long userId, String title, String body, byte[] photo) {
-        this.user_id = userId;
+        this.userId = userId;
         this.description = body;
         this.title = title;
         this.photo = photo;
@@ -43,7 +43,7 @@ public class Offer {
     public String toString() {
         return "Offer{" +
                 "id=" + id +
-                ", user_id=" + user_id +
+                ", user_id=" + userId +
                 ", title=" + title +
                 ", description='" + description + '\'' +
                 '}';
@@ -57,11 +57,11 @@ public class Offer {
         this.id = id;
     }
     public Long getUserId() {
-        return user_id;
+        return userId;
     }
 
-    public void setUserId(Long user_id) {
-        this.user_id = user_id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
     public String getTitle() {
         return title;

@@ -98,7 +98,7 @@ public class OfferController {
             return new ResponseEntity<>("Fine", HttpStatus.OK);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warn(e.toString());
             return new ResponseEntity<>("Error saving offer", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
