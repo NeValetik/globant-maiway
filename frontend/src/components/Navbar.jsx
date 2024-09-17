@@ -87,9 +87,10 @@ const Navbar = () => {
                 alt=""
                 />
               {isDropdownVisible && (
-                <div className="absolute left-0 mt-2 z-50 bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                <div className={themeChangerDescriptionString(theme, ' bg-gray-300 hover:bg-gray-400', 'hover:bg-gray-500 bg-gray-600',
+                  "absolute left-0 mt-2 z-50 divide-y divide-gray-200 rounded-lg shadow w-44")}>
                   <ul
-                    className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                    className="py-2 text-sm text-gray-800 dark:text-gray-200"
                     aria-labelledby="dropdownDefaultButton"
                     >
                     <li>

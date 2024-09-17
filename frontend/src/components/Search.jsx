@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {useTheme} from "../context/ThemeContext";
 import themeChangerDescriptionString from "./utils/themeChangerDescriptionString";
 import { useNavigate } from 'react-router-dom';
+import Filters from './Filters';
 
 
 const Search = () => {
@@ -42,7 +43,8 @@ const Search = () => {
 
 
   return (
-      <form className="max-w-screen-lg mx-auto my-5 px-3" onSubmit={handleSubmit}>
+    <div className='flex'>
+      <form className="w-[1024px] ml-auto my-5 px-3" onSubmit={handleSubmit}>
         <label htmlFor="default-search" className={themeChangerDescriptionString(theme,
             'mb-2 text-sm font-medium text-gray-900 sr-only',
             'mb-2 text-sm font-medium text-white sr-only bg-[#282a2c]')}>Search</label>
@@ -72,6 +74,8 @@ const Search = () => {
           </button>
         </div>
       </form>
+      <Filters />
+    </div>
   );
 };
 
