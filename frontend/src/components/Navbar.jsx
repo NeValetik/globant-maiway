@@ -71,8 +71,10 @@ const Navbar = () => {
               </a>
             </>
           ) : (
+            <>
+            <a className={themeChangerDescriptionString(theme, 'text-white bg-[#629a8d] hover:bg-[#016960]', 'hover:bg-[#629a8d] bg-[#016960]',
+                    'block rounded-lg py-2 pl-6 pr-6 text-sm font-semibold leading-7 text-white')}> Travel </a>
             <div className="relative">
-              {/* Parent container with `relative` class */}
               <img
                 className="rounded-full h-11 w-11 cursor-pointer"
                 tabIndex="0"
@@ -83,18 +85,18 @@ const Navbar = () => {
                   "https://i.pinimg.com/736x/c0/27/be/c027bec07c2dc08b9df60921dfd539bd.jpg"
                 }
                 alt=""
-              />
+                />
               {isDropdownVisible && (
                 <div className="absolute left-0 mt-2 z-50 bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
                   <ul
                     className="py-2 text-sm text-gray-700 dark:text-gray-200"
                     aria-labelledby="dropdownDefaultButton"
-                  >
+                    >
                     <li>
                       <a
                         href="#"
                         className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-white"
-                      >
+                        >
                         Dashboard
                       </a>
                     </li>
@@ -102,7 +104,7 @@ const Navbar = () => {
                       <a
                         href="#"
                         className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-white"
-                      >
+                        >
                         Settings
                       </a>
                     </li>
@@ -110,7 +112,7 @@ const Navbar = () => {
                       <a
                         href="#"
                         className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-white"
-                      >
+                        >
                         Earnings
                       </a>
                     </li>
@@ -118,7 +120,7 @@ const Navbar = () => {
                       <a
                         href="#"
                         className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-white"
-                      >
+                        >
                         Sign out
                       </a>
                     </li>
@@ -126,10 +128,11 @@ const Navbar = () => {
                 </div>
               )}
             </div>
+          </>
           )}
         </div>
       </nav>
-    </header>
+      </header>
   );
 };
 
