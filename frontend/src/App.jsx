@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NewOffer from "./pages/NewOffer";
 import { useEffect } from 'react';
 
+
 function App() {
     const { theme, toggleTheme } = useTheme();
 
@@ -17,13 +18,14 @@ function App() {
 
     return (
         <div className={`min-h-screen flex flex-col`}>
-            <Router>
-                <Routes>
-                    <Route path='/' element={<Homepage />} />
-                    <Route path='/newoffer' element={<NewOffer />} />
-                    <Route path='/search' element={<Homepage />} />
-                </Routes>
-            </Router>
+                <Router>
+                    <Routes>
+                        <Route path='/' element={<Homepage />} />
+                        <Route path='/newoffer' element={<NewOffer />} />
+                        <Route path='/search' element={<Homepage />} />
+                        {/* <Route path='/filter' element={<Homepage />} /> */}
+                    </Routes>
+                </Router>
         </div>
     );
 }

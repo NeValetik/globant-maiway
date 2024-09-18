@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import {useTheme} from "../context/ThemeContext";
 import themeChangerDescriptionString from "./utils/themeChangerDescriptionString";
 import { useNavigate } from 'react-router-dom';
-import Filters from './Filters';
+// import Filters from './Filters';
+import {FaFilter} from 'react-icons/fa';
 
-
-const Search = () => {
+const Search = ({ toggleFilters }) => {
 
   const {theme, toggleTheme} = useTheme();
   const [search,setSearch] = useState("");
@@ -39,6 +39,10 @@ const Search = () => {
     //   .catch((error) => {
     //     console.error('Error:', error);
     //   });
+  }
+  const handleClick = (e) =>{
+    e.preventDefault();
+    navigate(`/filter`);
   }
 
 
@@ -74,7 +78,15 @@ const Search = () => {
           </button>
         </div>
       </form>
-      <Filters />
+      <div className="flex justify-end py-2 mr-auto my-5 ">
+        <button className={themeChangerDescriptionString(theme, 'hover:bg-[#016960] bg-[#629a8d] ',
+                    'bg-[#016960] hover:bg-[#629a8d] text-white',
+                    'text-gray-200 focus:ring-4' +
+                    ' focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4')} onClick={toggleFilters}>
+          <FaFilter size={19} className={themeChangerDescriptionString(theme,
+          'gray-300','white', ) }/>
+        </button>
+      </div>
     </div>
   );
 };
