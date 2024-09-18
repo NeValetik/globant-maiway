@@ -11,9 +11,8 @@ public class TravelbuddyApplication {
 	public static void main(String[] args) {
 
 		final Logger logger = LoggerFactory.getLogger(TravelbuddyApplication.class);
-
-
 		SpringApplication.run(TravelbuddyApplication.class, args);
+		System.out.println("Hello Traveler!");
 		logger.debug("Started app");
 
 	}

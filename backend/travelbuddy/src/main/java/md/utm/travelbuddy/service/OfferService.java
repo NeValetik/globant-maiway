@@ -19,7 +19,6 @@ public class OfferService {
 
     @Autowired
     private OfferRepository offerRepository;
-
     public void saveOffer(Offer offer) {
         offerRepository.save(offer);
     }

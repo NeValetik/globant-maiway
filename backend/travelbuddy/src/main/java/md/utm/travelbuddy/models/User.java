@@ -1,7 +1,6 @@
 package md.utm.travelbuddy.models;
 
 import jakarta.persistence.*;
-import md.utm.travelbuddy.dto.OfferResponseDTO;
 
 import java.util.Arrays;
 import java.util.List;

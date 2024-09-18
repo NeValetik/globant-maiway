@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDateTime;
 import java.util.*;
 
 import java.util.stream.Collectors;
@@ -132,37 +130,5 @@ public class OfferController {
     //             .collect(Collectors.toList()), HttpStatus.OK);
     // }
 
-    // Helper method to map Offer to OfferResponseDTO
-    private OfferResponseDTO mapOfferToDTO(Offer offer) {
-        // Fetch the user associated with the offer
-        Optional<User> userOptional = userService.getUserById(offer.getUserId()); // Fetch user by user_id
-        if (userOptional.isEmpty()) {
-            throw new RuntimeException("User not found");
-        }
-        User user = userOptional.get();
 
-        // Map data to DTO
-        OfferResponseDTO responseDTO = new OfferResponseDTO();
-        responseDTO.setId(offer.getId());
-        responseDTO.setTitle(offer.getTitle());
-        responseDTO.setBody(offer.getDescription());
-        //Format the date object into a string object
-        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime createdDateTime = offer.getCreatedAt();
-        if (createdDateTime != null) {
-            responseDTO.setCreationDate(createdDateTime.format(formatter1));
-        }
-        // Set Author details
-        OfferResponseDTO.AuthorDTO authorDTO = new OfferResponseDTO.AuthorDTO();
-        authorDTO.setUserId(user.getId());
-        authorDTO.setUserName(user.getUsername());
-        authorDTO.setUserAge(user.getAge());
-        authorDTO.setUserPfp(user.getPhoto());
-        responseDTO.setAuthor(authorDTO);
-
-        // Set Thumbnail
-        responseDTO.setPhoto(offer.getPhoto() == null ? null: offer.getPhoto());
-
-        return responseDTO;
-    }
 }

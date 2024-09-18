@@ -27,7 +27,7 @@ public class Offer {
     public Offer() {
     }
     @Column(name = "created_at")
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime created_at = LocalDateTime.now();
 
 
     // Constructor with user object
@@ -96,7 +96,7 @@ public class Offer {
         this.photo = photo;
     }
     public LocalDateTime getCreatedAt() {
-        return this.createdAt;
+        return this.created_at;
     }
  
 }
