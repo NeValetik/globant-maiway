@@ -9,7 +9,7 @@ function App() {
 
     // Apply the theme to the html and body elements
     useEffect(() => {
-        document.documentElement.className = theme === 'light' ? 'bg-[#f1f1f1]' : 'bg-[#131314]';
+        document.documentElement.className = theme === 'light' ? 'bg-[#f2f3f7]' : 'bg-[#131314]';
         document.body.className = theme === 'light' ? 'bg-[#f1f1f1]' : 'bg-[#131314]';
     }, [theme]);
 

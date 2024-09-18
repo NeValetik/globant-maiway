@@ -27,7 +27,9 @@ const Navbar = () => {
   };
 
   return (
-    <header className={themeChangerDescriptionString(theme, 'bg-[#fcfcfc] text-black shadow-[0_0px_0.3px_rgb(0,0,0,0.2)]', 'bg-[#1b1b1b] text-white')}>
+    <header className={themeChangerDescriptionString(theme,
+        'bg-[#fcfcfc] text-black shadow-[0_0px_0.3px_rgb(0,0,0,0.2)]',
+        'bg-[#1b1b1b] text-white')}>
       <nav
         className={`mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8 bg-[#000000]'`}
         aria-label="Header"
@@ -64,7 +66,8 @@ const Navbar = () => {
                 onClick={handleUser}
                   // hover:bg-[#016960] bg-[#629a8d]
 
-                className={themeChangerDescriptionString(theme, 'text-white bg-[#629a8d] hover:bg-[#016960]', 'hover:bg-[#629a8d] bg-[#016960]',
+                className={themeChangerDescriptionString(theme, 'text-white bg-mwlightgreen hover:bg-[#067a89]',
+                    'hover:bg-lightgreen bg-mwdarkgreen',
                     'block rounded-lg py-2 pl-6 pr-6 text-sm font-semibold leading-7 text-white')}
               >
                 Sign up
