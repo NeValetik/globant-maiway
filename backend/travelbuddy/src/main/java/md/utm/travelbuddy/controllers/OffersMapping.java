@@ -32,7 +32,8 @@ public class OffersMapping {
         authorDTO.setUserName(user.getUsername());
         authorDTO.setUserAge(user.getAge());
         authorDTO.setUserPfp(user.getPhoto());
-
+        authorDTO.setEmail(user.getEmail());
+        authorDTO.setName(user.getName());
         // Set author info
         responseDTO.setAuthor(authorDTO);
 

@@ -18,8 +18,12 @@ public class User {
     @Column(name = "photo", columnDefinition = "BYTEA")
     private byte[] photo;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
+
+    @Column(name = "name")
+    private String name;
+
 
     @Column(name = "phone_number")
     private String phoneNumber;
@@ -55,6 +59,13 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user",cascade = CascadeType.ALL)
     private List<Offer> offerList;
 
+    public void seName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
 
     public List<Offer> getOfferList() {
         return this.offerList;

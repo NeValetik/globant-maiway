@@ -7,13 +7,29 @@ public class OfferResponseDTO {
     private String title;
     private String body;
     private String creationDate;
-   
 
     public static class AuthorDTO {
         private Long userId;
-        private String userName;
+        private String username;
         private int userAge;
         private byte[] userPfp; // Still in byte[] format
+        private String name;
+        private String email;
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getEmail() {
+            return this.email;
+        }
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
 
         // Getters and Setters
         public Long getUserId() {
@@ -25,11 +41,11 @@ public class OfferResponseDTO {
         }
 
         public String getUserName() {
-            return userName;
+            return username;
         }
 
-        public void setUserName(String userName) {
-            this.userName = userName;
+        public void setUserName(String username) {
+            this.username = username;
         }
 
         public int getUserAge() {
