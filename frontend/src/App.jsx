@@ -19,16 +19,7 @@ function App() {
 
     return (
         <div className={`min-h-screen flex flex-col`}>
-<<<<<<< HEAD
-                <Router>
-                    <Routes>
-                        <Route path='/' element={<Homepage />} />
-                        <Route path='/newoffer' element={<NewOffer />} />
-                        <Route path='/search' element={<Homepage />} />
-                        {/* <Route path='/filter' element={<Homepage />} /> */}
-                    </Routes>
-                </Router>
-=======
+
             <Router>
                 <Routes>
                     <Route path='/' element={<Homepage />} />
@@ -37,7 +28,6 @@ function App() {
                     <Route path='/user/:username' element={<UserPage />} />
                 </Routes>
             </Router>
->>>>>>> 0c34cdbb93a718db50e8713f271fef62c48629aa
         </div>
     );
 }
