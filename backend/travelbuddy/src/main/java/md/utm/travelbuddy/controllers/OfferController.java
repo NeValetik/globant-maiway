@@ -105,13 +105,16 @@ public class OfferController {
     }
 
     @GetMapping("/search")
-    public List<OfferResponseDTO> getSearch(@RequestParam String query) {
-        List<Offer> filteredOffers = offerService.searchOffers(query);
+    public List<OfferResponseDTO> getSearch(@RequestParam String query, 
+    @RequestParam(required = false) String before, 
+    @RequestParam(required = false) String after) {
+        System.out.println(before + ":" + after);
+        //List<Offer> filteredOffers = offerService.findOffersBetweenDate(before, after);
+        List<Offer> filteredOffers = offerService.searchFilterByDate(query, before, after);
         return filteredOffers.stream()
                 .map(this::mapOfferToDTO)
                 .collect(Collectors.toList());
     }
-
     // @PostMapping("/sendData")
     // public ResponseEntity<List<OfferResponseDTO>> receiveData(
     //     @RequestBody OfferResponseDTO search) {
