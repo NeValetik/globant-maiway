@@ -41,12 +41,6 @@ public class OfferService {
         return offerPage.getContent(); // Converts Page to List
     }
     
-    // Post an offer by the user_id
-    public Optional<Offer> generateOfferByUser(Long user_id, String title){
-        Offer newOffer = new Offer(user_id, title, "sample");
-        Offer savedOffer = offerRepository.save(newOffer);
-        return Optional.of(savedOffer);
-    }
     public List<Offer> searchFilterByDate(String title, String before, String after){
         LocalDateTime beforeTime = null;
         LocalDateTime afterTime = null;

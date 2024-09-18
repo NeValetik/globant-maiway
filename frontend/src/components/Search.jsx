@@ -2,9 +2,10 @@ import React, {useState} from 'react';
 import {useTheme} from "../context/ThemeContext";
 import themeChangerDescriptionString from "./utils/themeChangerDescriptionString";
 import { useNavigate } from 'react-router-dom';
+// import Filters from './Filters';
+import {FaFilter} from 'react-icons/fa';
 
-
-const Search = () => {
+const Search = ({ toggleFilters }) => {
 
   const {theme, toggleTheme} = useTheme();
   const [search,setSearch] = useState("");
@@ -39,10 +40,15 @@ const Search = () => {
     //     console.error('Error:', error);
     //   });
   }
+  const handleClick = (e) =>{
+    e.preventDefault();
+    navigate(`/filter`);
+  }
 
 
   return (
-      <form className="max-w-screen-lg mx-auto my-5 px-3" onSubmit={handleSubmit}>
+    <div className='flex'>
+      <form className="w-[1024px] ml-auto my-5 px-3" onSubmit={handleSubmit}>
         <label htmlFor="default-search" className={themeChangerDescriptionString(theme,
             'mb-2 text-sm font-medium text-gray-900 sr-only',
             'mb-2 text-sm font-medium text-white sr-only bg-[#282a2c]')}>Search</label>
@@ -64,15 +70,27 @@ const Search = () => {
                  onChange={e => setSearch(e.target.value)} required/>
           <button type="submit"
 
-                  className={themeChangerDescriptionString(theme, 'hover:bg-[#016960] bg-[#629a8d] ',
-                      'bg-[#016960] hover:bg-[#629a8d] text-white',
-                      'text-gray-200 absolute end-2.5 bottom-2.5 focus:ring-4' +
-                      ' focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2  ')}>
+                  className={themeChangerDescriptionString(theme, 'hover:bg-[#067a89] bg-mwlightgreen',
+                      'bg-[#067a89] hover:bg-[#07b2a0] text-white',
+                      'text-white absolute end-2.5 bottom-2.5 focus:ring-4 ' +
+                      ' focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm px-4 py-2  ')}>
             Search
           </button>
         </div>
       </form>
+      <div className="flex justify-end py-2 mr-auto my-5 ">
+        <button className={themeChangerDescriptionString(theme, 'hover:bg-[#016960] bg-[#629a8d] ',
+                    'bg-[#016960] hover:bg-[#629a8d] text-white',
+                    'text-gray-200 focus:ring-4' +
+                    ' focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4')} onClick={toggleFilters}>
+          <FaFilter size={19} className={themeChangerDescriptionString(theme,
+          'gray-300','white', ) }/>
+        </button>
+      </div>
+    </div>
   );
 };
 
 export default Search;
+
+// bg-[#07b2a0] hover:bg-[#067a89]

@@ -4,7 +4,12 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'mwlightgreen' : '#07b2a0',
+        'mwdarkgreen': '#067a89'
+      }
+    },
   },
   plugins: [
     require('@tailwindcss/line-clamp'),

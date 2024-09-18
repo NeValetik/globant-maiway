@@ -1,5 +1,6 @@
 package md.utm.travelbuddy.controllers;
 
+import md.utm.travelbuddy.dto.UserResponseDTO;
 import md.utm.travelbuddy.models.User;
 import md.utm.travelbuddy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
+    private OfferController offerController;
 
     @Autowired
     UserController(UserService userService) {
@@ -40,5 +42,11 @@ public class UserController {
     public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
         Optional<User> user = userService.getUserByUsername(username);
         return user.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/userpage/username/{username}")
+    public UserResponseDTO getUserByUsernameUserPage(@PathVariable String username) {
+        Optional<User> user = userService.getUserByUsername(username);
+        return user.map(UserResponseDTO::new).orElse(null);
     }
 }
