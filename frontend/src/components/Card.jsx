@@ -17,15 +17,15 @@ const Card = ({ offer }) => {
                     'max-w-sm rounded overflow-hidden min-h-[522px] max-h-[522px] flex flex-col'
                 )}
             >
-                <Link to={`/user/${offer.author.userId}`} className={'block'}>
+                <Link to={`/user/${offer.author.userName}`} className="block">
                     <div className="w-full flex py-3 relative">
                         <div
-                            className="px-6 relative"
+                            className="relative px-6 flex items-center"
                             onMouseEnter={() => setIsHovered(true)}
                             onMouseLeave={() => setIsHovered(false)}
                         >
                             <img
-                                className={`rounded-full h-8 hover:drop-shadow-sm hover:shadow-[#016960] transition-opacity duration-300 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
+                                className={`rounded-full overflow-hidden h-8 w-8 object-cover hover:drop-shadow-sm hover:shadow-[#016960] transition-opacity duration-300 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
                                 src={offer.author.userPfp || "https://braverplayers.org/wp-content/uploads/2022/09/blank-pfp.png"}
                                 alt="Profile"
                             />
@@ -33,12 +33,12 @@ const Card = ({ offer }) => {
                             {isHovered && (
                                 <div className="absolute left-10 top-0 w-40 p-2 bg-white shadow-lg border rounded-lg z-10 opacity-100 transition-opacity duration-300">
                                     <img
-                                        className="rounded-full h-16 mb-2"
+                                        className="rounded-full h-16 w-16 object-cover mb-2"
                                         src={offer.author.userPfp || "https://braverplayers.org/wp-content/uploads/2022/09/blank-pfp.png"}
                                         alt="Profile Preview"
                                     />
-                                    <p className="text-sm font-semibold">{offer.author.userName || "Unknown User"}</p>
-                                    <p className="text-xs text-gray-500">{offer.author.email || "No email available"}</p>
+                                    <p className="text-sm font-semibold text-center">{offer.author.userName || "Unknown User"}</p>
+                                    <p className="text-xs text-gray-500 text-center">{offer.author.email || "No email available"}</p>
                                 </div>
                             )}
                         </div>
@@ -48,7 +48,7 @@ const Card = ({ offer }) => {
                                 theme,
                                 'text-black',
                                 'text-gray-50',
-                                'flex-1 content-center hover:text-[#016960]'
+                                'flex-1 flex items-center hover:text-[#016960]'
                             )}
                         >
                             {offer.author.userName}, {offer.author.userAge}
@@ -58,7 +58,7 @@ const Card = ({ offer }) => {
                                 theme,
                                 'text-black',
                                 'text-gray-50',
-                                'flex-1 text-xs px-2 text-right italic content-center'
+                                'flex-1 text-xs px-2 text-right italic flex items-center'
                             )}
                         >
                             11.22.63
@@ -80,7 +80,7 @@ const Card = ({ offer }) => {
                             theme,
                             "text-gray-700",
                             "text-gray-300",
-                            `text-[14px] line-clamp-[8]`
+                            "text-[14px] line-clamp-[8]"
                         )}
                     >
                         {offer.body}

@@ -41,7 +41,7 @@ public class OfferController {
     public ResponseEntity<OfferResponseDTO> getOfferById(@PathVariable Long id) {
         Optional<Offer> offer = offerService.getOfferById(id);
         if (offer.isPresent()) {
-            OfferResponseDTO responseDTO = mapOfferToDTO(offer.get());
+            OfferResponseDTO responseDTO = OffersMapping.mapOfferToDTO(offer.get());
             return ResponseEntity.ok(responseDTO);
         }
         return ResponseEntity.notFound().build();
@@ -52,7 +52,7 @@ public class OfferController {
     public ResponseEntity<List<OfferResponseDTO>> getAllOffers() {
         List<Offer> offers = offerService.getAllOffers();
         List<OfferResponseDTO> responseDTOs = offers.stream()
-                .map(this::mapOfferToDTO)
+                .map(OffersMapping::mapOfferToDTO)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(responseDTOs);
     }
@@ -62,7 +62,7 @@ public class OfferController {
     public List<OfferResponseDTO> getOffersPerPage(@PathVariable int number) {
         List<Offer> offers = offerService.getOffersPerPage(number - 1, PAGE_OFFERS_LIMIT);
         return offers.stream()
-                .map(this::mapOfferToDTO)
+                .map(OffersMapping::mapOfferToDTO)
                 .collect(Collectors.toList());
     }
 
@@ -113,43 +113,8 @@ public class OfferController {
     public List<OfferResponseDTO> getSearch(@RequestParam String query) {
         List<Offer> filteredOffers = offerService.searchOffers(query);
         return filteredOffers.stream()
-                .map(this::mapOfferToDTO)
+                .map(OffersMapping::mapOfferToDTO)
                 .collect(Collectors.toList());
-    }
-
-    // Helper method to map Offer to OfferResponseDTO
-    private OfferResponseDTO mapOfferToDTO(Offer offer) {
-        User user = offer.getUser();
-
-        if (user == null) {
-            throw new RuntimeException("User not found");
-        }
-
-        // Map offer data to DTO
-        OfferResponseDTO responseDTO = new OfferResponseDTO();
-        responseDTO.setId(offer.getId());
-        responseDTO.setTitle(offer.getTitle());
-        responseDTO.setBody(offer.getDescription());
-        //Format the date object into a string object
-        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime createdDateTime = offer.getCreatedAt();
-        if (createdDateTime != null) {
-            responseDTO.setCreationDate(createdDateTime.format(formatter1));
-        }
-        // Set Author details
-        OfferResponseDTO.AuthorDTO authorDTO = new OfferResponseDTO.AuthorDTO();
-        authorDTO.setUserId(user.getId());
-        authorDTO.setUserName(user.getUsername());
-        authorDTO.setUserAge(user.getAge());
-        authorDTO.setUserPfp(user.getPhoto());
-
-        // Set author info
-        responseDTO.setAuthor(authorDTO);
-
-        // Set offer photo
-        responseDTO.setPhoto(offer.getPhoto());
-
-        return responseDTO;
     }
 
 }
