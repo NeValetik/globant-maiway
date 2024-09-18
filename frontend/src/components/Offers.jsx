@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Card from './Card';
 import loading_cat from '../assets/loading_cat.gif'
-
+import sad_robot from '../assets/sad_robot.png'
 const Offers = ({query}) => {
     const [offers, setOffers] = useState(null);
     const [page, setPage] = useState(1);
@@ -50,7 +50,11 @@ const Offers = ({query}) => {
                 <div className="flex justify-center items-center">
                     <img src={loading_cat} width={'20%'} height={'auto'} alt="Loading" />
                 </div>
-            ) : (
+            ) : offers.length === 0?
+                <div className={'flex justify-center items-center'}>
+                    <img className={'w-[250px]'}src={sad_robot} alt={"sad robot picture"}/> <p className={'text-3xl font-mono'}> Sorry, I couldn't find any results.</p>
+                </div>
+                : (
                 <div className="flex justify-center w-full">
                     <div className="flex flex-col gap-3 w-full max-w-screen-xl px-[32px]">
                         <div
