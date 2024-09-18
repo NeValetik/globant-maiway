@@ -25,11 +25,10 @@ public class Offer {
     private byte[] photo;
 
     public Offer() {
-    @Column(name = "created_at")
-    private LocalDateTime created_at = LocalDateTime.now();
-
-    public Offer(){
     }
+    @Column(name = "created_at")
+    private LocalDateTime createdAt = LocalDateTime.now();
+
 
     // Constructor with user object
     public Offer(User user, String title, String description) {
@@ -97,7 +96,7 @@ public class Offer {
         this.photo = photo;
     }
     public LocalDateTime getCreatedAt() {
-        return this.created_at;
+        return this.createdAt;
     }
  
 }
