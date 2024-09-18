@@ -70,10 +70,10 @@ const Search = ({ toggleFilters }) => {
                  onChange={e => setSearch(e.target.value)} required/>
           <button type="submit"
 
-                  className={themeChangerDescriptionString(theme, 'hover:bg-[#016960] bg-[#629a8d] ',
-                      'bg-[#016960] hover:bg-[#629a8d] text-white',
-                      'text-gray-200 absolute end-2.5 bottom-2.5 focus:ring-4' +
-                      ' focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2  ')}>
+                  className={themeChangerDescriptionString(theme, 'hover:bg-[#067a89] bg-mwlightgreen',
+                      'bg-[#067a89] hover:bg-[#07b2a0] text-white',
+                      'text-white absolute end-2.5 bottom-2.5 focus:ring-4 ' +
+                      ' focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm px-4 py-2  ')}>
             Search
           </button>
         </div>
@@ -92,3 +92,5 @@ const Search = ({ toggleFilters }) => {
 };
 
 export default Search;
+
+// bg-[#07b2a0] hover:bg-[#067a89]

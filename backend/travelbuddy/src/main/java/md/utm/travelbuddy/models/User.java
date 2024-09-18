@@ -1,6 +1,8 @@
 package md.utm.travelbuddy.models;
 
 import jakarta.persistence.*;
+import md.utm.travelbuddy.dto.OfferResponseDTO;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -54,7 +56,7 @@ public class User {
     private List<Offer> offerList;
 
 
-    private List<Offer> getOfferList() {
+    public List<Offer> getOfferList() {
         return this.offerList;
     }
 
@@ -114,6 +116,30 @@ public class User {
     public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
+
+    public String getPhoneNumber() { return phoneNumber; }
+
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+
+    public String getCity() { return city; }
+
+    public String getFacebookLink() { return facebookLink; }
+
+    public void setFacebookLink(String facebookLink) { this.facebookLink = facebookLink; }
+
+    public String getTelegramLink() { return telegramLink; }
+
+    public void setTelegramLink(String telegramLink) { this.telegramLink = telegramLink; }
+
+    public String getInstagramLink() { return instagramLink; }
+
+    public void setInstagramLink(String instagramLink) { this.instagramLink = instagramLink; }
+
+    public String getEmail() { return email; }
+
+    public void setEmail(String email) { this.email = email; }
+
+    public void setCity(String city) { this.city = city; }
 
     public int getAge() {
         return age;
