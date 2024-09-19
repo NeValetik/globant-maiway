@@ -39,10 +39,10 @@ const Search = () => {
       queryParams.push(`region=${region}`);
     }
     if (before) {
-      queryParams.push(`before=${before.format('DD-MM-YYYY')}`);
+      queryParams.push(`before=${before.format('YYYY-MM-DD')}`);
     }
     if (after) {
-      queryParams.push(`after=${after.format('DD-MM-YYYY')}`);
+      queryParams.push(`after=${after.format('YYYY-MM-DD')}`);
     }
 
     const queryString = queryParams.length > 0 ? `?${queryParams.join('&')}` : "";
@@ -96,6 +96,7 @@ const Search = () => {
         </div>
       </div>
       {showFilters ? 
+      <div className="flex justify-end mb-7">
         <div className="w-1/4">
           <Filters 
           location={location}
@@ -108,6 +109,7 @@ const Search = () => {
           setAfter={setAfter}
           />
         </div>
+      </div>
       : null}
     </form>
   );

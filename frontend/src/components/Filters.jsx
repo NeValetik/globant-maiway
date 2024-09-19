@@ -17,7 +17,7 @@ const Filters = ({ location, setLocation, region, setRegion, before, setBefore, 
   
   const { theme, toggleTheme } = useTheme();
 
-  useEffect(() => {
+  u.seEffect(() => {
     setCountries(locationsData);
   }, []);
 
@@ -25,7 +25,7 @@ const Filters = ({ location, setLocation, region, setRegion, before, setBefore, 
     <div className={themeChangerDescriptionString(
       theme,
       'bg-[#ffffff]',
-      'bg-[#1e1f20]',"max-h-screen px-4 sticky top-10 rounded-sm mr-6 pt-6 pb-4 -ml-2")}>
+      'bg-[#1e1f20]',"max-h-screen px-4 top-10 rounded-sm mr-6 pt-6 pb-4 ml-6")}>
       <div className="mb-4">
         <select
           id="country"

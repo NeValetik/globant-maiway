@@ -1,11 +1,14 @@
-import Navbar from "../components/Navbar";
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
 import Card from "../components/Card";
+import useDominantColor from "../components/utils/useDominantColor";
 
 const UserPage = () => {
-    const { username } = useParams(); // Gets the 'username' from the URL
-    const [userdata, setUserdata] = useState(null); // State for user data
+    const { username } = useParams();
+    const [userdata, setUserdata] = useState(null);
+    const [userPfpUrl, setUserPfpUrl] = useState(null);
+    const dominantColor = useDominantColor(userPfpUrl); // Extract color based on the profile picture URL
 
     useEffect(() => {
         let objectUrls = [];
@@ -55,6 +58,7 @@ const UserPage = () => {
                 });
 
                 setUserdata({ ...data, photo: userPfpUrl, offers: processedOffers });
+                setUserPfpUrl(userPfpUrl); // Set user profile picture URL to be used by the dominant color extractor
             })
             .catch((error) => {
                 console.log('Error fetching user data:', error);
@@ -64,27 +68,41 @@ const UserPage = () => {
             // Cleanup object URLs to avoid memory leaks
             objectUrls.forEach(url => URL.revokeObjectURL(url));
         };
-    }, [username]); // Re-fetch when username changes
+    }, [username]);
 
     if (!userdata) {
-        return <div>Loading...</div>; // Show loading state while fetching data
+        return <div>Loading...</div>;
     }
 
     return (
-        <div className="text-white">
+        <div>
             <Navbar />
-            <h1>{userdata.username}</h1>
-            <p>About: {userdata.about}</p>
-            {/* Display user's profile picture */}
-            {userdata.photo && <img src={userdata.photo} alt="Profile Picture" />}
+            <div className="py-10 justify-center w-[90%] mx-auto flex flex-col relative bg-black pd">
+                <div className="min-h-[250px] h-[250px] w-full" style={{ backgroundColor: dominantColor }}>
+                </div>
 
-            {userdata.offers && userdata.offers.length > 0 ? (
-                userdata.offers.map((offer, index) => (
-                    <Card key={index} offer={offer} />
-                ))
-            ) : (
-                <p>No offers available</p>
-            )}
+                <div className="text-white">
+                    <img
+                        src={userPfpUrl}
+                        alt="Profile Picture"
+                        className="rounded-full object-cover w-[300px] h-[300px] absolute bottom-[-125px] left-[100px] transition-transform duration-300 ease-in-out hover:scale-110 border-4 border-white"
+                    />
+                    <h1>{userdata.name}</h1>
+                    <p>About: {userdata.about}</p>
+                </div>
+            </div>
+
+            <div className="max-w-4xl mx-auto mt-8 px-4">
+                {userdata.offers && userdata.offers.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {userdata.offers.map((offer, index) => (
+                            <Card key={index} offer={offer} />
+                        ))}
+                    </div>
+                ) : (
+                    <p>No offers available</p>
+                )}
+            </div>
         </div>
     );
 };
