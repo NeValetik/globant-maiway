@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 import { MdOutlineEmail } from "react-icons/md";
 
 const Card = ({ offer }) => {
+    console.log(offer)
     const { theme } = useTheme();
     const [isHovered, setIsHovered] = useState(false);
     return (
-        <Link to={`/offers/${offer.id}`} className="block">
             <div
                 className={themeChangerDescriptionString(
                     theme,
@@ -23,13 +23,14 @@ const Card = ({ offer }) => {
                         onMouseEnter={() => setIsHovered(true)}
                         onMouseLeave={() => setIsHovered(false)}
                     >
-                        <img
+                        <Link to={`/user/${offer.author.username}`} className={'block'}><img
                             className={`rounded-full overflow-hidden h-8 w-8 object-cover hover:drop-shadow-sm hover:shadow-[#016960] transition-opacity duration-300 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
                             src={offer.author.userPfp || "https://braverplayers.org/wp-content/uploads/2022/09/blank-pfp.png"}
                             alt="Profile"
                         />
-
+                        </Link>
                         {isHovered && (
+                            <Link to={`/user/${offer.author.username}`} className={'block'}>
                             <div
                                 className="absolute left-10 top-0 w-[250px] h-[120px] p-4 bg-white shadow-lg border rounded-lg z-10 opacity-100 transition-opacity duration-300 flex flex-col justify-between"
                             >
@@ -40,8 +41,8 @@ const Card = ({ offer }) => {
                                         alt="Profile Preview"
                                     />
                                     <div>
-                                        <p className="text-[12px] text-center px-2">{offer.author.userName || "Unknown User"}</p>
-                                        <p className="text-16px px-2">{offer.author.name || "Mr. Nobody"}</p>
+                                        <p className="text-[12px] text-center px-2">{offer.author.username || "Unknown User"}</p>
+                                        <p className="text-16px px-2 text-black">{offer.author.name || "Mr. Nobody"}</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center">
@@ -51,10 +52,11 @@ const Card = ({ offer }) => {
                                     </p>
                                 </div>
                             </div>
-                        )}
+                                </Link>)
+                            }
                     </div>
 
-                    <div
+                    <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}
                         className={themeChangerDescriptionString(
                             theme,
                             'text-black',
@@ -62,7 +64,7 @@ const Card = ({ offer }) => {
                             'flex-1 flex items-center hover:text-[#016960]'
                         )}
                     >
-                        {offer.author.userName}, {offer.author.userAge}
+                        {offer.author.username}, {offer.author.userAge}
                     </div>
                     <div
                         className={themeChangerDescriptionString(
@@ -106,7 +108,6 @@ const Card = ({ offer }) => {
                     </span>
                 </div>
             </div>
-        </Link>
     );
 };
 

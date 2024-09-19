@@ -40,9 +40,10 @@ public class OfferService {
         return offerPage.getContent(); // Converts Page to List
     }
     
-    public List<Offer> searchFilterByDate(String title, String before, String after){
+    public List<Offer> searchByFilters(String title, String location, String region, String before, String after){
         LocalDateTime beforeTime = null;
         LocalDateTime afterTime = null;
+
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         if (before != null){
             before = before + " 00:00:01";
@@ -56,12 +57,12 @@ public class OfferService {
         LocalDateTime MinimumDate = LocalDateTime.parse("1900-01-01 00:00:01", formatter1);
         // If both beforeTime and afterTime are not null, call the repository
         if (beforeTime != null && afterTime != null) {
-            return offerRepository.findByTitleContainingAndOptionalDateRange(title, afterTime, beforeTime);
+            return offerRepository.findByQueryAndFilters(title, location, region, afterTime, beforeTime);
         } else if (beforeTime != null) {
-            return offerRepository.findByTitleContainingAndOptionalDateRange(title, MinimumDate, beforeTime); // Until now
+            return offerRepository.findByQueryAndFilters(title, location, region, MinimumDate, beforeTime); // Until now
         } else if (afterTime != null) {
-            return offerRepository.findByTitleContainingAndOptionalDateRange(title, afterTime, LocalDateTime.now()); // From start until afterTime
+            return offerRepository.findByQueryAndFilters(title, location, region, afterTime, LocalDateTime.now()); // From start until afterTime
         }
-        return offerRepository.findByTitleContainingAndOptionalDateRange(title, MinimumDate, LocalDateTime.now());
+        return offerRepository.findByQueryAndFilters(title, location, region, MinimumDate, LocalDateTime.now());
     }
 }

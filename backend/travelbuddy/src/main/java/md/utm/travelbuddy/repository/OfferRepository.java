@@ -17,9 +17,15 @@ import org.springframework.stereotype.Repository;
 public interface OfferRepository extends JpaRepository<Offer, Long> {
     @NonNull
     Page<Offer> findAll(@NonNull Pageable pageable);
-    @Query("SELECT o FROM Offer o WHERE LOWER(o.title) LIKE LOWER(CONCAT('%', :titleQuery, '%')) AND (o.created_at BETWEEN :startDate AND :endDate)")
-    List<Offer> findByTitleContainingAndOptionalDateRange(
+    @Query("SELECT o FROM Offer o WHERE " + 
+    "(LOWER(o.title) LIKE LOWER(CONCAT('%', :titleQuery, '%')) OR o.title IS NULL) AND " + 
+    "(o.location IS NULL OR LOWER(o.location) LIKE LOWER(:locationFilter)) AND "+
+    "(o.region IS NULL OR LOWER(o.region) LIKE LOWER(:regionFilter)) AND " +
+    "(o.created_at BETWEEN :startDate AND :endDate)")
+    List<Offer> findByQueryAndFilters(
         @Param("titleQuery") String titleQuery,
+        @Param("locationFilter") String locationFilter,
+        @Param("regionFilter") String regionFilter,
         @Param("startDate") LocalDateTime startDate,
         @Param("endDate") LocalDateTime endDate
     );

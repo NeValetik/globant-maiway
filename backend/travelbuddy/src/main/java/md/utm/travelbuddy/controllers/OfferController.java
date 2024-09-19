@@ -108,12 +108,15 @@ public class OfferController {
     }
 
     @GetMapping("/search")
-    public List<OfferResponseDTO> getSearch(@RequestParam String query, 
+    public List<OfferResponseDTO> getSearch(
+    @RequestParam(required = false) String query, 
+    @RequestParam(required = false) String location, 
+    @RequestParam(required = false) String region, 
     @RequestParam(required = false) String before, 
     @RequestParam(required = false) String after) {
-        System.out.println(before + ":" + after);
+        System.out.println(query+":    :" + before + ":" + after);
         //List<Offer> filteredOffers = offerService.findOffersBetweenDate(before, after);
-        List<Offer> filteredOffers = offerService.searchFilterByDate(query, before, after);
+        List<Offer> filteredOffers = offerService.searchByFilters(query, location, region, before, after);
         return filteredOffers.stream()
                 .map(OffersMapping::mapOfferToDTO)
                 .collect(Collectors.toList());
