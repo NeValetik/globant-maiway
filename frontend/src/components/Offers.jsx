@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Card from './Card';
 import loading_cat from '../assets/loading_cat.gif';
 import sad_robot from '../assets/sad_robot.png';
@@ -7,10 +7,10 @@ import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 const Offers = ({ query }) => {
   const [offers, setOffers] = useState([]);
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [hasMore, setHasMore] = useState(true); // Track if there are more offers to load
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const fetchInProgress = useRef(false);
 
-  // Helper function to process images
   const processImage = (photo) => {
     let imageUrl = '';
     if (Array.isArray(photo)) {
@@ -22,15 +22,20 @@ const Offers = ({ query }) => {
     return imageUrl;
   };
 
-  // Fetch offers
-  const fetchOffers = async (page, query) => {
+  const fetchOffers = useCallback(async (currentPage, currentQuery) => {
+    if (fetchInProgress.current) return;
+    fetchInProgress.current = true;
     setLoading(true);
+    
     try {
-      const response = await fetch(query === null ? `http://localhost:6969/api/offer/page/${page}` : `http://localhost:6969/api/offer/search?query=${query}`);
+      const response = await fetch(currentQuery === null 
+        ? `http://localhost:6969/api/offer/page/${currentPage}` 
+        : `http://localhost:6969/api/offer/search?query=${currentQuery}`
+      );
       const data = await response.json();
 
       if (data.length === 0) {
-        setHasMore(false); // Stop fetching if no more offers
+        setHasMore(false);
       } else {
         const processedOffers = data.map((offer) => ({
           ...offer,
@@ -41,36 +46,34 @@ const Offers = ({ query }) => {
           },
         }));
 
-        // Append new offers to the existing ones
-        setOffers((prevOffers) => [...prevOffers, ...processedOffers]);
+        setOffers((prevOffers) => 
+          currentPage === 1 ? processedOffers : [...prevOffers, ...processedOffers]
+        );
       }
     } catch (error) {
       console.error('Error fetching offers:', error);
     } finally {
       setLoading(false);
+      fetchInProgress.current = false;
     }
-  };
+  }, []);
 
   useEffect(() => {
-    // Reset the offers and page when query changes
     setOffers([]);
     setPage(1);
     setHasMore(true);
     fetchOffers(1, query);
-  }, [query]);
+  }, [query, fetchOffers]);
 
-  useEffect(() => {
-    // Fetch offers when page changes (except on the initial load)
-    if (page > 1) {
-      fetchOffers(page, query);
+  const handleLoadMore = useCallback(() => {
+    if (hasMore && !loading && !fetchInProgress.current) {
+      setPage((prevPage) => {
+        const nextPage = prevPage + 1;
+        fetchOffers(nextPage, query);
+        return nextPage;
+      });
     }
-  }, [page]);
-
-  const handleLoadMore = () => {
-    if (hasMore) {
-      setPage((prevPage) => prevPage + 1); // Increment page to load more offers
-    }
-  };
+  }, [hasMore, loading, query, fetchOffers]);
 
   return (
     <>
@@ -92,12 +95,12 @@ const Offers = ({ query }) => {
                 style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 2fr))' }}
               >
                 {offers.map((offer, index) => (
-                  <Card key={index} offer={offer} />
+                  <Card key={`${offer.id}-${index}`} offer={offer} />
                 ))}
               </div>
             </div>
           </div>
-          {hasMore && (
+          {hasMore && !loading && (
             <button onClick={handleLoadMore} className='font-medium pt-4 flex justify-center'>
               Load More
               <MdKeyboardDoubleArrowDown size={24} />
