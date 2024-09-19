@@ -76,43 +76,33 @@ const UserPage = () => {
 
     return (
         <div>
-            <Navbar/>
-            <div className={'py-10 justify-center w-[90%] mx-auto flex flex-col relative bg-black pd'}>
-                <div className={'min-h-[250px] h-[250px] w-full'} style={{ backgroundColor: dominantColor }}>
+            <Navbar />
+            <div className="py-10 justify-center w-[90%] mx-auto flex flex-col relative bg-black pd">
+                <div className="min-h-[250px] h-[250px] w-full" style={{ backgroundColor: dominantColor }}>
                 </div>
 
-                <div className={'text-white'}>
+                <div className="text-white">
                     <img
                         src={userPfpUrl}
-                        alt={'Profile Picture'}
-                        className={'rounded-full object-cover w-[300px] h-[300px] absolute bottom-[-125px] left-[100px] transition-transform duration-300 ease-in-out hover:scale-110 border-4 border-white'}
+                        alt="Profile Picture"
+                        className="rounded-full object-cover w-[300px] h-[300px] absolute bottom-[-125px] left-[100px] transition-transform duration-300 ease-in-out hover:scale-110 border-4 border-white"
                     />
-                    {userdata.name}
+                    <h1>{userdata.name}</h1>
+                    <p>About: {userdata.about}</p>
                 </div>
             </div>
 
-            {/* Uncommented code for future use */}
-            {/* <Navbar /> */}
-            {/* <div className="w-full" style={{ backgroundColor: dominantColor }}> */}
-            {/*     HI */}
-            {/* </div> */}
-            {/* <div className="max-w-4xl mx-auto mt-8 px-4"> */}
-            {/*     <div className="flex items-center mb-6"> */}
-            {/*         <div> */}
-            {/*             <h1 className="text-3xl font-bold">{userdata.username}</h1> */}
-            {/*             <p>{userdata.about}</p> */}
-            {/*         </div> */}
-            {/*     </div> */}
-            {/*     {userdata.offers && userdata.offers.length > 0 ? ( */}
-            {/*         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"> */}
-            {/*             {userdata.offers.map((offer, index) => ( */}
-            {/*                 <Card key={index} offer={offer} /> */}
-            {/*             ))} */}
-            {/*         </div> */}
-            {/*     ) : ( */}
-            {/*         <p>No offers available</p> */}
-            {/*     )} */}
-            {/* </div> */}
+            <div className="max-w-4xl mx-auto mt-8 px-4">
+                {userdata.offers && userdata.offers.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {userdata.offers.map((offer, index) => (
+                            <Card key={index} offer={offer} />
+                        ))}
+                    </div>
+                ) : (
+                    <p>No offers available</p>
+                )}
+            </div>
         </div>
     );
 };

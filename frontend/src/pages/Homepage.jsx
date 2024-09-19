@@ -14,29 +14,13 @@ function useQuery() {
 
 function Homepage() {
 
-  const [showFilters, setShowFilters] = useState(false);
-
-  const toggleFilters = () => {
-    setShowFilters((prevState) => !prevState);
-  };
-  
 
   const query = useQuery().get('query');
   return (
     <div className="Home flex flex-col min-h-screen relative">
       <Navbar />
-      <Search toggleFilters={toggleFilters} />
-      <div className="flex flex-1">
-        {/* Main content */}
-        <div className="flex-1">
-          <Offers query={query}/>
-        </div>
-        {showFilters ? 
-          <div className="w-1/4">
-            <Filters />
-          </div>
-        : null}
-      </div>
+      <Search/>
+      <Offers query={query}/>
       <Footer />
     </div>
   );
