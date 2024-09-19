@@ -6,6 +6,8 @@ public class OfferResponseDTO {
     private byte[] photo; // Still in byte[] format
     private String title;
     private String body;
+    private String location;
+    private String region;
     private String creationDate;
 
     public static class AuthorDTO {
@@ -106,9 +108,26 @@ public class OfferResponseDTO {
         this.body = body;
     }
 
+    public String getLocation(){
+        return location;
+    }
+
+    public void setLocation(String location){
+        this.location = location;
+    }
+
+    public String getRegion(){
+        return region;
+    }
+
+    public void setRegion(String region){
+        this.region = region;
+    }
+
     public void setCreationDate(String creationDate){
         this.creationDate = creationDate;
     }
+
     public String getCreationDate(){
         return this.creationDate;
     }

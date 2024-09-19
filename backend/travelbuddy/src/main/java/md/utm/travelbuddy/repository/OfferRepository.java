@@ -1,10 +1,14 @@
 package md.utm.travelbuddy.repository;
 
 import md.utm.travelbuddy.models.Offer;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
@@ -13,5 +17,16 @@ import org.springframework.stereotype.Repository;
 public interface OfferRepository extends JpaRepository<Offer, Long> {
     @NonNull
     Page<Offer> findAll(@NonNull Pageable pageable);
-    List<Offer> findByTitle(String titleQuery);
+    @Query("SELECT o FROM Offer o WHERE " + 
+    "(:titleQuery IS NULL OR o.title LIKE CONCAT('%', :titleQuery, '%')) AND " + 
+    "(:locationFilter IS NULL OR o.location = :locationFilter) AND "+
+    "(:regionFilter IS NULL OR o.region = :regionFilter) AND " +
+    "(o.created_at BETWEEN :startDate AND :endDate)")
+    List<Offer> findByQueryAndFilters(
+        @Param("titleQuery") String titleQuery,
+        @Param("locationFilter") String locationFilter,
+        @Param("regionFilter") String regionFilter,
+        @Param("startDate") LocalDateTime startDate,
+        @Param("endDate") LocalDateTime endDate
+    );
 }

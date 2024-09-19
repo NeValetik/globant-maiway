@@ -15,7 +15,6 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
-    private OfferController offerController;
 
     @Autowired
     UserController(UserService userService) {

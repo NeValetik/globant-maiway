@@ -4,7 +4,6 @@ import md.utm.travelbuddy.controllers.OffersMapping;
 import md.utm.travelbuddy.models.User;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class UserResponseDTO {
@@ -38,7 +37,6 @@ public class UserResponseDTO {
         this.offers = user.getOfferList().stream()
                 .map(OffersMapping::mapOfferToDTO)
                 .collect(Collectors.toList());
-        this.name = user.getName();
     }
 
     public String getName() {
@@ -111,5 +109,10 @@ public class UserResponseDTO {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    public char getSex() {
+        return sex;
+    }
+    public void setSex(char sex) {
+        this.sex = sex;
+    }
 }

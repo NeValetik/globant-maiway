@@ -20,6 +20,8 @@ public class OffersMapping {
         responseDTO.setId(offer.getId());
         responseDTO.setTitle(offer.getTitle());
         responseDTO.setBody(offer.getDescription());
+        responseDTO.setLocation(offer.getLocation());
+        responseDTO.setRegion(offer.getRegion());
         //Format the date object into a string object
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime createdDateTime = offer.getCreatedAt();

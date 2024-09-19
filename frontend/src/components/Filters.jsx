@@ -17,7 +17,7 @@ const Filters = ({ location, setLocation, region, setRegion, before, setBefore, 
   
   const { theme, toggleTheme } = useTheme();
 
-  useEffect(() => {
+  u.seEffect(() => {
     setCountries(locationsData);
   }, []);
 

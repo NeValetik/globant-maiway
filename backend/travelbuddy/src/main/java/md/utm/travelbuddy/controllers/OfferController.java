@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDateTime;
 import java.util.*;
 
 import java.util.stream.Collectors;
@@ -110,11 +108,30 @@ public class OfferController {
     }
 
     @GetMapping("/search")
-    public List<OfferResponseDTO> getSearch(@RequestParam String query) {
-        List<Offer> filteredOffers = offerService.searchOffers(query);
+    public List<OfferResponseDTO> getSearch(
+    @RequestParam(required = false) String query, 
+    @RequestParam(required = false) String location, 
+    @RequestParam(required = false) String region, 
+    @RequestParam(required = false) String before, 
+    @RequestParam(required = false) String after) {
+        System.out.println(query+":    :" + before + ":" + after);
+        //List<Offer> filteredOffers = offerService.findOffersBetweenDate(before, after);
+        List<Offer> filteredOffers = offerService.searchByFilters(query, location, region, before, after);
         return filteredOffers.stream()
                 .map(OffersMapping::mapOfferToDTO)
                 .collect(Collectors.toList());
     }
+    // @PostMapping("/sendData")
+    // public ResponseEntity<List<OfferResponseDTO>> receiveData(
+    //     @RequestBody OfferResponseDTO search) {
+    //     // Process the received data
+    //     System.out.println("Received data: " + search.getSearch());
+    //     List<Offer> filteredOffers = offerService.searchOffers(search.getSearch());
+
+    //     return new ResponseEntity<>(filteredOffers.stream()
+    //             .map(this::mapOfferToDTO)
+    //             .collect(Collectors.toList()), HttpStatus.OK);
+    // }
+
 
 }

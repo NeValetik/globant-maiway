@@ -23,12 +23,18 @@ public class Offer {
 
     @Column(name = "photo", columnDefinition = "BYTEA")
     private byte[] photo;
+    
+    @Column(name = "location")
+    private String location;
+    
+    @Column(name = "region")
+    private String region;
+
+    @Column(name = "created_at")
+    private LocalDateTime created_at = LocalDateTime.now();
 
     public Offer() {
     }
-    @Column(name = "created_at")
-    private LocalDateTime createdAt = LocalDateTime.now();
-
 
     // Constructor with user object
     public Offer(User user, String title, String description) {
@@ -95,8 +101,25 @@ public class Offer {
     public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
+
+    public String getLocation(){
+        return location;
+    }
+
+    public void setLocation(String location){
+        this.location = location;
+    }
+
+    public String getRegion(){
+        return region;
+    }
+
+    public void setRegion(String region){
+        this.region = region;
+    }
+    
     public LocalDateTime getCreatedAt() {
-        return this.createdAt;
+        return this.created_at;
     }
  
 }

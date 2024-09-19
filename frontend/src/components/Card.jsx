@@ -29,10 +29,15 @@ const Card = ({ offer }) => {
                             alt="Profile"
                         />
                         </Link>
+
+                        {/*Is hovered container rendering */}
+
                         {isHovered && (
                             <Link to={`/user/${offer.author.username}`} className={'block'}>
                             <div
-                                className="absolute left-10 top-0 w-[250px] h-[120px] p-4 bg-white shadow-lg border rounded-lg z-10 opacity-100 transition-opacity duration-300 flex flex-col justify-between"
+                                className={themeChangerDescriptionString(theme,
+                                    'bg-white shadow-lg ', 'bg-[#292a2b]',
+                                    'absolute left-10 top-0 w-[250px] h-[120px] p-4 border rounded-lg z-10 opacity-100 transition-opacity duration-300 flex flex-col justify-between"\n')}
                             >
                                 <div className="flex">
                                     <img
@@ -41,13 +46,13 @@ const Card = ({ offer }) => {
                                         alt="Profile Preview"
                                     />
                                     <div>
-                                        <p className="text-[12px] text-center px-2">{offer.author.username || "Unknown User"}</p>
-                                        <p className="text-16px px-2 text-black">{offer.author.name || "Mr. Nobody"}</p>
+                                        <p className={themeChangerDescriptionString(theme, 'text-black', 'text-white', 'text-[12px] text-center px-2')}>{offer.author.username || "Unknown User"}</p>
+                                        <p className={themeChangerDescriptionString(theme, 'text-black', 'text-white', 'text-16px px-2')}>{offer.author.name || "Mr. Nobody"}</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center">
-                                    <MdOutlineEmail className="flex-shrink-0" />
-                                    <p className="line-clamp-1 text-[12px] px-1 text-center overflow-hidden text-ellipsis">
+                                    <MdOutlineEmail className="flex-shrink-0" color={themeChangerDescriptionString(theme, 'black', 'white')} />
+                                    <p className={themeChangerDescriptionString(theme, 'text-black', 'text-white', "line-clamp-1 text-[12px] px-1 text-center overflow-hidden text-ellipsis")}>
                                         {offer.author.email || "No email available"}
                                     </p>
                                 </div>
