@@ -10,56 +10,22 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';  // Import Dayjs
 import TextField from "@mui/material/TextField"
 
-const Filters = () => {
+const Filters = ({ location, setLocation, region, setRegion, before, setBefore, after, setAfter }) => {
 
   const [countries, setCountries] = useState([]);
   const [regions, setRegions] = useState([]);
   
   const { theme, toggleTheme } = useTheme();
-  const [location, setLocation] = useState(null);
-  const [region, setRegion] = useState(null);
-  const [before, setBefore] = useState(dayjs("20-10-1999", "DD-MM-YYYY"));
-  const [after, setAfter] = useState(dayjs("20-10-1999", "DD-MM-YYYY"));
-
-  const navigate = useNavigate();
-
-  const color = "#c44242";
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    let queryParams = [];
-
-if (location !== null) {
-    queryParams.push(`location=${location}`);
-}
-
-if (region !== null) {
-    queryParams.push(`region=${region}`);
-}
-
-if (before.format('DD-MM-YYYY') !== "Invalid Date") {
-    queryParams.push(`before=${before.format('DD-MM-YYYY')}`);
-}
-
-if (after.format('DD-MM-YYYY') !== "Invalid Date") {
-    queryParams.push(`after=${after.format('DD-MM-YYYY')}`);
-}
-
-const queryString = queryParams.length > 0 ? `?${queryParams.join('&')}` : "";
-
-navigate(`/search${queryString}`);
-    window.location.reload();
-  };
 
   useEffect(() => {
     setCountries(locationsData);
   }, []);
 
   return (
-    <form className={themeChangerDescriptionString(
+    <div className={themeChangerDescriptionString(
       theme,
       'bg-[#ffffff]',
-      'bg-[#1e1f20]',"max-h-screen px-4 sticky top-10 rounded-sm mr-6 pt-6 pb-4 -ml-2")} onSubmit={handleSubmit}>
+      'bg-[#1e1f20]',"max-h-screen px-4 sticky top-10 rounded-sm mr-6 pt-6 pb-4 -ml-2")}>
       <div className="mb-4">
         <select
           id="country"
@@ -176,12 +142,12 @@ navigate(`/search${queryString}`);
                     'bg-[#067a89] hover:bg-[#07b2a0] text-white',
                     'text-gray-200 focus:ring-4' +
                     ' focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 mx-auto py-2')}>Submit</button>
-        <button className={themeChangerDescriptionString(theme, 'hover:bg-[#067a89] bg-mwlightgreen ',
+        <button type="button" className={themeChangerDescriptionString(theme, 'hover:bg-[#067a89] bg-mwlightgreen ',
                     'bg-[#067a89] hover:bg-[#07b2a0] text-white',
                     'text-gray-200 focus:ring-4' +
                     ' focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 mx-auto py-2')}>Refresh</button>
       </div>
-    </form>
+    </div>
   );
 };
 
