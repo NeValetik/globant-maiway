@@ -4,6 +4,7 @@ import themeChangerDescriptionString from "./utils/themeChangerDescriptionString
 import { useNavigate } from 'react-router-dom';
 // import Filters from './Filters';
 import {FaFilter} from 'react-icons/fa';
+import { FaSearch } from "react-icons/fa";
 
 const Search = ({ toggleFilters }) => {
 
@@ -74,15 +75,15 @@ const Search = ({ toggleFilters }) => {
                       'bg-[#067a89] hover:bg-[#07b2a0] text-white',
                       'text-white absolute end-2.5 bottom-2.5 focus:ring-4 ' +
                       ' focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm px-4 py-2  ')}>
-            Search
+            <FaSearch size={19} />
           </button>
         </div>
       </form>
       <div className="flex justify-end py-2 mr-auto my-5 ">
-        <button className={themeChangerDescriptionString(theme, 'hover:bg-[#067a89] bg-mwlightgreen ',
-                    'bg-[#067a89] hover:bg-[#07b2a0] text-white',
-                    'text-gray-200 focus:ring-4' +
-                    ' focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4')} onClick={toggleFilters}>
+        <button className={themeChangerDescriptionString(theme, 'hover:bg-mwdarkgreen bg-mwlightgreen',
+                    'bg-mwdarkgreen hover:bg-mwlightgreen text-white',
+                    'text-gray-200' +
+                    ' focus:outline-none font-medium rounded-lg text-sm px-4')} onClick={toggleFilters}>
           <FaFilter size={19} className={themeChangerDescriptionString(theme,
           'gray-300','white', ) }/>
         </button>

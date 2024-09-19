@@ -29,10 +29,11 @@ public class OffersMapping {
         // Set Author details
         OfferResponseDTO.AuthorDTO authorDTO = new OfferResponseDTO.AuthorDTO();
         authorDTO.setUserId(user.getId());
-        authorDTO.setUserName(user.getUsername());
+        authorDTO.setUsername(user.getUsername());
         authorDTO.setUserAge(user.getAge());
         authorDTO.setUserPfp(user.getPhoto());
-
+        authorDTO.setEmail(user.getEmail());
+        authorDTO.setName(user.getName());
         // Set author info
         responseDTO.setAuthor(authorDTO);
 

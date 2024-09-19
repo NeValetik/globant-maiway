@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 public class UserResponseDTO {
 
 
-
     private String name;
     private int age;
     private String username;
@@ -39,6 +38,7 @@ public class UserResponseDTO {
         this.offers = user.getOfferList().stream()
                 .map(OffersMapping::mapOfferToDTO)
                 .collect(Collectors.toList());
+        this.name = user.getName();
     }
 
     public String getName() {

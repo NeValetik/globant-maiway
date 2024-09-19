@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import headerLogoBlack from '../assets/header_logo_black.png'
-import headerLogoWhite from '../assets/header_logo_white.png'
+import headerLogoBlack from '../assets/header_logo_black.svg'
+import headerLogoWhite from '../assets/header_logo_white.svg'
 import {useTheme} from "../context/ThemeContext";
 import ThemeToggler from "./ThemeTogglerButton";
 import themeChangerDescriptionString from "./utils/themeChangerDescriptionString";

@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useTheme } from "../context/ThemeContext";
 import themeChangerDescriptionString from "./utils/themeChangerDescriptionString";
 import { Link } from 'react-router-dom';
+import { MdOutlineEmail } from "react-icons/md";
 
 const Card = ({ offer }) => {
+    console.log(offer)
     const { theme } = useTheme();
     const [isHovered, setIsHovered] = useState(false);
-
     return (
-        <Link to={`/offers/${offer.id}`} className="block">
             <div
                 className={themeChangerDescriptionString(
                     theme,
@@ -17,57 +17,70 @@ const Card = ({ offer }) => {
                     'max-w-sm rounded overflow-hidden min-h-[522px] max-h-[522px] flex flex-col'
                 )}
             >
-                <Link to={`/user/${offer.author.userName}`} className="block">
-                    <div className="w-full flex py-3 relative">
-                        <div
-                            className="relative px-6 flex items-center"
-                            onMouseEnter={() => setIsHovered(true)}
-                            onMouseLeave={() => setIsHovered(false)}
-                        >
-                            <img
-                                className={`rounded-full overflow-hidden h-8 w-8 object-cover hover:drop-shadow-sm hover:shadow-[#016960] transition-opacity duration-300 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
-                                src={offer.author.userPfp || "https://braverplayers.org/wp-content/uploads/2022/09/blank-pfp.png"}
-                                alt="Profile"
-                            />
-                            {/* Conditionally render the profile preview */}
-                            {isHovered && (
-                                <div className="absolute left-10 top-0 w-40 p-2 bg-white shadow-lg border rounded-lg z-10 opacity-100 transition-opacity duration-300">
+                <div className="w-full flex py-3 relative">
+                    <div
+                        className="relative px-6 flex items-center"
+                        onMouseEnter={() => setIsHovered(true)}
+                        onMouseLeave={() => setIsHovered(false)}
+                    >
+                        <Link to={`/user/${offer.author.username}`} className={'block'}><img
+                            className={`rounded-full overflow-hidden h-8 w-8 object-cover hover:drop-shadow-sm hover:shadow-[#016960] transition-opacity duration-300 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
+                            src={offer.author.userPfp || "https://braverplayers.org/wp-content/uploads/2022/09/blank-pfp.png"}
+                            alt="Profile"
+                        />
+                        </Link>
+                        {isHovered && (
+                            <Link to={`/user/${offer.author.username}`} className={'block'}>
+                            <div
+                                className="absolute left-10 top-0 w-[250px] h-[120px] p-4 bg-white shadow-lg border rounded-lg z-10 opacity-100 transition-opacity duration-300 flex flex-col justify-between"
+                            >
+                                <div className="flex">
                                     <img
-                                        className="rounded-full h-16 w-16 object-cover mb-2"
+                                        className="rounded-full h-10 w-10 object-cover mb-4"
                                         src={offer.author.userPfp || "https://braverplayers.org/wp-content/uploads/2022/09/blank-pfp.png"}
                                         alt="Profile Preview"
                                     />
-                                    <p className="text-sm font-semibold text-center">{offer.author.userName || "Unknown User"}</p>
-                                    <p className="text-xs text-gray-500 text-center">{offer.author.email || "No email available"}</p>
+                                    <div>
+                                        <p className="text-[12px] text-center px-2">{offer.author.username || "Unknown User"}</p>
+                                        <p className="text-16px px-2 text-black">{offer.author.name || "Mr. Nobody"}</p>
+                                    </div>
                                 </div>
-                            )}
-                        </div>
-
-                        <div
-                            className={themeChangerDescriptionString(
-                                theme,
-                                'text-black',
-                                'text-gray-50',
-                                'flex-1 flex items-center hover:text-[#016960]'
-                            )}
-                        >
-                            {offer.author.userName}, {offer.author.userAge}
-                        </div>
-                        <div
-                            className={themeChangerDescriptionString(
-                                theme,
-                                'text-black',
-                                'text-gray-50',
-                                'flex-1 text-xs px-2 text-right italic flex items-center'
-                            )}
-                        >
-                            11.22.63
-                        </div>
+                                <div className="flex items-center">
+                                    <MdOutlineEmail className="flex-shrink-0" />
+                                    <p className="line-clamp-1 text-[12px] px-1 text-center overflow-hidden text-ellipsis">
+                                        {offer.author.email || "No email available"}
+                                    </p>
+                                </div>
+                            </div>
+                                </Link>)
+                            }
                     </div>
-                </Link>
+
+                    <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}
+                        className={themeChangerDescriptionString(
+                            theme,
+                            'text-black',
+                            'text-gray-50',
+                            'flex-1 flex items-center hover:text-[#016960]'
+                        )}
+                    >
+                        {offer.author.username}, {offer.author.userAge}
+                    </div>
+                    <div
+                        className={themeChangerDescriptionString(
+                            theme,
+                            'text-black',
+                            'text-gray-50',
+                            'flex-1 text-xs px-2 text-right italic flex items-center'
+                        )}
+                    >
+
+                        11.22.63
+                    </div>
+                </div>
 
                 <img
-                    className={`w-full h-40 object-cover transition-transform duration-300 group-hover:scale-110`}
+                    className="w-full h-40 object-cover transition-transform duration-300 group-hover:scale-110"
                     src={offer.photo}
                     alt="Offer image"
                 />
@@ -95,7 +108,6 @@ const Card = ({ offer }) => {
                     </span>
                 </div>
             </div>
-        </Link>
     );
 };
 
