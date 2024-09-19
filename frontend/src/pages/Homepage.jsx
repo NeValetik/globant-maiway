@@ -19,14 +19,8 @@ function Homepage() {
   return (
     <div className="Home flex flex-col min-h-screen relative">
       <Navbar />
-      <Search />
-      <div className="flex flex-1">
-        {/* Main content */}
-        <div className="flex-1">
-          <Offers query={query}/>
-        </div>
-        
-      </div>
+      <Search/>
+      <Offers query={query}/>
       <Footer />
     </div>
   );

@@ -58,7 +58,7 @@ const Offers = ({query}) => {
                 <div className="flex justify-center w-full">
                     <div className="flex flex-col gap-3 w-full max-w-screen-xl px-[32px]">
                         <div
-                            className="grid gap-5"
+                            className="grid gap-3"
                             style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 2fr))' }}
                         >
                             {offers.map((offer, index) => (
