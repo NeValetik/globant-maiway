@@ -79,8 +79,8 @@ const Search = ({ toggleFilters }) => {
         </div>
       </form>
       <div className="flex justify-end py-2 mr-auto my-5 ">
-        <button className={themeChangerDescriptionString(theme, 'hover:bg-[#016960] bg-[#629a8d] ',
-                    'bg-[#016960] hover:bg-[#629a8d] text-white',
+        <button className={themeChangerDescriptionString(theme, 'hover:bg-[#067a89] bg-mwlightgreen ',
+                    'bg-[#067a89] hover:bg-[#07b2a0] text-white',
                     'text-gray-200 focus:ring-4' +
                     ' focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4')} onClick={toggleFilters}>
           <FaFilter size={19} className={themeChangerDescriptionString(theme,
