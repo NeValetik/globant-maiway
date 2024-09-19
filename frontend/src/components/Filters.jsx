@@ -27,7 +27,27 @@ const Filters = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate(`/search?location=${location}&region=${region}&before=${before.format('DD-MM-YYYY') === "Invalid Date"?null : before.format('DD-MM-YYYY')}&after=${after.format('DD-MM-YYYY')=== "Invalid Date"?null: after.format('DD-MM-YYYY')}`);
+    let queryParams = [];
+
+if (location !== null) {
+    queryParams.push(`location=${location}`);
+}
+
+if (region !== null) {
+    queryParams.push(`region=${region}`);
+}
+
+if (before.format('DD-MM-YYYY') !== "Invalid Date") {
+    queryParams.push(`before=${before.format('DD-MM-YYYY')}`);
+}
+
+if (after.format('DD-MM-YYYY') !== "Invalid Date") {
+    queryParams.push(`after=${after.format('DD-MM-YYYY')}`);
+}
+
+const queryString = queryParams.length > 0 ? `?${queryParams.join('&')}` : "";
+
+navigate(`/search${queryString}`);
     window.location.reload();
   };
 
