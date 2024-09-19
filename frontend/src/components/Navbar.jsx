@@ -42,7 +42,7 @@ const Navbar = () => {
               alt="insert header logo psl"
             />
           </a>
-          <a href="#"
+          <a href="/"
              className={`py-3 text-3xl font-mono font-bold leading-6 ${theme === 'light' ? 'text-gray-700' : 'text-gray-50'} ml-4`}>
             Măi Way
           </a>
