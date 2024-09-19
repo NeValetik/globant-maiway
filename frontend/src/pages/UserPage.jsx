@@ -76,7 +76,7 @@ const UserPage = () => {
             <h1>{userdata.username}</h1>
             <p>About: {userdata.about}</p>
             {/* Display user's profile picture */}
-            {userdata.userPfp && <img src={userdata.userPfp} alt="Profile Picture" />}
+            {userdata.photo && <img src={userdata.photo} alt="Profile Picture" />}
 
             {userdata.offers && userdata.offers.length > 0 ? (
                 userdata.offers.map((offer, index) => (

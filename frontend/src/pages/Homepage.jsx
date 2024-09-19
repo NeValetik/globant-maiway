@@ -8,7 +8,6 @@ import { useState } from 'react';
 
 
 function useQuery() {
-  console.log(useLocation().pathname)
   return new URLSearchParams(useLocation().search);
 }
 
