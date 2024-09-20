@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import useDominantColor from "../components/utils/useDominantColor";
 import themeChangerDescriptionString from "../components/utils/themeChangerDescriptionString";
 import { useTheme } from '../context/ThemeContext';
@@ -119,6 +120,7 @@ const UserPage = () => {
                     )}
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

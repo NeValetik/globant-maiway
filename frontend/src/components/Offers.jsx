@@ -3,12 +3,15 @@ import Card from './Card';
 import loading_cat from '../assets/loading_cat.gif';
 import sad_robot from '../assets/sad_robot.png';
 import { MdKeyboardDoubleArrowDown } from "react-icons/md";
+import {useTheme} from "../context/ThemeContext";
+import themeChangerDescriptionString from "./utils/themeChangerDescriptionString";
 
 const Offers = ({ query }) => {
   const [offers, setOffers] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const {theme, toggleTheme} = useTheme();
   const fetchInProgress = useRef(false);
 
   const processImage = (photo) => {
@@ -84,7 +87,7 @@ const Offers = ({ query }) => {
       ) : offers.length === 0 ? (
         <div className="flex justify-center items-center">
           <img className={'w-[250px]'} src={sad_robot} alt={"sad robot picture"} />
-          <p className={'text-3xl font-mono'}> Sorry, I couldn't find any results.</p>
+          <p className={themeChangerDescriptionString(theme, '', 'text-white','text-3xl font-mono')}> Sorry, I couldn't find any results.</p>
         </div>
       ) : (
         <>
@@ -101,7 +104,9 @@ const Offers = ({ query }) => {
             </div>
           </div>
           {hasMore && !loading && (
-            <button onClick={handleLoadMore} className='font-medium pt-4 flex justify-center'>
+            <button onClick={handleLoadMore} className={themeChangerDescriptionString(theme, 'hover:bg-[#067a89] bg-mwlightgreen',
+              'bg-[#067a89] hover:bg-[#07b2a0] text-white',
+              'text-white font-semibold rounded-lg text-sm px-4 py-2 mx-auto mt-3 flex')}>
               Load More
               <MdKeyboardDoubleArrowDown size={24} />
             </button>
