@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from "../components/Navbar";
-import Card from "../components/Card";
 import Footer from "../components/Footer";
 import useDominantColor from "../components/utils/useDominantColor";
+import themeChangerDescriptionString from "../components/utils/themeChangerDescriptionString";
+import { useTheme } from '../context/ThemeContext';
+import CardWide from "../components/CardWide";
 
 const UserPage = () => {
     const { username } = useParams();
     const [userdata, setUserdata] = useState(null);
     const [userPfpUrl, setUserPfpUrl] = useState(null);
-    const dominantColor = useDominantColor(userPfpUrl); // Extract color based on the profile picture URL
+    const [offers, setOffers] = useState([]);
+    const dominantColor = useDominantColor(userPfpUrl);
+    const { theme } = useTheme();
 
     useEffect(() => {
         let objectUrls = [];
@@ -17,7 +21,6 @@ const UserPage = () => {
         fetch(`http://localhost:6969/api/user/userpage/username/${username}`)
             .then((res) => res.json())
             .then((data) => {
-                // Process user profile picture
                 let userPfpUrl = '';
                 if (data.photo) {
                     if (Array.isArray(data.photo)) {
@@ -29,44 +32,31 @@ const UserPage = () => {
                     }
                 }
 
-                const processedOffers = data.offers.map((offer) => {
-                    let imageUrl = '';
-                    let offerUserPfpUrl = '';
+                setUserdata({ ...data, photo: userPfpUrl });
+                setUserPfpUrl(userPfpUrl);
 
-                    // Handle offer photo
-                    if (offer.photo) {
-                        if (Array.isArray(offer.photo)) {
-                            const imageBlob = new Blob([new Uint8Array(offer.photo)], { type: 'image/jpeg' });
-                            imageUrl = URL.createObjectURL(imageBlob);
-                            objectUrls.push(imageUrl);
-                        } else if (typeof offer.photo === 'string') {
-                            imageUrl = `data:image/jpeg;base64,${offer.photo}`;
-                        }
+                // Process offers
+                const processedOffers = data.offers.map(offer => ({
+                    ...offer,
+                    photo: offer.photo ? (
+                        Array.isArray(offer.photo)
+                            ? URL.createObjectURL(new Blob([new Uint8Array(offer.photo)], { type: 'image/jpeg' }))
+                            : `data:image/jpeg;base64,${offer.photo}`
+                    ) : null,
+                    author: {
+                        ...offer.author,
+                        userPfp: userPfpUrl // Set author's photo to user's profile picture
                     }
+                }));
+                setOffers(processedOffers);
 
-                    // Handle author's userPfp
-                    if (offer.author && offer.author.userPfp) {
-                        if (Array.isArray(offer.author.userPfp)) {
-                            const imageBlobPfp = new Blob([new Uint8Array(offer.author.userPfp)], { type: 'image/jpeg' });
-                            offerUserPfpUrl = URL.createObjectURL(imageBlobPfp);
-                            objectUrls.push(offerUserPfpUrl);
-                        } else if (typeof offer.author.userPfp === 'string') {
-                            offerUserPfpUrl = `data:image/jpeg;base64,${offer.author.userPfp}`;
-                        }
-                    }
-
-                    return { ...offer, photo: imageUrl, author: { ...offer.author, userPfp: offerUserPfpUrl } };
-                });
-
-                setUserdata({ ...data, photo: userPfpUrl, offers: processedOffers });
-                setUserPfpUrl(userPfpUrl); // Set user profile picture URL to be used by the dominant color extractor
+                console.log(data);
             })
             .catch((error) => {
                 console.log('Error fetching user data:', error);
             });
 
         return () => {
-            // Cleanup object URLs to avoid memory leaks
             objectUrls.forEach(url => URL.revokeObjectURL(url));
         };
     }, [username]);
@@ -76,28 +66,43 @@ const UserPage = () => {
     }
 
     return (
-        <div>
+        <div className="min-h-screen">
             <Navbar />
-            <div className="py-10 justify-center w-[90%] mx-auto flex flex-col relative bg-black pd">
-                <div className="min-h-[250px] h-[250px] w-full" style={{ backgroundColor: dominantColor }}>
-                </div>
+            <div className="py-10 justify-center w-full mx-auto flex flex-col relative">
+                <div className={themeChangerDescriptionString(theme, 'bg-white',
+                    'bg-mvcontainergrey',
+                    'shadow-lg rounded-lg overflow-hidden mx-auto max-w-[1200px] w-full')}>
+                    <div className="min-h-[20px] h-[200px] w-full" style={{ backgroundColor: dominantColor }}>
+                    </div>
+                    <div className="p-8 relative">
+                        <img
+                            src={userPfpUrl}
+                            alt="Profile Picture"
+                            className={themeChangerDescriptionString(theme,
+                                'border-white',
+                                'border-mvcontainergrey shadow-md',
+                                'rounded-full object-cover w-[200px] h-[200px] mx-auto -mt-28 border-[10px] transition-transform duration-300 ease-in-out hover:scale-110')}
+                        />
+                        <h1 className={themeChangerDescriptionString(theme,
+                            'text-black',
+                            'text-white',
+                            'text-3xl font-bold text-center mt-4')}>{userdata.name}</h1>
 
-                <div className="text-white">
-                    <img
-                        src={userPfpUrl}
-                        alt="Profile Picture"
-                        className="rounded-full object-cover w-[300px] h-[300px] absolute bottom-[-125px] left-[100px] transition-transform duration-300 ease-in-out hover:scale-110 border-4 border-white"
-                    />
-                    <h1>{userdata.name}</h1>
-                    <p>About: {userdata.about}</p>
+                        <p className={themeChangerDescriptionString(theme, 'text-gray-600 ', 'text-gray-400', "text-center mt-2")}>@{username}</p>
+                        <div className="mt-6">
+                            <h2 className="text-xl font-semibold mb-2">About Me</h2>
+                            <p className={themeChangerDescriptionString(theme, 'text-gray-700', 'text-gray-300')}>{userdata.about || "No bio available"}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div className="max-w-4xl mx-auto mt-8 px-4">
-                {userdata.offers && userdata.offers.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {userdata.offers.map((offer, index) => (
-                            <Card key={index} offer={offer} />
+                <h2 className={themeChangerDescriptionString(theme, 'text-black', 'text-white', 'text-2xl font-bold mb-4')}>User's Offers</h2>
+            <div className={'py-4 flex-auto items-center'}>
+                {offers.length > 0 ? (
+                    <div>
+                        {offers.map((offer, index) => (
+                            <CardWide key={index} offer={offer} />
                         ))}
                     </div>
                 ) : (
