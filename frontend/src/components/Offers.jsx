@@ -1,75 +1,120 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Card from './Card';
-import loading_cat from '../assets/loading_cat.gif'
-import sad_robot from '../assets/sad_robot.png'
-const Offers = ({query}) => {
-    const [offers, setOffers] = useState(null);
-    const [page, setPage] = useState(1);
-    useEffect(() => {
-    fetch(query===null?`http://localhost:6969/api/offer/page/${page}` : `http://localhost:6969/api/offer/search?query=${query}`)
-            .then((res) => res.json())
-            .then((data) => {
-                const processedOffers = data.map((offer) => {
-                    let imageUrl = '';
-                    let userPfpUrl = '';
+import loading_cat from '../assets/loading_cat.gif';
+import sad_robot from '../assets/sad_robot.png';
+import { MdKeyboardDoubleArrowDown } from "react-icons/md";
+import {useTheme} from "../context/ThemeContext";
+import themeChangerDescriptionString from "./utils/themeChangerDescriptionString";
 
-                    // Handle offer photo
-                    if (offer.photo) {
-                        if (Array.isArray(offer.photo)) {
-                            // If it's a byte array
-                            const imageBlob = new Blob([new Uint8Array(offer.photo)], { type: 'image/jpeg' });
-                            imageUrl = URL.createObjectURL(imageBlob);
-                        } else if (typeof offer.photo === 'string') {
-                            // If it's a Base64 encoded string
-                            imageUrl = `data:image/jpeg;base64,${offer.photo}`;
-                        }
-                    }
+const Offers = ({ query }) => {
+  const [offers, setOffers] = useState([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const {theme, toggleTheme} = useTheme();
+  const fetchInProgress = useRef(false);
 
-                    // Handle author's userPfp
-                    if (offer.author && offer.author.userPfp) {
-                        if (Array.isArray(offer.author.userPfp)) {
-                            const imageBlobPfp = new Blob([new Uint8Array(offer.author.userPfp)], { type: 'image/jpeg' });
-                            userPfpUrl = URL.createObjectURL(imageBlobPfp);
-                        } else if (typeof offer.author.userPfp === 'string') {
-                            userPfpUrl = `data:image/jpeg;base64,${offer.author.userPfp}`;
-                        }
-                    }
+  const processImage = (photo) => {
+    let imageUrl = '';
+    if (Array.isArray(photo)) {
+      const imageBlob = new Blob([new Uint8Array(photo)], { type: 'image/jpeg' });
+      imageUrl = URL.createObjectURL(imageBlob);
+    } else if (typeof photo === 'string') {
+      imageUrl = `data:image/jpeg;base64,${photo}`;
+    }
+    return imageUrl;
+  };
 
-                    return { ...offer, photo: imageUrl, author: { ...offer.author, userPfp: userPfpUrl } };
-                });
-                setOffers(processedOffers);
-            })
-            .catch((error) => {
-                console.log('Error fetching offers:', error);
-            });
-    }, [page]);
+  const fetchOffers = useCallback(async (currentPage, currentQuery) => {
+    if (fetchInProgress.current) return;
+    fetchInProgress.current = true;
+    setLoading(true);
+    
+    try {
+      const response = await fetch(currentQuery === null 
+        ? `http://localhost:6969/api/offer/page/${currentPage}` 
+        : `http://localhost:6969/api/offer/search?query=${currentQuery}`
+      );
+      const data = await response.json();
 
-    return (
+      if (data.length === 0) {
+        setHasMore(false);
+      } else {
+        const processedOffers = data.map((offer) => ({
+          ...offer,
+          photo: processImage(offer.photo),
+          author: {
+            ...offer.author,
+            userPfp: processImage(offer.author?.userPfp),
+          },
+        }));
+
+        setOffers((prevOffers) => 
+          currentPage === 1 ? processedOffers : [...prevOffers, ...processedOffers]
+        );
+      }
+    } catch (error) {
+      console.error('Error fetching offers:', error);
+    } finally {
+      setLoading(false);
+      fetchInProgress.current = false;
+    }
+  }, []);
+
+  useEffect(() => {
+    setOffers([]);
+    setPage(1);
+    setHasMore(true);
+    fetchOffers(1, query);
+  }, [query, fetchOffers]);
+
+  const handleLoadMore = useCallback(() => {
+    if (hasMore && !loading && !fetchInProgress.current) {
+      setPage((prevPage) => {
+        const nextPage = prevPage + 1;
+        fetchOffers(nextPage, query);
+        return nextPage;
+      });
+    }
+  }, [hasMore, loading, query, fetchOffers]);
+
+  return (
+    <>
+      {loading && offers.length === 0 ? (
+        <div className="flex justify-center items-center">
+          <img src={loading_cat} width={'20%'} height={'auto'} alt="Loading" />
+        </div>
+      ) : offers.length === 0 ? (
+        <div className="flex justify-center items-center">
+          <img className={'w-[250px]'} src={sad_robot} alt={"sad robot picture"} />
+          <p className={themeChangerDescriptionString(theme, '', 'text-white','text-3xl font-mono')}> Sorry, I couldn't find any results.</p>
+        </div>
+      ) : (
         <>
-            {offers === null ? (
-                <div className="flex justify-center items-center">
-                    <img src={loading_cat} width={'20%'} height={'auto'} alt="Loading" />
-                </div>
-            ) : offers.length === 0?
-                <div className={'flex justify-center items-center'}>
-                    <img className={'w-[250px]'}src={sad_robot} alt={"sad robot picture"}/> <p className={'text-3xl font-mono'}> Sorry, I couldn't find any results.</p>
-                </div>
-                : (
-                <div className="flex justify-center w-full">
-                    <div className="flex flex-col gap-3 w-full max-w-screen-xl px-[32px]">
-                        <div
-                            className="grid gap-3"
-                            style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 2fr))' }}
-                        >
-                            {offers.map((offer, index) => (
-                                <Card key={index} offer={offer} />
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            )}
+          <div className="flex justify-center w-full">
+            <div className="flex flex-col gap-3 w-full max-w-screen-xl px-[32px]">
+              <div
+                className="grid gap-3"
+                style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 2fr))' }}
+              >
+                {offers.map((offer, index) => (
+                  <Card key={`${offer.id}-${index}`} offer={offer} />
+                ))}
+              </div>
+            </div>
+          </div>
+          {hasMore && !loading && (
+            <button onClick={handleLoadMore} className={themeChangerDescriptionString(theme, 'hover:bg-[#067a89] bg-mwlightgreen',
+              'bg-[#067a89] hover:bg-[#07b2a0] text-white',
+              'text-white font-semibold rounded-lg text-sm px-4 py-2 mx-auto mt-3 flex')}>
+              Load More
+              <MdKeyboardDoubleArrowDown size={24} />
+            </button>
+          )}
         </>
-    );
+      )}
+    </>
+  );
 };
 
 export default Offers;
