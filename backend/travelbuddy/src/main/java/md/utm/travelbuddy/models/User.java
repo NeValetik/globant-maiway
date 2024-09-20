@@ -52,7 +52,7 @@ public class User {
     @Column(name = "sex")
     private char sex; // 'm' , 'f'
 
-    @Column(name = "about", columnDefinition = "TEXT")
+    @Column(name = "about", columnDefinition = "TEXT", length = 600)
     private String about;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user",cascade = CascadeType.ALL)

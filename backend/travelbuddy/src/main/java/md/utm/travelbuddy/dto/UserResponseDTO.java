@@ -29,6 +29,7 @@ public class UserResponseDTO {
         this.age = user.getAge();
         this.sex = user.getSex();
         this.about = user.getAbout();
+        this.name = user.getName();
         this.phoneNumber = user.getPhoneNumber();
         this.instagramLink = user.getInstagramLink();
         this.telegramLink = user.getTelegramLink();
