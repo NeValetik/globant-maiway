@@ -29,7 +29,7 @@ const Search = () => {
     e.preventDefault();
 
     let queryParams = [];
-    if (search) {
+    if (search ) {
       queryParams.push(`query=${search}`);
     }
     if (location) {
@@ -87,9 +87,8 @@ const Search = () => {
         </div>
         <div className="flex justify-end py-2 mr-auto my-5 ">
           <button type="button" className={themeChangerDescriptionString(theme, 'hover:bg-mwdarkgreen bg-mwlightgreen',
-                      'bg-mwdarkgreen hover:bg-mwlightgreen text-white',
-                      'text-gray-200' +
-                      ' focus:outline-none font-medium rounded-lg text-sm px-4')} onClick={toggleFilters}>
+                      'bg-mwdarkgreen hover:bg-mwlightgreen ',
+                      ' text-white focus:outline-none font-medium rounded-lg text-sm px-4')} onClick={toggleFilters}>
             <FaFilter size={19} className={themeChangerDescriptionString(theme,
             'gray-300','white', ) }/>
           </button>

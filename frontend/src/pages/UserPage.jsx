@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from "../components/Navbar";
 import Card from "../components/Card";
+import Footer from "../components/Footer";
 import useDominantColor from "../components/utils/useDominantColor";
 
 const UserPage = () => {
@@ -103,6 +104,7 @@ const UserPage = () => {
                     <p>No offers available</p>
                 )}
             </div>
+            <Footer />
         </div>
     );
 };
