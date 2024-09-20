@@ -87,7 +87,7 @@ const Offers = ({ query }) => {
       ) : offers.length === 0 ? (
         <div className="flex justify-center items-center">
           <img className={'w-[250px]'} src={sad_robot} alt={"sad robot picture"} />
-          <p className={'text-3xl font-mono'}> Sorry, I couldn't find any results.</p>
+          <p className={themeChangerDescriptionString(theme, '', 'text-white','text-3xl font-mono')}> Sorry, I couldn't find any results.</p>
         </div>
       ) : (
         <>
