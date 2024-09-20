@@ -15,7 +15,7 @@ function App() {
         document.body.className = theme === 'light' ? 'bg-[#f1f1f1]' : 'bg-[#131314]';
     }, [theme]);
 
-    
+    console.log(`hello`);
 
     return (
         <div className={`min-h-screen flex flex-col`}>

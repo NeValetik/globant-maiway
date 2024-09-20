@@ -15,7 +15,7 @@ function useQuery() {
 function Homepage() {
 
 
-  const query = useQuery().get('query');
+  const query = useQuery();
   return (
     <div className="Home flex flex-col min-h-screen relative">
       <Navbar />
