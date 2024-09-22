@@ -19,6 +19,7 @@ const UserPage = () => {
     const dominantColor = useDominantColor(userPfpUrl);
     const { theme } = useTheme();
 
+
     useEffect(() => {
         let objectUrls = [];
 
@@ -68,10 +69,11 @@ const UserPage = () => {
 
     return (
         <div className="min-h-screen">
-            <Navbar />
+            <Navbar/>
             <div className="py-10 justify-center w-full mx-auto flex flex-col relative">
-                <div className={themeChangerDescriptionString(theme, 'bg-white', 'bg-mvcontainergrey', 'shadow-lg rounded-lg overflow-hidden mx-auto max-w-[1200px] w-full relative')}>
-                    <div className="min-h-[170px] h-[170px] w-full" style={{ backgroundColor: dominantColor }}></div>
+                <div
+                    className={themeChangerDescriptionString(theme, 'bg-white', 'bg-mvcontainergrey', 'shadow-sm rounded-lg overflow-hidden mx-auto max-w-[1200px] w-full relative')}>
+                    <div className="min-h-[170px] h-[170px] w-full" style={{backgroundColor: dominantColor}}></div>
 
                     <div className="relative p-8 flex items-start">
                         <img
@@ -94,9 +96,11 @@ const UserPage = () => {
                                             {userdata.age} y.o
                                         </p>
                                         {userdata.sex === 'm' ? (
-                                            <FaMale color={themeChangerDescriptionString(theme, '#374151', '#9ca3af')} size={20} />
+                                            <FaMale color={themeChangerDescriptionString(theme, '#374151', '#9ca3af')}
+                                                    size={20}/>
                                         ) : (
-                                            <FaFemale color={themeChangerDescriptionString(theme, '#374151', '#9ca3af')} size={20} />
+                                            <FaFemale color={themeChangerDescriptionString(theme, '#374151', '#9ca3af')}
+                                                      size={20}/>
                                         )}
                                     </div>
                                 </div>
@@ -104,16 +108,21 @@ const UserPage = () => {
                                 <div className={'mt-10'}>
                                     {userdata.email && (
                                         <div className={'flex items-center'}>
-                                            <MdOutlineEmail color={themeChangerDescriptionString(theme, 'black', 'white')} className="mr-2" />
-                                            <a href={`mailto:${userdata.email}`} className={themeChangerDescriptionString(theme, 'text-mwlightgreen', 'text-mwlightgreen')}>
+                                            <MdOutlineEmail
+                                                color={themeChangerDescriptionString(theme, 'black', 'white')}
+                                                className="mr-2"/>
+                                            <a href={`mailto:${userdata.email}`}
+                                               className={themeChangerDescriptionString(theme, 'text-mwlightgreen', 'text-mwlightgreen')}>
                                                 {userdata.email}
                                             </a>
                                         </div>
                                     )}
                                     {userdata.instagramLink && (
                                         <div className={'flex items-center'}>
-                                            <FaInstagram color={themeChangerDescriptionString(theme, 'black', 'white')} className="mr-2" />
-                                            <a href={userdata.instagramLink} className={themeChangerDescriptionString(theme, 'text-mwlightgreen', 'text-mwlightgreen')}>
+                                            <FaInstagram color={themeChangerDescriptionString(theme, 'black', 'white')}
+                                                         className="mr-2"/>
+                                            <a href={userdata.instagramLink}
+                                               className={themeChangerDescriptionString(theme, 'text-mwlightgreen', 'text-mwlightgreen')}>
                                                 {userdata.instagramLink}
                                             </a>
                                         </div>
@@ -132,6 +141,11 @@ const UserPage = () => {
                         </div>
                     </div>
                 </div>
+                <div className={'m-auto'}>
+                <button
+                    className={'focus:outline-none font-semibold rounded-lg text-white text-sm px-4 bg-mwdarkgreen hover:bg-mwlightgreen w-[80px]'}>Edit
+                </button>
+                </div>
             </div>
 
             <div className="mt-10">
@@ -142,7 +156,7 @@ const UserPage = () => {
                     {offers.length > 0 ? (
                         <div className="flex flex-col gap-6">
                             {offers.map((offer, index) => (
-                                <CardWide key={index} offer={offer} />
+                                <CardWide key={index} offer={offer}/>
                             ))}
                         </div>
                     ) : (
@@ -150,7 +164,7 @@ const UserPage = () => {
                     )}
                 </div>
             </div>
-            <Footer />
+            <Footer/>
         </div>
     );
 };

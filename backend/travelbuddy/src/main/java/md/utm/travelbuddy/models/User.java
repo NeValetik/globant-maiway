@@ -1,6 +1,7 @@
 package md.utm.travelbuddy.models;
 
 import jakarta.persistence.*;
+import md.utm.travelbuddy.enums.Roles;
 
 import java.util.Arrays;
 import java.util.List;
@@ -43,6 +44,10 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private Roles role = Roles.ROLE_USER;
+
     @Column(name = "password")
     private String password;
 
@@ -60,6 +65,14 @@ public class User {
 
     public void seName(String name) {
         this.name = name;
+    }
+
+    public void setRole(Roles role) {
+        this.role = role;
+    }
+
+    public Roles getRole() {
+        return role;
     }
 
     public String getName() {

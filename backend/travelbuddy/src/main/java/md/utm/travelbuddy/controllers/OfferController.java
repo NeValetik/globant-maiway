@@ -63,19 +63,14 @@ public class OfferController {
                 .map(OffersMapping::mapOfferToDTO)
                 .collect(Collectors.toList());
     }
-
-//    // Generate offer by user ID
-//    @PostMapping("/generate/{userId}/{title}")
-//    public ResponseEntity<OfferResponseDTO> generateOfferByUserId(@PathVariable Long userId, @PathVariable String title) {
-//        Optional<Offer> generatedOffer = offerService.generateOfferByUser(userId, title);
-//        if (generatedOffer.isPresent()) {
-//            OfferResponseDTO responseDTO = mapOfferToDTO(generatedOffer.get());
-//            return ResponseEntity.ok(responseDTO);
-//        }
-//        return ResponseEntity.status(500).build(); // 500 if offer generation fails
-//    }
-
-    // Create new offer
+    /**
+     * Post Controller for creating the offer. Uses Request params listed below. Available at endpoint {@code /api/offer/new-offer}
+     * @param userId - the ID of the User. A temporary placeholder until auth is done.
+     * @param photo - The photo file.
+     * @param title - Title of the offer (80 chars max)
+     * @param body - Body of the offer (600 chars max)
+     * @return Response Entity with status either OK or INTERNAL_SERVER_ERROR
+     */
     @PostMapping("/new-offer")
     public ResponseEntity<String> createOffer(
             @RequestParam("userId") Long userId,
