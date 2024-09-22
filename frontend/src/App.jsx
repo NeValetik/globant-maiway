@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NewOffer from "./pages/NewOffer";
 import { useEffect } from 'react';
 import UserPage from "./pages/UserPage";
+import LoginSignupForm from "./components/LogInForm";
 
 
 function App() {
@@ -25,6 +26,8 @@ function App() {
                     <Route path='/' element={<Homepage />} />
                     <Route path='/newoffer' element={<NewOffer />} />
                     <Route path='/search' element={<Homepage />} />
+                    <Route path='/login' element={<LoginSignupForm />} />
+
                     <Route path='/user/:username' element={<UserPage />} />
                 </Routes>
             </Router>
