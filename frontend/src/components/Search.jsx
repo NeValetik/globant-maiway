@@ -27,7 +27,7 @@ const Search = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-
+    console.log(`hello`);
     let queryParams = [];
     if (search ) {
       queryParams.push(`query=${search}`);
@@ -47,8 +47,8 @@ const Search = () => {
 
     const queryString = queryParams.length > 0 ? `?${queryParams.join('&')}` : "";
     navigate(`/search${queryString}`);
-
-    window.location.reload();
+    // await window.location.reload();
+    console.log(`/search${queryString}`);
   };
 
 

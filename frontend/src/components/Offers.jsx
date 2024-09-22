@@ -31,9 +31,10 @@ const Offers = ({ query }) => {
     setLoading(true);
     
     try {
+      console.log(currentQuery);
       const response = await fetch(currentQuery === null 
         ? `http://localhost:6969/api/offer/page/${currentPage}` 
-        : `http://localhost:6969/api/offer/search?query=${currentQuery}`
+        : `http://localhost:6969/api/offer/search?${currentQuery}`
       );
       const data = await response.json();
 

@@ -53,7 +53,7 @@ public class OfferService {
             after = after + " 23:59:59";
             afterTime = LocalDateTime.parse(after, formatter1);
         }
-        System.out.println(beforeTime+" : "+afterTime);
+        System.out.println(beforeTime+" : "+afterTime + ":::" + title);
         LocalDateTime MinimumDate = LocalDateTime.parse("1900-01-01 00:00:01", formatter1);
         // If both beforeTime and afterTime are not null, call the repository
         if (beforeTime != null && afterTime != null) {
