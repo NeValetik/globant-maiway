@@ -14,6 +14,5 @@ public class TravelbuddyApplication {
 		SpringApplication.run(TravelbuddyApplication.class, args);
 		System.out.println("Hello Traveler!");
 		logger.debug("Started app");
-
 	}
 }

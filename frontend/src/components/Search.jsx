@@ -96,7 +96,7 @@ const Search = () => {
       </div>
       {showFilters ? 
       <div className="flex justify-end mb-7">
-        <div className="w-1/4">
+        <div className="w-1/4 absolute z-50">
           <Filters 
           location={location}
           setLocation={setLocation}

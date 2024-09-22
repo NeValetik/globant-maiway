@@ -24,8 +24,8 @@ const Filters = ({ location, setLocation, region, setRegion, before, setBefore, 
   return (
     <div className={themeChangerDescriptionString(
       theme,
-      'bg-[#ffffff]',
-      'bg-[#1e1f20]',"max-h-screen px-4 top-10 rounded-sm mr-6 pt-6 pb-4 ml-6")}>
+      'bg-[#ffffff] shadow-lg',
+      'bg-[#1e1f20] shadow-gray-800 shadow-md',"max-h-screen px-4 top-10 rounded-sm mr-6 pt-6 pb-4 ml-6 shadow")}>
       <div className="mb-4">
         <select
           id="country"

@@ -73,7 +73,7 @@ const Offers = ({ query }) => {
     if (hasMore && !loading && !fetchInProgress.current) {
       setPage((prevPage) => {
         const nextPage = prevPage + 1;
-        fetchOffers(nextPage, query);
+        setTimeout(() => fetchOffers(nextPage, query), 300); // Debounce with a 300ms delay
         return nextPage;
       });
     }
