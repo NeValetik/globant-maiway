@@ -14,8 +14,9 @@ function useQuery() {
 
 function Homepage() {
 
-
-  const query = useQuery();
+  const queryCall = useQuery();
+  const query = queryCall !== ""?  null : queryCall;
+  console.log("this is query" + " '"+query + "'")
   return (
     <div className="Home flex flex-col min-h-screen relative">
       <Navbar />
