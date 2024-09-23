@@ -29,15 +29,13 @@ const Offers = ({ query }) => {
     if (fetchInProgress.current) return;
     fetchInProgress.current = true;
     setLoading(true);
-    
+   
     try {
-      console.log(currentQuery);
       const response = await fetch(currentQuery === null 
         ? `http://localhost:6969/api/offer/page/${currentPage}` 
         : `http://localhost:6969/api/offer/search?${currentQuery}`
       );
       const data = await response.json();
-
       if (data.length === 0) {
         setHasMore(false);
       } else {
@@ -49,7 +47,6 @@ const Offers = ({ query }) => {
             userPfp: processImage(offer.author?.userPfp),
           },
         }));
-
         setOffers((prevOffers) => 
           currentPage === 1 ? processedOffers : [...prevOffers, ...processedOffers]
         );
@@ -63,21 +60,30 @@ const Offers = ({ query }) => {
   }, []);
 
   useEffect(() => {
-    setOffers([]);
-    setPage(1);
-    setHasMore(true);
-    fetchOffers(1, query);
-  }, [query, fetchOffers]);
+    let isMounted = true;
+    const loadInitialOffers = () => {
+      if (isMounted) {
+        setOffers([]);
+        setPage(1);
+        setHasMore(true);
+        fetchOffers(1, query);
+      }
+    };
+    loadInitialOffers();
+    return () => {
+      isMounted = false;
+    };
+  }, [query]);
 
-  const handleLoadMore = useCallback(() => {
-    if (hasMore && !loading && !fetchInProgress.current) {
+  const handleLoadMore = () => {
+    if (hasMore && !loading && !fetchInProgress.current && page === 1) {
       setPage((prevPage) => {
         const nextPage = prevPage + 1;
-        setTimeout(() => fetchOffers(nextPage, query), 300); // Debounce with a 300ms delay
+        setTimeout(() => fetchOffers(nextPage, query), 300);
         return nextPage;
       });
-    }
-  }, [hasMore, loading, query, fetchOffers]);
+    };
+  };
 
   return (
     <>
