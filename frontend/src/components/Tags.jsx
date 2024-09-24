@@ -8,7 +8,7 @@ import {useTheme} from "../context/ThemeContext";
 const Tags = ({classNamePos = "",classNameBody = "",tags}) => {
 const [countries] = useState(locationsData)
 const {theme, toggleTheme} = useTheme()
-console.log(classNameBody,classNamePos)
+// console.log(classNameBody,classNamePos)
 return (
 	<div className={classNamePos === "" ? "px-6 py-2 mt-auto":`${classNamePos}`}>
 		{tags.region!=null ?

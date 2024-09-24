@@ -7,7 +7,7 @@ import Tags from './Tags';
 
 
 const Card = ({ offer }) => {
-    console.log(offer)
+    // console.log(offer)
     const { theme } = useTheme();
     const [isHovered, setIsHovered] = useState(false);
     const navigate = useNavigate();
