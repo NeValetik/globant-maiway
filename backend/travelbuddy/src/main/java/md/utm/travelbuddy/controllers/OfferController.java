@@ -58,6 +58,7 @@ public class OfferController {
     // Get offers by page
     @GetMapping("/page/{number}")
     public List<OfferResponseDTO> getOffersPerPage(@PathVariable int number) {
+        logger.info("Received request to get all offers");
         List<Offer> offers = offerService.getOffersPerPage(number - 1, PAGE_OFFERS_LIMIT);
         return offers.stream()
                 .map(OffersMapping::mapOfferToDTO)
@@ -109,6 +110,7 @@ public class OfferController {
     @RequestParam(required = false) String region, 
     @RequestParam(required = false) String before, 
     @RequestParam(required = false) String after) {
+
         System.out.println(query+":    :" + before + ":" + after);
         //List<Offer> filteredOffers = offerService.findOffersBetweenDate(before, after);
         List<Offer> filteredOffers = offerService.searchByFilters(query, location, region, before, after);
