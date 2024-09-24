@@ -76,6 +76,8 @@ public class OfferController {
             @RequestParam("userId") Long userId,
             @RequestParam("photo") MultipartFile photo,
             @RequestParam("title") String title,
+            @RequestParam("location") String location,
+            @RequestParam("region") String region,
             @RequestParam("body") String body)  {
 
         try {
@@ -90,7 +92,7 @@ public class OfferController {
             User user = userOptional.get();
 
             // Create a new offer and save it to the database
-            Offer newOffer = new Offer(user, title, body, photoBytes);
+            Offer newOffer = new Offer(user, title, body, photoBytes, location, region);
             offerService.saveOffer(newOffer);
 
             logger.info("New offer created with title " + title);

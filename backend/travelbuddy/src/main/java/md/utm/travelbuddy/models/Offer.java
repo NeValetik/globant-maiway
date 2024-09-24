@@ -51,6 +51,15 @@ public class Offer {
         this.photo = photo;
     }
 
+    public Offer(User user, String title, String description, byte[] photo, String location, String region) {
+        this.user = user;
+        this.title = title;
+        this.description = description;
+        this.photo = photo;
+        this.location = location;
+        this.region = region;
+    }
+
     @Override
     public String toString() {
         return "Offer{" +
