@@ -5,18 +5,20 @@ import { useState, useEffect } from 'react';
 import Tags from '../components/Tags';
 import themeChangerDescriptionString from '../components/utils/themeChangerDescriptionString';
 import { useTheme } from "../context/ThemeContext";
+import loading_cat from '../assets/loading_cat.gif';
+
 
 
 const processImage = (photo) => {
-    let imageUrl = '';
-    if (Array.isArray(photo)) {
-      const imageBlob = new Blob([new Uint8Array(photo)], { type: 'image/jpeg' });
-      imageUrl = URL.createObjectURL(imageBlob);
-    } else if (typeof photo === 'string') {
-      imageUrl = `data:image/jpeg;base64,${photo}`;
-    }
-    return imageUrl;
-  };
+  let imageUrl = '';
+  if (Array.isArray(photo)) {
+    const imageBlob = new Blob([new Uint8Array(photo)], { type: 'image/jpeg' });
+    imageUrl = URL.createObjectURL(imageBlob);
+  } else if (typeof photo === 'string') {
+    imageUrl = `data:image/jpeg;base64,${photo}`;
+  }
+  return imageUrl;
+};
 
 function OfferPage() {
   const { id } = useParams(); // Get the offer ID from the URL parameters
@@ -48,7 +50,11 @@ function OfferPage() {
   }, [id]);
 
   if (!offer) {
-    return <div>Loading...</div>; // Show a loading state until the offer is fetched
+    return (
+      <div className="justify-items-center justify-center flex my-auto">
+        <img src={loading_cat} width={'20%'} height={'auto'} alt="Loading" />
+      </div>
+    ); // Show a loading state until the offer is fetched
   }
 
   return (
@@ -68,6 +74,7 @@ function OfferPage() {
           </div>
           <Tags classNamePos="flex" tags={{"region": offer.region, "location": offer.location}} />
         </div>
+        <button className='flex flex-col mx-auto px-4 py-2 text-white my-2 rounded-lg bg-mwlightgreen' onClick={''}>Apply</button>
       </div>
       <Footer />
     </div>
