@@ -23,9 +23,10 @@ const UserPage = () => {
     useEffect(() => {
         let objectUrls = [];
 
-        fetch(`http://localhost:6969/api/user/userpage/username/${username}`)
+        fetch(`http://localhost:6969/api/user/userpage/username/${username}`,)
             .then((res) => res.json())
             .then((data) => {
+                console.log(data)
                 let userPfpUrl = '';
                 if (data.photo) {
                     if (Array.isArray(data.photo)) {
@@ -46,7 +47,8 @@ const UserPage = () => {
                     email: data.email,
                     instagramLink: data.instagramLink,
                     about: data.about,
-                    photo: data.photo
+                    photo: data.photo,
+                    id: data.id
                 });
 
                 const processedOffers = data.offers.map(offer => ({

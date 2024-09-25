@@ -8,7 +8,7 @@ import themeChangerDescriptionString from "./utils/themeChangerDescriptionString
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-  const { token, clearToken, isAuthenticated } = useContext(JWTContext);
+  const { token, userId, clearToken, isAuthenticated } = useContext(JWTContext);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [userPfp, setUserPfp] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS3l4ZjaN7cVwzh-ISmjRTpyjgePCZ_BqJ6w&s");
   const { theme, toggleTheme } = useTheme();
@@ -24,6 +24,8 @@ const Navbar = () => {
       setDropdownVisible(false);
     }
   };
+
+  console.log(userId)
 
   return (
     <header className={themeChangerDescriptionString(theme,
