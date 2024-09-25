@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -6,29 +6,26 @@ import useDominantColor from "../components/utils/useDominantColor";
 import themeChangerDescriptionString from "../components/utils/themeChangerDescriptionString";
 import { useTheme } from '../context/ThemeContext';
 import CardWide from "../components/CardWide";
-import { MdOutlineEmail } from "react-icons/md";
-import { FaInstagram } from "react-icons/fa";
-import { FaMale, FaFemale } from "react-icons/fa";
-import {JWTContext} from "../context/JWTContext";
+import { MdOutlineEmail, MdAddAPhoto } from "react-icons/md";
+import { FaInstagram, FaMale, FaFemale } from "react-icons/fa";
+import { JWTContext } from "../context/JWTContext";
 
 const UserPage = () => {
-
-    const { token, authUserId, isAuthenticated } = useContext(JWTContext);
-    console.log("Context Values: ", { token, authUserId, isAuthenticated });
-
+    const { token, userId, isAuthenticated } = useContext(JWTContext);
     const { username } = useParams();
     const [userdata, setUserdata] = useState(null);
     const [userPfpUrl, setUserPfpUrl] = useState(null);
     const [offers, setOffers] = useState([]);
-    const [isEditing, setIsEditing] = useState(false); // State for edit mode
+    const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({});
     const dominantColor = useDominantColor(userPfpUrl);
     const { theme } = useTheme();
+    const fileInputRef = useRef(null);
 
     useEffect(() => {
         let objectUrls = [];
 
-        fetch(`http://localhost:6969/api/user/userpage/username/${username}`,)
+        fetch(`http://localhost:6969/api/user/userpage/username/${username}`)
             .then((res) => res.json())
             .then((data) => {
                 console.log(data)
@@ -42,11 +39,10 @@ const UserPage = () => {
                         userPfpUrl = `data:image/jpeg;base64,${data.photo}`;
                     }
                 }
-                console.log("Token from auth " + authUserId)
 
                 setUserdata({ ...data, photo: userPfpUrl });
                 setUserPfpUrl(userPfpUrl);
-                setFormData({ // Set form data for editing
+                setFormData({
                     name: data.name,
                     age: data.age,
                     sex: data.sex,
@@ -81,28 +77,35 @@ const UserPage = () => {
     }, [username]);
 
     const handleSubmit = () => {
+        const formDataToSend = new FormData();
+        Object.keys(formData).forEach(key => {
+            if (key === 'photo' && formData[key] instanceof File) {
+                formDataToSend.append(key, formData[key]);
+            } else {
+                formDataToSend.append(key, formData[key]);
+            }
+        });
+
         fetch(`http://localhost:6969/api/user/${userdata.id}/update`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
                 "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify(formData),
+            body: formDataToSend,
         })
             .then((res) => {
                 if (!res.ok) {
                     console.log(res.text())
                     throw new Error('Network response was not ok.');
                 }
-                // return res.json(); // Parse the JSON response
+                // return res.json();
             })
             .then((data) => {
-                // Update the userdata with the new data
                 setUserdata((prev) => ({
                     ...prev,
-                    ...data, // Ensure you get the latest user data
+                    ...data,
                 }));
-                setIsEditing(false); // Exit edit mode
+                setIsEditing(false);
                 window.location.reload();
             })
             .catch((error) => {
@@ -110,14 +113,23 @@ const UserPage = () => {
             });
     };
 
-
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
             ...prev,
             [name]: value,
         }));
+    };
+
+    const handlePhotoChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setFormData((prev) => ({
+                ...prev,
+                photo: file,
+            }));
+            setUserPfpUrl(URL.createObjectURL(file));
+        }
     };
 
     const toggleEditMode = () => {
@@ -133,7 +145,9 @@ const UserPage = () => {
             email: userdata.email,
             instagramLink: userdata.instagramLink,
             about: userdata.about,
+            photo: userdata.photo,
         });
+        setUserPfpUrl(userdata.photo);
     };
 
     if (!userdata) {
@@ -144,16 +158,34 @@ const UserPage = () => {
         <div className="min-h-screen">
             <Navbar />
             <div className="py-10 justify-center w-full mx-auto flex flex-col relative">
-                <div
-                    className={themeChangerDescriptionString(theme, 'bg-white', 'bg-mvcontainergrey', 'shadow-sm rounded-lg overflow-hidden mx-auto max-w-[1200px] w-full relative')}>
+                <div className={themeChangerDescriptionString(theme, 'bg-white', 'bg-mvcontainergrey', 'shadow-sm rounded-lg overflow-hidden mx-auto max-w-[1200px] w-full relative')}>
                     <div className="min-h-[170px] h-[170px] w-full" style={{ backgroundColor: dominantColor }}></div>
 
                     <div className="relative p-8 flex items-start">
-                        <img
-                            src={userPfpUrl}
-                            alt="Profile Picture"
-                            className={themeChangerDescriptionString(theme, 'border-white', 'border-mvcontainergrey shadow-md', 'rounded-full object-cover w-[200px] h-[200px] border-[10px] transition-transform duration-300 ease-in-out hover:scale-110 absolute -top-20 left-8')}
-                        />
+                        <div className="absolute -top-20 left-8">
+                            <div className="relative w-[200px] h-[200px]">
+                                <img
+                                    src={userPfpUrl}
+                                    alt="Profile Picture"
+                                    className={`border-[10px] ${themeChangerDescriptionString(theme, 'border-white', 'border-mvcontainergrey', 'shadow-md rounded-full object-cover w-full h-full transition-transform duration-300 ease-in-out hover:scale-110')}`}
+                                />
+                                {isEditing && (
+                                    <div
+                                        className="absolute inset-0 flex items-center justify-center cursor-pointer bg-black bg-opacity-50 rounded-full"
+                                        onClick={() => fileInputRef.current.click()}
+                                    >
+                                        <MdAddAPhoto size={50} color="white" className="opacity-70 hover:opacity-100"/>
+                                        <input
+                                            type="file"
+                                            ref={fileInputRef}
+                                            onChange={handlePhotoChange}
+                                            className="hidden"
+                                            accept="image/*"
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                        </div>
                         <div className="h-[220px] flex w-full">
                             <div className="flex-1">
                                 <div className="flex ml-[250px] flex-col">
@@ -196,9 +228,13 @@ const UserPage = () => {
                                                     {userdata.age} y.o
                                                 </p>
                                                 {userdata.sex === 'm' ? (
-                                                    <FaMale color={themeChangerDescriptionString(theme, '#374151', '#9ca3af')} size={20} />
+                                                    <FaMale
+                                                        color={themeChangerDescriptionString(theme, '#374151', '#9ca3af')}
+                                                        size={20}/>
                                                 ) : (
-                                                    <FaFemale color={themeChangerDescriptionString(theme, '#374151', '#9ca3af')} size={20} />
+                                                    <FaFemale
+                                                        color={themeChangerDescriptionString(theme, '#374151', '#9ca3af')}
+                                                        size={20}/>
                                                 )}
                                             </div>
                                         </>
@@ -292,6 +328,7 @@ const UserPage = () => {
                             </button>
                         </div>
                     ) : (
+                        userId === userdata.id &&
                         <button
                             onClick={toggleEditMode}
                             className={'focus:outline-none font-semibold rounded-lg text-white text-sm px-4 bg-mwdarkgreen hover:bg-mwlightgreen w-[80px]'}
@@ -310,7 +347,7 @@ const UserPage = () => {
                     {offers.length > 0 ? (
                         <div className="flex flex-col gap-6">
                             {offers.map((offer, index) => (
-                                <CardWide key={index} offer={offer} />
+                                <CardWide key={index} offer={offer}/>
                             ))}
                         </div>
                     ) : (
@@ -318,7 +355,7 @@ const UserPage = () => {
                     )}
                 </div>
             </div>
-            <Footer />
+            <Footer/>
         </div>
     );
 };

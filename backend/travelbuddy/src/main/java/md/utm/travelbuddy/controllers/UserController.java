@@ -12,7 +12,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -49,7 +51,15 @@ public class UserController {
     }
 
     @PostMapping("/{id}/update")
-    public ResponseEntity<?> updateUser(@RequestBody UpdateUserRequest updateUserRequest, @PathVariable Long id) {
+    public ResponseEntity<?> updateUser(
+            @RequestParam("photo") MultipartFile photo,
+            @RequestParam("name") String name,
+            @RequestParam("age") int age,
+            @RequestParam("sex") String sex,
+            @RequestParam("email") String email,
+            @RequestParam("instagramLink") String instagramLink,
+            @RequestParam("about") String about,
+            @PathVariable Long id) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
@@ -63,19 +73,26 @@ public class UserController {
 
         User existedUser = (User) userDetails;
 
+        // Handle photo upload
+        try {
+            byte[] photoBytes = photo.getBytes();
+            existedUser.setPhoto(photoBytes);
+        } catch (IOException e) {
+            return new ResponseEntity<>("Error reading photo file", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
-        existedUser.setName(updateUserRequest.getName());
-        existedUser.setAge(updateUserRequest.getAge());
-        existedUser.setSex(updateUserRequest.getSex());
-        existedUser.setEmail(updateUserRequest.getEmail());
-        existedUser.setInstagramLink(updateUserRequest.getInstagramLink());
-        existedUser.setAbout(updateUserRequest.getAbout());
-        existedUser.setPhoto(updateUserRequest.getPhoto());
+        existedUser.setName(name);
+        existedUser.setAge(age);
+        existedUser.setSex(sex);
+        existedUser.setEmail(email);
+        existedUser.setInstagramLink(instagramLink);
+        existedUser.setAbout(about);
 
         userService.saveUser(existedUser);
 
         return ResponseEntity.ok().build();
     }
+
 
 
 
