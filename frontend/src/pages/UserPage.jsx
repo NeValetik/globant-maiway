@@ -8,6 +8,7 @@ import { useTheme } from '../context/ThemeContext';
 import CardWide from "../components/CardWide";
 import { MdOutlineEmail, MdAddAPhoto } from "react-icons/md";
 import { FaInstagram, FaMale, FaFemale } from "react-icons/fa";
+import { FaGenderless } from "react-icons/fa6";
 import { JWTContext } from "../context/JWTContext";
 
 const UserPage = () => {
@@ -225,15 +226,18 @@ const UserPage = () => {
                                                 <p className={themeChangerDescriptionString(theme, 'text-gray-600', 'text-[#9ca3af]', "text-lg mr-2")}>
                                                     {userdata.age} y.o
                                                 </p>
+
                                                 {userdata.sex === 'm' ? (
                                                     <FaMale
                                                         color={themeChangerDescriptionString(theme, '#374151', '#9ca3af')}
                                                         size={20}/>
-                                                ) : (
+                                                ) : userdata.sex === 'f' ? (
                                                     <FaFemale
                                                         color={themeChangerDescriptionString(theme, '#374151', '#9ca3af')}
                                                         size={20}/>
-                                                )}
+                                                ) : <FaGenderless color={themeChangerDescriptionString(theme, '#374151', '#9ca3af')}
+                                                                  size={20} />
+                                                }
                                             </div>
                                         </>
                                     )}
