@@ -10,7 +10,7 @@ import BlankPfp from '../assets/blank-pfp.png'
 
 
 const Navbar = () => {
-  const { token, userId, clearToken, authUserPhoto, isAuthenticated } = useContext(JWTContext);
+  const { token, userId, username, clearToken, authUserPhoto, isAuthenticated } = useContext(JWTContext);
 
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   // const [userPfp, setUserPfp] = useState(authUserPhoto);
@@ -28,8 +28,6 @@ const Navbar = () => {
       setDropdownVisible(false);
     }
   };
-
-  console.log(userId)
 
   return (
     <header className={themeChangerDescriptionString(theme,
@@ -106,9 +104,9 @@ const Navbar = () => {
                   >
                     <ul className="py-2 text-sm text-gray-800 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                       <li>
-                        <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-white">
+                        <Link to={`/user/${username}`} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-white">
                           Dashboard
-                        </a>
+                        </Link>
                       </li>
                       <li>
                         <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-white">
