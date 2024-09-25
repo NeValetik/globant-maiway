@@ -51,6 +51,8 @@ export const JWTProvider = ({ children }) => {
     setToken(null);
     setAuthUserPhoto(null); // Clear the photo when token is cleared
     localStorage.removeItem('token');
+    console.log("token cleared " + !!token);
+    window.location.reload();
   };
 
   // Check if a token exists (useful for authentication checks)
