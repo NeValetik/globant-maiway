@@ -7,9 +7,9 @@ import themeChangerDescriptionString from "./utils/themeChangerDescriptionString
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-  const [user, setUser] = useState(true);
+  const [token] = useState(localStorage.getItem('token'));
   const [isDropdownVisible, setDropdownVisible] = useState(false);
-  const [userPfp,setUserPfp] = useState("");
+  const [userPfp,setUserPfp] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS3l4ZjaN7cVwzh-ISmjRTpyjgePCZ_BqJ6w&s");
 
   const {theme, toggleTheme} = useTheme()
 
@@ -20,12 +20,11 @@ const Navbar = () => {
     setDropdownVisible(false) 
   }
 
-  const handleUser = async e => {
-    setUser(!user)//TODO: JWT. Here there is need to work with the jwt tokens to get the account data from the user if he is logged
-    if (user){//This should be modified
-      setUserPfp("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS3l4ZjaN7cVwzh-ISmjRTpyjgePCZ_BqJ6w&s")
-    }
-  };
+  // const handleUser = async e => {
+  //   if (user){//This should be modified
+  //     setUserPfp("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS3l4ZjaN7cVwzh-ISmjRTpyjgePCZ_BqJ6w&s")
+  //   }
+  // };
 
   return (
     <header className={themeChangerDescriptionString(theme,
@@ -52,19 +51,18 @@ const Navbar = () => {
         </div>
         </div>
         <div className="flex flex-1 space-x-8 justify-end">
-          {user ? (
+          {token === null ? (
               <>
-                <a
-                    href="#"
-                onClick={handleUser}
+                <Link
+                    to="/login"
+                
                 className={themeChangerDescriptionString(theme, 'py-2 text-sm font-semibold leading-6 text-gray-900 hover:text-gray-500', 'py-2 text-sm font-semibold leading-6 text-white hover:text-gray-100')}
               >
                 Log in
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="/login"
 
-                onClick={handleUser}
                   // hover:bg-[#016960] bg-[#629a8d]
 
                 className={themeChangerDescriptionString(theme, 'text-white bg-mwlightgreen hover:bg-[#067a89]',
@@ -72,7 +70,7 @@ const Navbar = () => {
                     'block rounded-lg py-2 pl-6 pr-6 text-sm font-semibold leading-7 text-white')}
               >
                 Sign up
-              </a>
+              </Link>
             </>
           ) : (
             <>
