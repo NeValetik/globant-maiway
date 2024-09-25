@@ -76,12 +76,12 @@ const Navbar = () => {
                 to="/newoffer"
                 className={themeChangerDescriptionString(
                   theme,
-                  'text-white bg-[#629a8d] hover:bg-[#016960]',
-                  'hover:bg-[#629a8d] bg-[#016960]',
+                  'text-white bg-mwlightgreen hover:bg-mwdarkgreen',
+                  'hover:bg-mwlightgreen bg-mwdarkgreen',
                   'block rounded-lg py-2 pl-6 pr-6 text-sm font-semibold leading-7 text-white'
                 )}
               >
-                Travel
+                Create Offer
               </Link>
               <div className="relative">
                 <img

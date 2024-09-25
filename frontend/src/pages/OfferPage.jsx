@@ -43,6 +43,7 @@ function OfferPage() {
         if (file) {
             setPhoto(file);
             setPreviewUrl(URL.createObjectURL(file));
+
         }
     };
 

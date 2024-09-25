@@ -10,6 +10,7 @@ import { MdOutlineEmail, MdAddAPhoto } from "react-icons/md";
 import { FaInstagram, FaMale, FaFemale } from "react-icons/fa";
 import { FaGenderless } from "react-icons/fa6";
 import { JWTContext } from "../context/JWTContext";
+import BlankPhoto from "../assets/blank-pfp.png"
 
 const UserPage = () => {
     const { token, userId, isAuthenticated } = useContext(JWTContext);
@@ -164,9 +165,9 @@ const UserPage = () => {
                         <div className="absolute -top-20 left-8">
                             <div className="relative w-[200px] h-[200px]">
                                 <img
-                                    src={userPfpUrl}
+                                    src={userPfpUrl || BlankPhoto}
                                     alt="Profile Picture"
-                                    className={`border-[10px] ${themeChangerDescriptionString(theme, 'border-white', 'border-mvcontainergrey', 'shadow-md rounded-full object-cover w-full h-full transition-transform duration-300 ease-in-out hover:scale-110')}`}
+                                    className={`border-[10px] ${themeChangerDescriptionString(theme, 'border-white', 'border-mvcontainergrey', 'rounded-full object-cover w-full h-full transition-transform duration-300 ease-in-out hover:scale-110')}`}
                                 />
                                 {isEditing && (
                                     <div
