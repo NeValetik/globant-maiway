@@ -1,16 +1,22 @@
-import { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { MdOutlineEmail } from "react-icons/md";
+import {FaLock, FaUser} from "react-icons/fa";
+import { useTheme } from '../context/ThemeContext';
+import themeChangerDescriptionString from "../components/utils/themeChangerDescriptionString";
+import Navbar from "./Navbar";
 
 function LoginSignupForm() {
-  const [isLogin, setIsLogin] = useState(true); // Toggle between login and sign-up
+  const [isLogin, setIsLogin] = useState(true);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const { theme } = useTheme();
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
-    setError(''); // Clear errors when toggling between forms
+    setError('');
   };
 
   const handleSubmit = async (e) => {
@@ -18,7 +24,6 @@ function LoginSignupForm() {
     setLoading(true);
     setError('');
 
-    // Password mismatch validation for sign-up
     if (!isLogin && password !== confirmPassword) {
       setError('Passwords do not match');
       setLoading(false);
@@ -38,17 +43,14 @@ function LoginSignupForm() {
       });
 
       const token = await response.text();
-      
+
       if (!response.ok) {
-          throw new Error(token.message || 'An error occurred');
-        }
+        throw new Error(token.message || 'An error occurred');
+      }
 
-      // Store JWT token in localStorage
       localStorage.setItem('token', token);
+      console.log("This is in local storage: " + localStorage.getItem('token'));
 
-      console.log("This is in local storage"+localStorage.getItem('token'))
-      
-      // Optionally redirect the user after login/signup
       window.location.href = '/';
     } catch (err) {
       setError(err.message || 'An error occurred. Please try again.');
@@ -59,84 +61,83 @@ function LoginSignupForm() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-        <h2 className="text-2xl font-semibold text-center mb-6">
-          {isLogin ? 'Login' : 'Sign Up'}
-        </h2>
+      <>
+      <Navbar/>
+      <div className="min-h-screen py-10 flex items-center justify-center">
+        <div className={themeChangerDescriptionString(theme, 'bg-white', 'bg-mvcontainergrey', 'shadow-sm rounded-lg overflow-hidden mx-auto max-w-[500px] w-full relative')}>
+          <div className="min-h-[100px] h-[100px] w-full bg-mwlightgreen"></div>
 
-        <form onSubmit={handleSubmit}>
-          {/* Email */}
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-700">
-              Username
-            </label>
-            <input
-              id="email"
-              className="w-full p-2 border border-gray-300 rounded mt-1"
-              placeholder="Enter your username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
+          <div className="relative p-8">
+            <h2 className={themeChangerDescriptionString(theme, 'text-black', 'text-white', 'text-3xl font-bold mb-6 text-center')}>
+              {isLogin ? 'Login' : 'Sign Up'}
+            </h2>
+
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <div className="flex items-center">
+                  <FaUser className={themeChangerDescriptionString(theme, 'text-gray-600', 'text-gray-400')} size={20} />
+                  <input
+                      type="text"
+                      placeholder="Username"
+                      className={`${themeChangerDescriptionString(theme, 'bg-white text-black', 'bg-mvcontainergrey text-white', 'ml-2 w-full p-2 border-b border-gray-300 focus:outline-none focus:border-mwlightgreen')}`}
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      required
+                  />
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <div className="flex items-center">
+                  <FaLock className={themeChangerDescriptionString(theme, 'text-gray-600', 'text-gray-400')} size={20} />
+                  <input
+                      type="password"
+                      placeholder="Password"
+                      className={`${themeChangerDescriptionString(theme, 'bg-white text-black', 'bg-mvcontainergrey text-white', 'ml-2 w-full p-2 border-b border-gray-300 focus:outline-none focus:border-mwlightgreen')}`}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                  />
+                </div>
+              </div>
+
+              {!isLogin && (
+                  <div className="mb-4">
+                    <div className="flex items-center">
+                      <FaLock className={themeChangerDescriptionString(theme, 'text-gray-600', 'text-gray-400')} size={20} />
+                      <input
+                          type="password"
+                          placeholder="Confirm Password"
+                          className={`${themeChangerDescriptionString(theme, 'bg-white text-black', 'bg-mvcontainergrey text-white', 'ml-2 w-full p-2 border-b border-gray-300 focus:outline-none focus:border-mwlightgreen')}`}
+                          value={confirmPassword}
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          required
+                      />
+                    </div>
+                  </div>
+              )}
+
+              {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+
+              <button
+                  type="submit"
+                  className={`w-full bg-mwdarkgreen text-white p-2 rounded-lg hover:bg-mwlightgreen transition-colors ${loading && 'opacity-50 cursor-not-allowed'}`}
+                  disabled={loading}
+              >
+                {loading ? 'Processing...' : isLogin ? 'Log In' : 'Sign Up'}
+              </button>
+            </form>
+
+            <p className={`${themeChangerDescriptionString(theme, 'text-gray-600', 'text-gray-400')} text-center mt-4`}>
+              {isLogin ? "Don't have an account?" : 'Already have an account?'}{' '}
+              <button onClick={toggleForm} className="text-mwlightgreen hover:underline">
+                {isLogin ? 'Sign Up' : 'Log In'}
+              </button>
+            </p>
           </div>
-
-          {/* Password */}
-          <div className="mb-4">
-            <label htmlFor="password" className="block text-gray-700">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="w-full p-2 border border-gray-300 rounded mt-1"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-
-          {/* Confirm Password (for Sign Up) */}
-          {!isLogin && (
-            <div className="mb-4">
-              <label htmlFor="confirmPassword" className="block text-gray-700">
-                Confirm Password
-              </label>
-              <input
-                type="password"
-                id="confirmPassword"
-                className="w-full p-2 border border-gray-300 rounded mt-1"
-                placeholder="Confirm your password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
-            </div>
-          )}
-
-          {/* Error Message */}
-          {error && <p className="text-red-500 text-sm">{error}</p>}
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className={`w-full bg-blue-500 text-white p-2 rounded mt-4 hover:bg-blue-600 ${loading && 'opacity-50 cursor-not-allowed'}`}
-            disabled={loading}
-          >
-            {loading ? 'Submitting...' : isLogin ? 'Log In' : 'Sign Up'}
-          </button>
-        </form>
-
-        {/* Toggle between Login/Sign Up */}
-        <p className="text-center mt-4">
-          {isLogin ? "Don't have an account?" : 'Already have an account?'}{' '}
-          <button onClick={toggleForm} className="text-blue-500 hover:underline">
-            {isLogin ? 'Sign Up' : 'Log In'}
-          </button>
-        </p>
+        </div>
       </div>
-    </div>
+      </>
   );
 }
 
