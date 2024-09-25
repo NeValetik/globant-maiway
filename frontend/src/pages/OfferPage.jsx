@@ -69,7 +69,7 @@ function OfferPage() {
   return (
     <div className="flex flex-col min-h-screen relative">
       <Navbar />
-      {isEditing?
+      {!isEditing?
       <div className="flex-col relative mt-5">
         {/* Center the image */}
         <img className="mx-auto w-[653px] h-80 object-cover rounded-lg" src={offer.photo} alt="Offer Image"/>

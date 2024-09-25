@@ -167,7 +167,7 @@ const UserPage = () => {
                                 <img
                                     src={userPfpUrl || BlankPhoto}
                                     alt="Profile Picture"
-                                    className={`border-[10px] ${themeChangerDescriptionString(theme, 'border-white', 'border-mvcontainergrey', 'shadow-md rounded-full object-cover w-full h-full transition-transform duration-300 ease-in-out hover:scale-110')}`}
+                                    className={`border-[10px] ${themeChangerDescriptionString(theme, 'border-white', 'border-mvcontainergrey', 'rounded-full object-cover w-full h-full transition-transform duration-300 ease-in-out hover:scale-110')}`}
                                 />
                                 {isEditing && (
                                     <div
