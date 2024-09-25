@@ -16,11 +16,11 @@ return (
 			{countries.find((country) => country.code === tags.location).name}
 		</span>
 		:null}
-		{/* {tags.location!=null ?
+		{tags.location!=null ?
 		<span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
 			{countries.find((country) => country.code === tags.location).regions.find((region) => region.code === tags.region).name}
 		</span>
-		:null} */}
+		:null}
 	</div>
 );
 };
