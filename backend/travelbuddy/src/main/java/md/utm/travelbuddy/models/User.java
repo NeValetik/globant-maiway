@@ -2,20 +2,25 @@ package md.utm.travelbuddy.models;
 
 import jakarta.persistence.*;
 import md.utm.travelbuddy.enums.Roles;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name= "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "photo", columnDefinition = "BYTEA")
+    @Column(name = "photo", columnDefinition = "BYTEA", nullable = true)
     private byte[] photo;
 
     @Column(name = "username", unique = true)
@@ -24,7 +29,6 @@ public class User {
     @Column(name = "name")
     private String name;
 
-
     @Column(name = "phone_number")
     private String phoneNumber;
 
@@ -32,7 +36,6 @@ public class User {
     private String city;
 
     @Column(name = "instagram_link")
-
     private String instagramLink;
 
     @Column(name = "telegram_link")
@@ -53,17 +56,18 @@ public class User {
 
     @Column(name = "age")
     private int age;
-    
+
     @Column(name = "sex")
-    private char sex; // 'm' , 'f'
+    private String sex; // 'm', 'f'
 
     @Column(name = "about", columnDefinition = "TEXT", length = 600)
     private String about;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
     private List<Offer> offerList;
 
-    public void seName(String name) {
+
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -87,14 +91,13 @@ public class User {
     }
 
     public User(String username, String password) {
-
         this.username = username;
         this.password = password;
-
+        this.photo = null;
     }
-    public User(String username, String password, byte[] photo, int age, char sex, String about, String phoneNumber, String instagramLink,
+
+    public User(String username, String password, byte[] photo, int age, String sex, String about, String phoneNumber, String instagramLink,
                 String telegramLink, String facebookLink, String email) {
-//        this.id = id;
         this.username = username;
         this.password = password;
         this.photo = photo;
@@ -140,29 +143,53 @@ public class User {
         this.photo = photo;
     }
 
-    public String getPhoneNumber() { return phoneNumber; }
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-    public String getCity() { return city; }
+    public String getCity() {
+        return city;
+    }
 
-    public String getFacebookLink() { return facebookLink; }
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-    public void setFacebookLink(String facebookLink) { this.facebookLink = facebookLink; }
+    public String getFacebookLink() {
+        return facebookLink;
+    }
 
-    public String getTelegramLink() { return telegramLink; }
+    public void setFacebookLink(String facebookLink) {
+        this.facebookLink = facebookLink;
+    }
 
-    public void setTelegramLink(String telegramLink) { this.telegramLink = telegramLink; }
+    public String getTelegramLink() {
+        return telegramLink;
+    }
 
-    public String getInstagramLink() { return instagramLink; }
+    public void setTelegramLink(String telegramLink) {
+        this.telegramLink = telegramLink;
+    }
 
-    public void setInstagramLink(String instagramLink) { this.instagramLink = instagramLink; }
+    public String getInstagramLink() {
+        return instagramLink;
+    }
 
-    public String getEmail() { return email; }
+    public void setInstagramLink(String instagramLink) {
+        this.instagramLink = instagramLink;
+    }
 
-    public void setEmail(String email) { this.email = email; }
+    public String getEmail() {
+        return email;
+    }
 
-    public void setCity(String city) { this.city = city; }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public int getAge() {
         return age;
@@ -172,11 +199,11 @@ public class User {
         this.age = age;
     }
 
-    public char getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(char sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
@@ -192,10 +219,36 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", photo=" + Arrays.toString(photo) +
                 ", age=" + age +
                 ", sex=" + sex +
                 ", about='" + about + '\'' +
                 '}';
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Arrays.stream(new String[]{role.name()})
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true; // Customize based on business logic
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true; // Customize based on business logic
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true; // Customize based on business logic
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true; // Customize based on business logic
     }
 }
