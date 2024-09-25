@@ -87,7 +87,7 @@ const Navbar = () => {
               </Link>
               <div className="relative">
                 <img
-                  className="rounded-full h-11 w-11 cursor-pointer"
+                  className="h-11 w-11 cursor-pointer rounded-full object-cover "
                   tabIndex="0"
                   onFocus={handleCascade}
                   onBlur={handleBlur}

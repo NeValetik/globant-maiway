@@ -78,27 +78,24 @@ const UserPage = () => {
 
     const handleSubmit = () => {
         const formDataToSend = new FormData();
+
         Object.keys(formData).forEach(key => {
-            if (key === 'photo' && formData[key] instanceof File) {
-                formDataToSend.append(key, formData[key]);
-            } else {
-                formDataToSend.append(key, formData[key]);
-            }
+            formDataToSend.append(key, formData[key]); // Append all keys directly
         });
 
         fetch(`http://localhost:6969/api/user/${userdata.id}/update`, {
             method: 'POST',
             headers: {
                 "Authorization": `Bearer ${token}`
+                // Do not set Content-Type for FormData; the browser will set it automatically
             },
             body: formDataToSend,
         })
             .then((res) => {
                 if (!res.ok) {
-                    console.log(res.text())
-                    throw new Error('Network response was not ok.');
+                    return res.text().then(text => { throw new Error(text); });
                 }
-                // return res.json();
+                // return res.json(); // Parse JSON only if the response is OK
             })
             .then((data) => {
                 setUserdata((prev) => ({
@@ -112,6 +109,7 @@ const UserPage = () => {
                 console.error('Error updating user data:', error);
             });
     };
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -171,7 +169,7 @@ const UserPage = () => {
                                 />
                                 {isEditing && (
                                     <div
-                                        className="absolute inset-0 flex items-center justify-center cursor-pointer bg-black bg-opacity-50 rounded-full"
+                                        className="absolute inset-0 flex items-center justify-center cursor-pointer bg-opacity-50 rounded-full"
                                         onClick={() => fileInputRef.current.click()}
                                     >
                                         <MdAddAPhoto size={50} color="white" className="opacity-70 hover:opacity-100"/>

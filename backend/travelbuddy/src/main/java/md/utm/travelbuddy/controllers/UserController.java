@@ -76,7 +76,7 @@ public class UserController {
 
     @PostMapping("/{id}/update")
     public ResponseEntity<?> updateUser(
-            @RequestParam("photo") MultipartFile photo,
+            @RequestParam(value = "photo", required = false) MultipartFile photo,
             @RequestParam("name") String name,
             @RequestParam("age") int age,
             @RequestParam("sex") String sex,
@@ -97,12 +97,13 @@ public class UserController {
 
         User existedUser = (User) userDetails;
 
-        // Handle photo upload
-        try {
-            byte[] photoBytes = photo.getBytes();
-            existedUser.setPhoto(photoBytes);
-        } catch (IOException e) {
-            return new ResponseEntity<>("Error reading photo file", HttpStatus.INTERNAL_SERVER_ERROR);
+        if (photo != null) {
+            try {
+                byte[] photoBytes = photo.getBytes();
+                existedUser.setPhoto(photoBytes);
+            } catch (IOException e) {
+                return new ResponseEntity<>("Error reading photo file", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }
 
         existedUser.setName(name);
