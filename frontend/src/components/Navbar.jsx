@@ -26,12 +26,10 @@ const Navbar = () => {
   };
 
   return (
-    <header className={themeChangerDescriptionString(
-      theme,
+    <header className={themeChangerDescriptionString(theme,
       'bg-[#fcfcfc] text-black shadow-[0_0px_0.3px_rgb(0,0,0,0.2)]',
-      'bg-[#1b1b1b] text-white'
-    )}>
-      <nav className="mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8 bg-[#000000]" aria-label="Header">
+      'bg-[#1b1b1b] text-white')}>
+      <nav className={`mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8`} aria-label="Header">
         <div className="flex lg:flex-1">
           <a href="/" className="-m-1.5 p-1.5">
             <img className="h-12 w-auto" src={theme === 'light' ? headerLogoBlack : headerLogoWhite} alt="Logo" />
