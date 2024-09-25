@@ -72,6 +72,7 @@ export const JWTProvider = ({ children }) => {
     setUsername(null); // Clear the photo when token is cleared
     localStorage.removeItem('token');
     console.log("token cleared " + !!token);
+    window.location.href = "/";
     window.location.reload();
   };
 
