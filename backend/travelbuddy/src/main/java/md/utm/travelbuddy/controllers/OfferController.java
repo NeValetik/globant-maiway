@@ -183,28 +183,26 @@ public class OfferController {
     // Request to delete an offer
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteOffer(
-        @RequestParam("id") Long id, 
-        @RequestParam("userId") Long userId){
+        @RequestParam("id") Long id){
         try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication == null || !authentication.isAuthenticated()) {
+                return new ResponseEntity<>("User is not authenticated", HttpStatus.UNAUTHORIZED);
+            }
             // Fetch the offer by offer id
             Optional<Offer> offerOptional = offerService.getOfferById(id);
             if (offerOptional.isEmpty()) {
                 return new ResponseEntity<>("Offer not found", HttpStatus.NOT_FOUND);
             }
 
-            // Fetch the user by userId
-            Optional<User> userOptional = userService.getUserById(userId);
-            if (userOptional.isEmpty()) {
-                return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
-            }
-            User user = userOptional.get();
-
             Offer existingOffer = offerOptional.get();
+            
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            Long userId = ((User) userDetails).getId();
 
-            // Ensure the offer belongs to the user
-            if (!existingOffer.getUser().getId().equals(user.getId())) {
-                return new ResponseEntity<>("Unauthorized to delete this offer", HttpStatus.UNAUTHORIZED);
-            }
+            if (!Objects.equals(existingOffer.getUser().getId(), userId)) {
+                return new ResponseEntity<>("The offer was not created by the user.", HttpStatus.UNAUTHORIZED);
+            };
             // Delete the offer
             offerService.deleteOfferById(id);
 
