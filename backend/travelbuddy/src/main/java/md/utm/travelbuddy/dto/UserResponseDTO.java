@@ -20,7 +20,7 @@ public class UserResponseDTO {
     private String telegramLink;
     private String facebookLink;
     private String email;
-    private char sex;
+    private String sex;
 
 
     public UserResponseDTO(User user) {
@@ -110,10 +110,10 @@ public class UserResponseDTO {
     public void setEmail(String email) {
         this.email = email;
     }
-    public char getSex() {
+    public String getSex() {
         return sex;
     }
-    public void setSex(char sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 }
