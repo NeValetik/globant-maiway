@@ -1,11 +1,13 @@
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Tags from '../components/Tags';
 import themeChangerDescriptionString from '../components/utils/themeChangerDescriptionString';
 import { useTheme } from "../context/ThemeContext";
 import loading_cat from '../assets/loading_cat.gif';
+import { JWTContext } from "../context/JWTContext";
+
 
 
 
@@ -23,7 +25,10 @@ const processImage = (photo) => {
 function OfferPage() {
   const { id } = useParams(); // Get the offer ID from the URL parameters
   const [offer, setOffer] = useState(null);
+  const [isEditing,setIsEditing] = useState(false);
   const {theme} = useTheme();
+  const {token,userId} = useContext(JWTContext);
+
 
   const handleClick = () =>{
     
@@ -78,7 +83,10 @@ function OfferPage() {
           </div>
           <Tags classNamePos="flex" tags={{"region": offer.region, "location": offer.location}} />
         </div>
-        <button className='flex flex-col mx-auto px-4 py-2 text-white my-2 rounded-lg bg-mwlightgreen' onClick={''}>Apply</button>
+        {userId === offer.author.userId?
+          <button className='flex flex-col mx-auto px-4 py-2 text-white my-2 rounded-lg bg-mwlightgreen' onClick={handleClick}>Edit</button>:
+          null
+        }
       </div>
       <Footer />
     </div>

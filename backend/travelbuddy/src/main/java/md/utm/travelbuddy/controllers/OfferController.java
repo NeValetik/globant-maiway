@@ -128,6 +128,7 @@ public class OfferController {
      * @return ResponseEntity with status either OK or NOT_FOUND or INTERNAL_SERVER_ERROR
      */
     @PostMapping("/edit-offer")
+    @RolesAllowed("ROLE_USER")
     public ResponseEntity<String> editOffer(
             @RequestParam("id") Long id,
 //            @RequestParam("userId") Long userId,
@@ -182,10 +183,12 @@ public class OfferController {
     }
     // Request to delete an offer
     @DeleteMapping("/delete")
+    @RolesAllowed("ROLE_USER")
     public ResponseEntity<String> deleteOffer(
         @RequestParam("id") Long id){
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            System.out.println(authentication);
             if (authentication == null || !authentication.isAuthenticated()) {
                 return new ResponseEntity<>("User is not authenticated", HttpStatus.UNAUTHORIZED);
             }

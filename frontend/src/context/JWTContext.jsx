@@ -27,7 +27,8 @@ export const JWTProvider = ({ children }) => {
   const clearToken = () => {
     setToken(null);
     localStorage.removeItem('token');
-    console.log("token cleared " + !!token)
+    console.log("token cleared " + !!token);
+    window.location.reload();
   };
 
   // Check if a token exists (useful for authentication checks)

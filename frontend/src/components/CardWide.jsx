@@ -9,7 +9,7 @@ const CardWide = ({ offer }) => {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
-        <div
+        <Link to={`/offer/${offer.id}`}
             className={themeChangerDescriptionString(
                 theme,
                 'bg-[#ffffff] hover:shadow shadow-amber-50 group relative',
@@ -112,7 +112,7 @@ const CardWide = ({ offer }) => {
                     #travel
                 </span>
             </div>
-        </div>
+        </Link>
     );
 };
 
