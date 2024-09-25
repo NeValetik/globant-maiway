@@ -6,7 +6,9 @@ import md.utm.travelbuddy.dto.auth.LoginRequest;
 import md.utm.travelbuddy.models.User;
 import md.utm.travelbuddy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -42,6 +44,28 @@ public class UserController {
         return user.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+
+    @GetMapping("/{id}/photo")
+    public ResponseEntity<?> getUserPhoto(@PathVariable Long id) {
+        System.out.println("In id photo");
+        Optional<User> userOptional = userService.getUserById(id);
+        if (userOptional.isEmpty()) {
+            return new ResponseEntity<>("No such user", HttpStatus.NOT_FOUND);
+        }
+
+        User user = userOptional.get();
+
+        if (user.getPhoto() == null) {
+            return ResponseEntity.status(404).body(null); // User or photo not found
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)  // Adjust MIME type if photo isn't JPEG
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"user-photo.jpg\"")
+                .body(user.getPhoto());
+    }
+
 
     // Get a list of all users
     @GetMapping
