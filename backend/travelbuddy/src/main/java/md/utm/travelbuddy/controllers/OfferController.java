@@ -105,7 +105,7 @@ public class OfferController {
     }
     /**
      * Post Controller for editing an existing offer. Available at endpoint {@code /api/offer/edit-offer}
-     * @param offerId - The ID of the offer to be edited
+     * @param id - The ID of the offer to be edited
      * @param userId - The ID of the User. A temporary placeholder until auth is done.
      * @param photo - The updated photo file (optional, can be null if not being updated).
      * @param title - Updated title of the offer (80 chars max)
