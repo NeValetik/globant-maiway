@@ -6,11 +6,15 @@ import { JWTContext } from "../context/JWTContext";
 import ThemeToggler from "./ThemeTogglerButton";
 import themeChangerDescriptionString from "./utils/themeChangerDescriptionString";
 import { Link } from 'react-router-dom';
+import BlankPfp from '../assets/blank-pfp.png'
+
 
 const Navbar = () => {
-  const { token, userId, clearToken, isAuthenticated } = useContext(JWTContext);
+  const { token, userId, clearToken, authUserPhoto, isAuthenticated } = useContext(JWTContext);
+
   const [isDropdownVisible, setDropdownVisible] = useState(false);
-  const [userPfp, setUserPfp] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS3l4ZjaN7cVwzh-ISmjRTpyjgePCZ_BqJ6w&s");
+  // const [userPfp, setUserPfp] = useState(authUserPhoto);
+
   const { theme, toggleTheme } = useTheme();
   const dropdownRef = useRef(null);
 
@@ -87,7 +91,7 @@ const Navbar = () => {
                   tabIndex="0"
                   onFocus={handleCascade}
                   onBlur={handleBlur}
-                  src={userPfp || "https://i.pinimg.com/736x/c0/27/be/c027bec07c2dc08b9df60921dfd539bd.jpg"}
+                  src={authUserPhoto || BlankPfp}
                   alt="User Profile"
                 />
                 {isDropdownVisible && (
