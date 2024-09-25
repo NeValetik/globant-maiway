@@ -69,6 +69,7 @@ function OfferPage() {
   return (
     <div className="flex flex-col min-h-screen relative">
       <Navbar />
+      {isEditing?
       <div className="flex-col relative mt-5">
         {/* Center the image */}
         <img className="mx-auto w-[653px] h-80 object-cover rounded-lg" src={offer.photo} alt="Offer Image"/>
@@ -87,7 +88,10 @@ function OfferPage() {
           <button className='flex flex-col mx-auto px-4 py-2 text-white my-2 rounded-lg bg-mwlightgreen' onClick={handleClick}>Edit</button>:
           null
         }
-      </div>
+      </div>:
+      null
+
+      }
       <Footer />
     </div>
   );

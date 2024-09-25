@@ -66,6 +66,21 @@ public class UserController {
                 .body(user.getPhoto());
     }
 
+    @GetMapping("/{id}/username")
+    public ResponseEntity<?> getUserName(@PathVariable Long id) {
+        Optional<User> userOptional = userService.getUserById(id);
+        if (userOptional.isEmpty()) {
+            return new ResponseEntity<>("No such user", HttpStatus.NOT_FOUND);
+        }
+
+        User user = userOptional.get();
+
+        if (user.getUsername() == null) {
+            return ResponseEntity.status(404).body(null); // User or photo not found
+        }
+
+        return ResponseEntity.ok(user.getUsername());
+    }
 
     // Get a list of all users
     @GetMapping

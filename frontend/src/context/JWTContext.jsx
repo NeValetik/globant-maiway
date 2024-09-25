@@ -9,6 +9,8 @@ export const JWTProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [userId, setUserId] = useState(null);
   const [authUserPhoto, setAuthUserPhoto] = useState(null);
+  const [username, setUsername] = useState(null);
+
 
   useEffect(() => {
     const savedToken = localStorage.getItem('token');
@@ -17,6 +19,7 @@ export const JWTProvider = ({ children }) => {
       const decodedToken = jwtDecode(savedToken);
       setUserId(decodedToken.userId);
       fetchUserPhoto(decodedToken.userId); // Fetch user photo
+      fetchUsername(decodedToken.userId)
     }
   }, []);
 
@@ -41,6 +44,22 @@ export const JWTProvider = ({ children }) => {
     }
   };
 
+  const fetchUsername = async (userId) => {
+    try {
+      console.log('Trying to fetch user photo')
+      const response = await fetch(`http://localhost:6969/api/user/${userId}/username`);
+
+      if (response.ok) {
+        const usernameText = await response.text(); // Get the photo as Blob
+        setUsername(usernameText); // Set the Blob URL to state
+      } else {
+        console.error('Failed to fetch photo' + await response.text());
+      }
+    } catch (error) {
+      console.error('Error fetching user photo:', error);
+    }
+  };
+
   const saveToken = (newToken) => {
     setToken(newToken);
     localStorage.setItem('token', newToken);
@@ -50,6 +69,7 @@ export const JWTProvider = ({ children }) => {
   const clearToken = () => {
     setToken(null);
     setAuthUserPhoto(null); // Clear the photo when token is cleared
+    setUsername(null); // Clear the photo when token is cleared
     localStorage.removeItem('token');
     console.log("token cleared " + !!token);
     window.location.reload();
@@ -62,6 +82,7 @@ export const JWTProvider = ({ children }) => {
   const contextValue = {
     token,
     userId,
+    username,
     authUserPhoto,
     saveToken,
     clearToken,

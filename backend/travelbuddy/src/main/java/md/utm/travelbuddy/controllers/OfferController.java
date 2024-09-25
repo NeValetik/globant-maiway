@@ -134,6 +134,8 @@ public class OfferController {
 //            @RequestParam("userId") Long userId,
             @RequestParam(value = "photo", required = false) MultipartFile photo,
             @RequestParam(value = "title", required = false) String title,
+            @RequestParam(value = "location", required = false) String location,
+            @RequestParam(value = "region", required = false) String region,
             @RequestParam(value = "body", required = false) String body) {
 
         try {
