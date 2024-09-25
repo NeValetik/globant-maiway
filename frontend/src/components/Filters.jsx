@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from "../context/ThemeContext";
 import themeChangerDescriptionString from "./utils/themeChangerDescriptionString";
-import { useNavigate } from 'react-router-dom';
 import locationsData from '../assets/locations.json';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';  // Import Dayjs
-import TextField from "@mui/material/TextField"
 
 const Filters = ({ location, setLocation, region, setRegion, before, setBefore, after, setAfter }) => {
 

@@ -60,23 +60,17 @@ const Offers = ({ query }) => {
   }, []);
 
   useEffect(() => {
-    let isMounted = true;
     const loadInitialOffers = () => {
-      if (isMounted) {
         setOffers([]);
         setPage(1);
         setHasMore(true);
         fetchOffers(1, query);
-      }
     };
     loadInitialOffers();
-    return () => {
-      isMounted = false;
-    };
   }, [query]);
 
   const handleLoadMore = () => {
-    if (hasMore && !loading && !fetchInProgress.current && page === 1) {
+    if (hasMore && !loading && !fetchInProgress.current) {
       setPage((prevPage) => {
         const nextPage = prevPage + 1;
         setTimeout(() => fetchOffers(nextPage, query), 300);

@@ -1,29 +1,37 @@
 import React, { useState } from 'react';
 import { useTheme } from "../context/ThemeContext";
 import themeChangerDescriptionString from "./utils/themeChangerDescriptionString";
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { MdOutlineEmail } from "react-icons/md";
+import Tags from './Tags';
+
 
 const Card = ({ offer }) => {
-    console.log(offer)
+    // console.log(offer)
     const { theme } = useTheme();
     const [isHovered, setIsHovered] = useState(false);
+    const navigate = useNavigate();
+    const handleClick = () =>{
+        navigate(`offer/${offer.id}`);
+    }
+
     return (
-            <div
+            <Link to={`/offer/${offer.id}`}
                 className={themeChangerDescriptionString(
                     theme,
                     'bg-[#ffffff] hover:shadow shadow-amber-50 group',
                     'bg-[#1e1f20] hover:shadow hover:shadow-gray-500 group',
                     'max-w-sm rounded overflow-hidden min-h-[522px] max-h-[522px] flex flex-col'
-                )}
-            >
+                )
+                }
+                >
                 <div className="w-full flex py-3 relative">
                     <div
                         className="relative px-6 flex items-center"
                         onMouseEnter={() => setIsHovered(true)}
                         onMouseLeave={() => setIsHovered(false)}
                     >
-                        <Link to={`/user/${offer.author.username}`} className={'block'}><img
+                        <Link to={`/user/${offer.author.username}`} className={''}><img
                             className={`rounded-full overflow-hidden h-8 w-8 object-cover hover:drop-shadow-sm hover:shadow-[#016960] transition-opacity duration-300 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
                             src={offer.author.userPfp || "https://braverplayers.org/wp-content/uploads/2022/09/blank-pfp.png"}
                             alt="Profile"
@@ -80,7 +88,7 @@ const Card = ({ offer }) => {
                         )}
                     >
 
-                        11.22.63
+                        {offer.author.before}
                     </div>
                 </div>
 
@@ -104,15 +112,8 @@ const Card = ({ offer }) => {
                         {offer.body}
                     </p>
                 </div>
-                <div className="px-6 py-2 mt-auto">
-                    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                        #photography
-                    </span>
-                    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                        #travel
-                    </span>
-                </div>
-            </div>
+                <Tags tags={{"region":offer.region,"location":offer.location}}/>
+            </Link>
     );
 };
 

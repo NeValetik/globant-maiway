@@ -84,7 +84,9 @@ public class OfferController {
     public ResponseEntity<String> createOffer(
             @RequestParam("photo") MultipartFile photo,
             @RequestParam("title") String title,
-            @RequestParam("body") String body) {
+            @RequestParam("location") String location,
+            @RequestParam("region") String region,
+            @RequestParam("body") String body)  {
 
         try {
             // Convert MultipartFile to byte array
@@ -106,8 +108,7 @@ public class OfferController {
             }
             User user = userOptional.get();
 
-            // Create and save the new offer
-            Offer newOffer = new Offer(user, title, body, photoBytes);
+            Offer newOffer = new Offer(user, title, body, photoBytes, location, region);
             offerService.saveOffer(newOffer);
 
             logger.info("New offer created with title: {}", title);
@@ -118,17 +119,112 @@ public class OfferController {
             return new ResponseEntity<>("Error saving offer", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    /**
+     * Post Controller for editing an existing offer. Available at endpoint {@code /api/offer/edit-offer}
+     * @param offerId - The ID of the offer to be edited
+     * @param userId - The ID of the User. A temporary placeholder until auth is done.
+     * @param photo - The updated photo file (optional, can be null if not being updated).
+     * @param title - Updated title of the offer (80 chars max)
+     * @param body - Updated body of the offer (600 chars max)
+     * @return ResponseEntity with status either OK or NOT_FOUND or INTERNAL_SERVER_ERROR
+     */
+    @PostMapping("/edit-offer")
+    public ResponseEntity<String> editOffer(
+            @RequestParam("id") Long id,
+            @RequestParam("userId") Long userId,
+            @RequestParam(value = "photo", required = false) MultipartFile photo,
+            @RequestParam(value = "title", required = false) String title,
+            @RequestParam(value = "body", required = false) String body) {
+
+        try {
+            // Fetch the offer by offer id
+            Optional<Offer> offerOptional = offerService.getOfferById(id);
+            if (offerOptional.isEmpty()) {
+                return new ResponseEntity<>("Offer not found", HttpStatus.NOT_FOUND);
+            }
+
+            // Fetch the user by userId
+            Optional<User> userOptional = userService.getUserById(userId);
+            if (userOptional.isEmpty()) {
+                return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+            }
+            User user = userOptional.get();
+
+            Offer existingOffer = offerOptional.get();
+
+            // Ensure the offer belongs to the user
+            if (!existingOffer.getUser().getId().equals(user.getId())) {
+                return new ResponseEntity<>("Unauthorized to edit this offer", HttpStatus.UNAUTHORIZED);
+            }
+
+            // Update the title and body
+            existingOffer.setTitle(title);
+            existingOffer.setDescription(body);
+
+            // Update the photo if it's provided
+            if (photo != null && !photo.isEmpty()) {
+                byte[] photoBytes = photo.getBytes();
+                existingOffer.setPhoto(photoBytes);
+            }
+
+            // Save the updated offer to the database
+            offerService.saveOffer(existingOffer);
+
+            logger.info("Offer with ID " + id + " updated successfully.");
+            return new ResponseEntity<>("Offer updated successfully", HttpStatus.OK);
+
+        } catch (IOException e) {
+            logger.error("Error updating offer: " + e.getMessage());
+            return new ResponseEntity<>("Error updating offer", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    // Request to delete an offer
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteOffer(
+        @RequestParam("id") Long id, 
+        @RequestParam("userId") Long userId){
+        try {
+            // Fetch the offer by offer id
+            Optional<Offer> offerOptional = offerService.getOfferById(id);
+            if (offerOptional.isEmpty()) {
+                return new ResponseEntity<>("Offer not found", HttpStatus.NOT_FOUND);
+            }
+
+            // Fetch the user by userId
+            Optional<User> userOptional = userService.getUserById(userId);
+            if (userOptional.isEmpty()) {
+                return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+            }
+            User user = userOptional.get();
+
+            Offer existingOffer = offerOptional.get();
+
+            // Ensure the offer belongs to the user
+            if (!existingOffer.getUser().getId().equals(user.getId())) {
+                return new ResponseEntity<>("Unauthorized to delete this offer", HttpStatus.UNAUTHORIZED);
+            }
+            // Delete the offer
+            offerService.deleteOfferById(id);
+
+            logger.info("Offer with ID " + id + " deleted successfully.");
+            return new ResponseEntity<>("Offer deleted successfully", HttpStatus.OK);
+
+        } catch (Exception e) {
+            logger.error("Error updating offer: " + e.getMessage());
+            return new ResponseEntity<>("Error deleting the offer", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
     @GetMapping("/search")
     public List<OfferResponseDTO> getSearch(
-            @RequestParam(required = false) String query,
-            @RequestParam(required = false) String location,
-            @RequestParam(required = false) String region,
-            @RequestParam(required = false) String before,
-            @RequestParam(required = false) String after) {
 
-        logger.info("Searching offers with query: {}, location: {}, region: {}, before: {}, after: {}",
-                query, location, region, before, after);
+    @RequestParam(required = false) String query, 
+    @RequestParam(required = false) String location, 
+    @RequestParam(required = false) String region, 
+    @RequestParam(required = false) String before, 
+    @RequestParam(required = false) String after) {
+        System.out.println(query+":    :" + before + ":" + after);
         List<Offer> filteredOffers = offerService.searchByFilters(query, location, region, before, after);
         return filteredOffers.stream()
                 .map(OffersMapping::mapOfferToDTO)

@@ -4,6 +4,7 @@ import headerLogoWhite from '../assets/header_logo_white.svg'
 import {useTheme} from "../context/ThemeContext";
 import ThemeToggler from "./ThemeTogglerButton";
 import themeChangerDescriptionString from "./utils/themeChangerDescriptionString";
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [user, setUser] = useState(true);
@@ -50,7 +51,7 @@ const Navbar = () => {
           <ThemeToggler/>
         </div>
         </div>
-        <div className="hidden lg:flex lg:flex-1 lg:space-x-8 lg:justify-end">
+        <div className="flex flex-1 space-x-8 justify-end">
           {user ? (
               <>
                 <a
@@ -75,8 +76,8 @@ const Navbar = () => {
             </>
           ) : (
             <>
-            <a className={themeChangerDescriptionString(theme, 'text-white bg-[#629a8d] hover:bg-[#016960]', 'hover:bg-[#629a8d] bg-[#016960]',
-                    'block rounded-lg py-2 pl-6 pr-6 text-sm font-semibold leading-7 text-white')}> Travel </a>
+            <Link to="/newoffer" className={themeChangerDescriptionString(theme, 'text-white bg-[#629a8d] hover:bg-[#016960]', 'hover:bg-[#629a8d] bg-[#016960]',
+                    'block rounded-lg py-2 pl-6 pr-6 text-sm font-semibold leading-7 text-white')}> Travel </Link>
             <div className="relative">
               <img
                 className="rounded-full h-11 w-11 cursor-pointer"
