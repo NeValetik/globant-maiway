@@ -17,6 +17,8 @@ public class UserResponseDTO {
     private String about;
     private String instagramLink;
     private String phoneNumber;
+
+    private Long id;
     private String telegramLink;
     private String facebookLink;
     private String email;
@@ -27,6 +29,7 @@ public class UserResponseDTO {
         this.username = user.getUsername();
         this.photo = user.getPhoto();
         this.age = user.getAge();
+        this.id = user.getId();
         this.sex = user.getSex();
         this.about = user.getAbout();
         this.name = user.getName();
@@ -63,6 +66,15 @@ public class UserResponseDTO {
         return photo;
 
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
     public void setPhoto(byte[] photo) {
         this.photo = photo;
     }

@@ -23,7 +23,11 @@ const processImage = (photo) => {
 function OfferPage() {
   const { id } = useParams(); // Get the offer ID from the URL parameters
   const [offer, setOffer] = useState(null);
-  const {theme} = useTheme()
+  const {theme} = useTheme();
+
+  const handleClick = () =>{
+    
+  };
 
   const fetchOffer = async (id) => {
     try {  

@@ -62,12 +62,11 @@ public class UserService implements UserDetailsManager {
 
     @Override
     public void updateUser(UserDetails user) {
-
     }
 
     @Override
     public void deleteUser(String username) {
-
+            userRepository.deleteByUsername(username);
     }
 
     @Override

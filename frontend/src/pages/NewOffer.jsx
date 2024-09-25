@@ -46,10 +46,15 @@ const NewOffer = () => {
         formData.append('location', location);
         formData.append('region',region)
         formData.append('userId', userId);
+        const token = localStorage.getItem("token")
+        console.log(token)
 
         try {
             const response = await fetch('http://localhost:6969/api/offer/new-offer', {
                 method: 'POST',
+                headers:{
+                    "Authorization":`Bearer ${token}`
+                },
                 body: formData,
             });
 
@@ -168,7 +173,6 @@ const NewOffer = () => {
                         onChange={(e) => setUserId(e.target.value)}
                         placeholder="Enter user ID"
                         className={themeChangerDescriptionString(theme, '', 'bg-[#282a2c]', "flex-grow p-2 rounded")}
-                        required
                     />
                 </div>    
                 <button type="submit"
