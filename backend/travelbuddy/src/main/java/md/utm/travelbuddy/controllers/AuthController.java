@@ -40,22 +40,38 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> signup(@RequestBody SignUpRequest signUpRequest) {
         Logger logger = LoggerFactory.getLogger(AuthController.class);
-        logger.info("Into register enpoint");
+        logger.info("Into register endpoint");
 
         String username = signUpRequest.getUsername();
         String password = signUpRequest.getPassword();
 
+        // Username validation regex: at least 6 chars, can include lowercase letters, digits, and optional underscore
+        String usernamePattern = "^[a-z0-9](_?[a-z0-9]){5,}$";
+
+        // Check if username is valid
+        if (!username.matches(usernamePattern)) {
+            return ResponseEntity.badRequest().body("Invalid username. Must be at least 6 characters and can contain lowercase letters, digits, and an optional underscore.");
+        }
+
+        // Check if password is at least 6 characters long
+        if (password.length() < 6) {
+            return ResponseEntity.badRequest().body("Password must be at least 6 characters long.");
+        }
+
+        // Check if username already exists
         if (userService.userExists(username)) {
             return ResponseEntity.badRequest().body("This username is already taken");
         }
+
+        // Creating the user
         User user = new User();
         user.setPassword(passwordEncoder.encode(password));
         user.setUsername(username);
         user.setPhoto(null);
         user.setRole(Roles.ROLE_USER);
-        System.out.println(user);
-        User savedUser = userService.saveUser(user);
 
+        // Save user and generate JWT
+        User savedUser = userService.saveUser(user);
         String jwt = jwtService.generateToken(savedUser.getUsername(), savedUser.getId(), savedUser.getRole().name());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(jwt);
