@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -9,8 +9,13 @@ import CardWide from "../components/CardWide";
 import { MdOutlineEmail } from "react-icons/md";
 import { FaInstagram } from "react-icons/fa";
 import { FaMale, FaFemale } from "react-icons/fa";
+import {JWTContext} from "../context/JWTContext";
 
 const UserPage = () => {
+
+    const { token, authUserId, isAuthenticated } = useContext(JWTContext);
+    console.log("Context Values: ", { token, authUserId, isAuthenticated });
+
     const { username } = useParams();
     const [userdata, setUserdata] = useState(null);
     const [userPfpUrl, setUserPfpUrl] = useState(null);
@@ -37,6 +42,7 @@ const UserPage = () => {
                         userPfpUrl = `data:image/jpeg;base64,${data.photo}`;
                     }
                 }
+                console.log("Token from auth " + authUserId)
 
                 setUserdata({ ...data, photo: userPfpUrl });
                 setUserPfpUrl(userPfpUrl);
@@ -79,21 +85,25 @@ const UserPage = () => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify(formData),
         })
             .then((res) => {
-                if (res.ok) {
-                    return res.json();
+                if (!res.ok) {
+                    console.log(res.text())
+                    throw new Error('Network response was not ok.');
                 }
-                throw new Error('Network response was not ok.');
+                // return res.json(); // Parse the JSON response
             })
             .then((data) => {
+                // Update the userdata with the new data
                 setUserdata((prev) => ({
                     ...prev,
-                    ...data, // Update user data with the response
+                    ...data, // Ensure you get the latest user data
                 }));
                 setIsEditing(false); // Exit edit mode
+                window.location.reload();
             })
             .catch((error) => {
                 console.error('Error updating user data:', error);
@@ -101,11 +111,13 @@ const UserPage = () => {
     };
 
 
+
     const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
+        const { name, value } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
     };
 
     const toggleEditMode = () => {
