@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -95,12 +96,11 @@ public class OfferController {
             // Retrieve the current authenticated user
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication == null || !authentication.isAuthenticated()) {
-                return new ResponseEntity<>("User is not authenticated", HttpStatus.UNAUTHORIZED);
+                return new ResponseEntity<>("User is not authenticated for creating offer", HttpStatus.UNAUTHORIZED);
             }
 
-            // Get user details to retrieve user ID
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            Long userId = ((User) userDetails).getId(); // Assume this method exists in your UserDetails implementation
+            Long userId = ((User) userDetails).getId();
 
             Optional<User> userOptional = userService.getUserById(userId);
             if (userOptional.isEmpty()) {
@@ -121,8 +121,7 @@ public class OfferController {
     }
     /**
      * Post Controller for editing an existing offer. Available at endpoint {@code /api/offer/edit-offer}
-     * @param offerId - The ID of the offer to be edited
-     * @param userId - The ID of the User. A temporary placeholder until auth is done.
+     * @param id - The ID of the offer to be edited
      * @param photo - The updated photo file (optional, can be null if not being updated).
      * @param title - Updated title of the offer (80 chars max)
      * @param body - Updated body of the offer (600 chars max)
@@ -131,33 +130,36 @@ public class OfferController {
     @PostMapping("/edit-offer")
     public ResponseEntity<String> editOffer(
             @RequestParam("id") Long id,
-            @RequestParam("userId") Long userId,
+//            @RequestParam("userId") Long userId,
             @RequestParam(value = "photo", required = false) MultipartFile photo,
             @RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "body", required = false) String body) {
 
         try {
             // Fetch the offer by offer id
+
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication == null || !authentication.isAuthenticated()) {
+                return new ResponseEntity<>("User is not authenticated", HttpStatus.UNAUTHORIZED);
+            }
+
             Optional<Offer> offerOptional = offerService.getOfferById(id);
             if (offerOptional.isEmpty()) {
                 return new ResponseEntity<>("Offer not found", HttpStatus.NOT_FOUND);
             }
 
-            // Fetch the user by userId
-            Optional<User> userOptional = userService.getUserById(userId);
-            if (userOptional.isEmpty()) {
-                return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
-            }
-            User user = userOptional.get();
-
             Offer existingOffer = offerOptional.get();
 
-            // Ensure the offer belongs to the user
-            if (!existingOffer.getUser().getId().equals(user.getId())) {
-                return new ResponseEntity<>("Unauthorized to edit this offer", HttpStatus.UNAUTHORIZED);
-            }
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            Long userId = ((User) userDetails).getId();
 
-            // Update the title and body
+            if (!Objects.equals(existingOffer.getUser().getId(), userId)) {
+                return new ResponseEntity<>("The offer was not created by the user.", HttpStatus.UNAUTHORIZED);
+            };
+
+
+            User user = (User) userDetails;
+
             existingOffer.setTitle(title);
             existingOffer.setDescription(body);
 

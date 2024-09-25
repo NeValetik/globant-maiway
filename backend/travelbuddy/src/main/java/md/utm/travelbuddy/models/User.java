@@ -63,7 +63,7 @@ public class User implements UserDetails {
     @Column(name = "about", columnDefinition = "TEXT", length = 600)
     private String about;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Offer> offerList;
 
 

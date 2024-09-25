@@ -67,7 +67,7 @@ public class UserService implements UserDetailsManager {
 
     @Override
     public void deleteUser(String username) {
-
+            userRepository.deleteByUsername(username);
     }
 
     @Override
