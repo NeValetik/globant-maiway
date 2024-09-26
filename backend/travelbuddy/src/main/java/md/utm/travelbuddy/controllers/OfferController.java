@@ -165,6 +165,8 @@ public class OfferController {
 
             existingOffer.setTitle(title);
             existingOffer.setDescription(body);
+            existingOffer.setLocation(location);
+            existingOffer.setRegion(region);
 
             // Update the photo if it's provided
             if (photo != null && !photo.isEmpty()) {
