@@ -11,6 +11,9 @@ const Card = ({ offer }) => {
     const { theme } = useTheme();
     const [isHovered, setIsHovered] = useState(false);
     const navigate = useNavigate();
+
+    console.log(offer);
+
     const handleClick = () =>{
         navigate(`offer/${offer.id}`);
     }
@@ -84,11 +87,10 @@ const Card = ({ offer }) => {
                             theme,
                             'text-black',
                             'text-gray-50',
-                            'flex-1 text-xs px-2 text-right italic flex items-center'
+                            'flex text-xs text-right px-3 italic flex items-center'
                         )}
                     >
-
-                        {offer.author.before}
+                        {offer.creationDate && offer.creationDate.substring(0, 16)}
                     </div>
                 </div>
 

@@ -194,22 +194,24 @@ const UserPage = () => {
                                             <input
                                                 type="text"
                                                 name="name"
+                                                placeholder="Name Surname"
                                                 value={formData.name}
                                                 onChange={handleChange}
-                                                className="border px-2 py-1 rounded"
+                                                className={themeChangerDescriptionString(theme, 'bg-[#f1f1f1]', 'placeholder-gray-500 text-white bg-[#131314]', '"border px-2 py-1 rounded"')}
                                             />
                                             <input
                                                 type="number"
                                                 name="age"
+                                                placeholder={"Age"}
                                                 value={formData.age}
                                                 onChange={handleChange}
-                                                className="border px-2 py-1 rounded mt-2"
+                                                className={themeChangerDescriptionString(theme, 'bg-[#f1f1f1]', 'placeholder-gray-500 text-white bg-[#131314]', '"border px-2 py-1 mt-2 rounded"')}
                                             />
                                             <select
                                                 name="sex"
                                                 value={formData.sex}
                                                 onChange={handleChange}
-                                                className="border px-2 py-1 rounded mt-2"
+                                                className={themeChangerDescriptionString(theme, 'bg-[#f1f1f1]', 'placeholder-gray-500 text-white bg-[#131314]', "px-2 py-1 rounded mt-2")}
                                             >
                                                 <option value="m">Male</option>
                                                 <option value="f">Female</option>
@@ -250,16 +252,19 @@ const UserPage = () => {
                                             <input
                                                 type="email"
                                                 name="email"
+                                                placeholder={"example@example.net"}
                                                 value={formData.email}
                                                 onChange={handleChange}
-                                                className="border px-2 py-1 rounded"
+                                                className={themeChangerDescriptionString(theme, 'bg-[#f1f1f1]', 'placeholder-gray-500 text-white bg-[#131314]', "px-2 py-1 rounded mt-2")}
+
                                             />
                                             <input
                                                 type="text"
                                                 name="instagramLink"
                                                 value={formData.instagramLink}
                                                 onChange={handleChange}
-                                                className="border px-2 py-1 rounded mt-2"
+                                                className={themeChangerDescriptionString(theme, 'bg-[#f1f1f1]', 'placeholder-gray-500 text-white bg-[#131314]', "px-2 py-1 rounded mt-2")}
+
                                             />
                                         </>
                                     ) : (
@@ -302,7 +307,7 @@ const UserPage = () => {
                                         name="about"
                                         value={formData.about}
                                         onChange={handleChange}
-                                        className="border px-2 py-1 rounded w-full"
+                                        className={themeChangerDescriptionString(theme, 'bg-[#f1f1f1]', 'placeholder-gray-500 text-white bg-[#131314]', "px-2 py-1 resize-none rounded w-full")}
                                     />
                                 ) : (
                                     <p className={themeChangerDescriptionString(theme, 'text-gray-700', 'text-gray-300', 'text-left line-clamp-7')}>
