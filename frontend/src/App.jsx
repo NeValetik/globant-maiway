@@ -25,7 +25,7 @@ function App() {
                     <Route path='/' element={<Homepage />} />
                     <Route path='/newoffer' element={<NewOffer />} />
                     <Route path='/search' element={<Homepage />} />
-                    <Route path='/login' element={<LoginSignupForm />} />
+                    <Route path='/auth/*' element={<LoginSignupForm />} />
                     <Route path='/offer/:id' element={<OfferPage />} />
                     <Route path='/user/:username' element={<UserPage />} />
                 </Routes>

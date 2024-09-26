@@ -49,7 +49,7 @@ const Navbar = () => {
           {!isAuthenticated ? (
             <>
               <Link
-                to="/login"
+                to="/auth?login"
                 className={themeChangerDescriptionString(
                   theme,
                   'py-2 text-sm font-semibold leading-6 text-gray-900 hover:text-gray-500',
@@ -59,7 +59,7 @@ const Navbar = () => {
                 Log in
               </Link>
               <Link
-                to="/login"
+                to="/auth?signup"
                 className={themeChangerDescriptionString(
                   theme,
                   'text-white bg-mwlightgreen hover:bg-[#067a89]',
