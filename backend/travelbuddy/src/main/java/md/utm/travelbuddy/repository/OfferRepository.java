@@ -19,8 +19,10 @@ public interface OfferRepository extends JpaRepository<Offer, Long> {
     @NonNull
     Page<Offer> findAll(@NonNull Pageable pageable);
     @Query("SELECT o FROM Offer o WHERE " + 
-    "(COALESCE(:titleQuery, '') = '' OR o.title LIKE CONCAT('%', :titleQuery, '%')) AND " + 
-    "(COALESCE(:locationFilter, '') = '' OR o.location = :locationFilter) AND "+
+    "(COALESCE(:titleQuery, '') = '' OR UPPER(o.title) LIKE CONCAT('%', UPPER(:titleQuery), '%') " +
+            "OR UPPER(o.description) LIKE CONCAT('%', UPPER(:titleQuery), '%')) AND " +
+
+            "(COALESCE(:locationFilter, '') = '' OR o.location = :locationFilter) AND "+
     "(COALESCE(:regionFilter, '') = '' OR o.region = :regionFilter) AND " +
     "(o.created_at BETWEEN :startDate AND :endDate)")
     List<Offer> findByQueryAndFilters(
