@@ -192,7 +192,6 @@ public class OfferController {
         @RequestParam("id") Long id){
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            System.out.println(authentication);
             if (authentication == null || !authentication.isAuthenticated()) {
                 return new ResponseEntity<>("User is not authenticated", HttpStatus.UNAUTHORIZED);
             }
@@ -231,7 +230,6 @@ public class OfferController {
     @RequestParam(required = false) String region, 
     @RequestParam(required = false) String before, 
     @RequestParam(required = false) String after) {
-        System.out.println(query+":    :" + before + ":" + after);
         List<Offer> filteredOffers = offerService.searchByFilters(query, location, region, before, after);
         return filteredOffers.stream()
                 .map(OffersMapping::mapOfferToDTO)

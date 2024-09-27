@@ -48,7 +48,6 @@ public class UserController {
 
     @GetMapping("/{id}/photo")
     public ResponseEntity<?> getUserPhoto(@PathVariable Long id) {
-        System.out.println("In id photo");
         Optional<User> userOptional = userService.getUserById(id);
         if (userOptional.isEmpty()) {
             return new ResponseEntity<>("No such user", HttpStatus.NOT_FOUND);
