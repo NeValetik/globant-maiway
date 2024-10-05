@@ -1,4 +1,4 @@
-# Find the Travel Buddy
+# MăiWai - find the Travel Buddy
 
 ## This is A Find Travel Buddy application created by UTM Students for Autumns intership at Pentalog Global Division
 
