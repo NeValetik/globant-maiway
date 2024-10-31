@@ -12,7 +12,7 @@ public class Region {
     private long id;
 
     @Column(name = "region_name")
-    private String regionName;
+    private String name;
 
     @Column(name = "code")
     private String code;
@@ -29,12 +29,12 @@ public class Region {
         return id;
     }
 
-    public String getRegionName() {
-        return regionName;
+    public String getName() {
+        return name;
     }
 
-    public void setRegionName(String regionName) {
-        this.regionName = regionName;
+    public void setName(String regionName) {
+        this.name = regionName;
     }
 
     public String getCode() {

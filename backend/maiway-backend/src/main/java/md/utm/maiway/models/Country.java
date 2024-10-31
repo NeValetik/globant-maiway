@@ -19,7 +19,7 @@ public class Country {
     @Column(name = "id")
     private long id;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "country", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "country", cascade = CascadeType.ALL)
     private List<Region> regionList = new ArrayList<>();
 
     public void setId(Long id) {

@@ -1,3 +1,5 @@
+-- RUN ONCE pls
+
 -- Insert countries
 INSERT INTO country (id, code, name) VALUES
                                          (1, 'UK', 'United Kingdom'),
