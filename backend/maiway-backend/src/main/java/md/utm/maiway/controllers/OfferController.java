@@ -2,6 +2,7 @@ package md.utm.maiway.controllers;
 
 import jakarta.annotation.security.RolesAllowed;
 import md.utm.maiway.dto.OfferResponseDTO;
+import md.utm.maiway.mappers.OffersMapping;
 import md.utm.maiway.models.Offer;
 import md.utm.maiway.models.User;
 import md.utm.maiway.service.OfferService;
