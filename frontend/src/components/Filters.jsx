@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from "../context/ThemeContext";
 import themeChangerDescriptionString from "./utils/themeChangerDescriptionString";
-import locationsData from '../assets/locations.json';
+// import locationsData from '../assets/locations.json';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -14,7 +14,21 @@ const Filters = ({ location, setLocation, region, setRegion, before, setBefore, 
   const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
-    setCountries(locationsData);
+    const fetchCountries = async () => {
+      try {
+        const response = await fetch("http://localhost:6969/api/location/getCountriesJson");
+        if (response.ok) {
+          const data = await response.json();
+          setCountries(data.countries);
+        } else {
+          console.error("Failed to fetch countries");
+        }
+      } catch (error) {
+        console.error("Error fetching countries:", error);
+      }
+    };
+
+    fetchCountries();
   }, []);
 
   return (
