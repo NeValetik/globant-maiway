@@ -179,7 +179,6 @@ public class OfferController {
                 return new ResponseEntity<>("The offer was not created by the user.", HttpStatus.UNAUTHORIZED);
             };
 
-
             User user = (User) userDetails;
 
             existingOffer.setTitle(title);

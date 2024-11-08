@@ -18,7 +18,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-
+/**
+ * Controller for managing user-related operations.
+ * Has endpoints for retrieving, updating, and managing user data, including
+ * user profile details and photos.
+ */
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
