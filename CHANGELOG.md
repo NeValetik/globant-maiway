@@ -6,7 +6,6 @@
 
 >\[MW-45\] completed, bug appeared on the backend part, asked to fix - VVladimir
 
->Refactored mappers in its own package - MNicolae
+>Refactored mappers in its own package. Added javadoc documentation for api controllers - MNicolae
 
->Added javadoc documentation for api controllers - MNicolae
 ##
