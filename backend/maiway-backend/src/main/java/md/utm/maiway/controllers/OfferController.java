@@ -24,6 +24,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Controller to manage offer-related API endpoints.
+ */
 @RestController
 @RequestMapping("/api/offer")
 public class OfferController {
@@ -40,7 +43,13 @@ public class OfferController {
         this.userService = userService;
     }
 
-    // Get offer by ID
+    
+    /**
+     * Fetches an offer by its ID.
+     *
+     * @param id The ID of the offer
+     * @return ResponseEntity containing the offer data if found, or 404 if not found
+     */
     @GetMapping("/{id}")
     public ResponseEntity<OfferResponseDTO> getOfferById(@PathVariable Long id) {
         Optional<Offer> offer = offerService.getOfferById(id);
@@ -51,7 +60,11 @@ public class OfferController {
         return ResponseEntity.notFound().build();
     }
 
-    // Get all offers
+    /**
+     * Fetches all available offers.
+     *
+     * @return ResponseEntity containing the list of all offers
+     */
     @GetMapping
     public ResponseEntity<List<OfferResponseDTO>> getAllOffers() {
         List<Offer> offers = offerService.getAllOffers();
@@ -61,7 +74,12 @@ public class OfferController {
         return ResponseEntity.ok(responseDTOs);
     }
 
-    // Get offers by page
+    /**
+     * Fetches a page of offers.
+     *
+     * @param number The page number
+     * @return List of OfferResponseDTO for the requested page
+     */
     @GetMapping("/page/{number}")
     public List<OfferResponseDTO> getOffersPerPage(@PathVariable int number) {
         logger.info("Received request to get offers for page {}", number);
@@ -186,7 +204,12 @@ public class OfferController {
             return new ResponseEntity<>("Error updating offer", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    // Request to delete an offer
+    /**
+     * Deletes an offer by ID.
+     *
+     * @param id The ID of the offer to delete
+     * @return ResponseEntity indicating success or failure
+     */
     @DeleteMapping("/delete")
     @RolesAllowed("ROLE_USER")
     public ResponseEntity<String> deleteOffer(
@@ -222,7 +245,16 @@ public class OfferController {
         }
     }
 
-
+    /**
+     * Searches for offers based on various filters.
+     *
+     * @param query Search query (optional)
+     * @param location Filter by location (optional)
+     * @param region Filter by region (optional)
+     * @param before Filter offers before a date (optional)
+     * @param after Filter offers after a date (optional)
+     * @return ResponseEntity containing a list of offers matching filters
+     */
     @GetMapping("/search")
     public List<OfferResponseDTO> getSearch(
 
