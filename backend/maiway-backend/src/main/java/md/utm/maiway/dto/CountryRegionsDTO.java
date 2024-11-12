@@ -11,6 +11,16 @@ public class CountryRegionsDTO {
         public static class RegionsInner {
             private String name;
             private String code;
+            private Long regionId;
+
+            public Long getRegionId() {
+                return regionId;
+            }
+
+            public void setRegionId(Long regionId) {
+                this.regionId = regionId;
+            }
+
 
             public String getName() {
                 return name;

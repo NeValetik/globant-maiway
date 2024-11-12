@@ -32,6 +32,7 @@ public class CountryService {
                 CountryRegionsDTO.CountryInner.RegionsInner regionsInner = new CountryRegionsDTO.CountryInner.RegionsInner();
                 regionsInner.setName(region.getName());
                 regionsInner.setCode(region.getCode());
+                regionsInner.setRegionId(region.getId());
                 regionsInnerList.add(regionsInner);
             }
 
