@@ -16,9 +16,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OfferRepository extends JpaRepository<Offer, Long> {
+
+
     @NonNull
     Page<Offer> findAll(@NonNull Pageable pageable);
-    @Query("SELECT o FROM Offer o WHERE " + 
+    @Query("SELECT o FROM Offer o WHERE " +
     "(COALESCE(:titleQuery, '') = '' OR UPPER(o.title) LIKE CONCAT('%', UPPER(:titleQuery), '%') " +
             "OR UPPER(o.description) LIKE CONCAT('%', UPPER(:titleQuery), '%')) AND " +
 

@@ -42,7 +42,6 @@ public class OfferService {
     public List<Offer> getOffersPerPage(int page, int offerPerPageLimit) {
         Pageable pageable = PageRequest.of(page, offerPerPageLimit, Sort.by(Sort.Direction.DESC, "id"));
         Page<Offer> offerPage = offerRepository.findAll(pageable);
-//        System.out.println(offerPage);
         return offerPage.getContent(); // Converts Page to List
     }
     
@@ -61,7 +60,6 @@ public class OfferService {
         }
         System.out.println(beforeTime+" : "+afterTime + ":::" + title);
         LocalDateTime MinimumDate = LocalDateTime.parse("1900-01-01 00:00:01", formatter1);
-        // If both beforeTime and afterTime are not null, call the repository
         if (beforeTime != null && afterTime != null) {
             return offerRepository.findByQueryAndFilters(title, location, region, afterTime, beforeTime);
         } else if (beforeTime != null) {
