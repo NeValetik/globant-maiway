@@ -20,53 +20,82 @@ public class OfferService {
 
     @Autowired
     private OfferRepository offerRepository;
+
     public void saveOffer(Offer offer) {
         offerRepository.save(offer);
     }
 
     // Get an offer by ID
     public Optional<Offer> getOfferById(Long id) {
-        return offerRepository.findById(id);}
+        return offerRepository.findById(id);
+    }
 
     // Get a list of all offers
     public List<Offer> getAllOffers() {
-        return offerRepository.findAll();}
-    
+        return offerRepository.findAll();
+    }
+
     @Transactional
-    public void deleteOfferById(Long id){
+    public void deleteOfferById(Long id) {
         offerRepository.deleteOfferByIdMQuery(id);
         System.out.println("Offer with ID " + id + " deleted successfully.");
     }
-
 
     public List<Offer> getOffersPerPage(int page, int offerPerPageLimit) {
         Pageable pageable = PageRequest.of(page, offerPerPageLimit, Sort.by(Sort.Direction.DESC, "id"));
         Page<Offer> offerPage = offerRepository.findAll(pageable);
         return offerPage.getContent(); // Converts Page to List
     }
-    
-    public List<Offer> searchByFilters(String title, String location, String region, String before, String after){
+
+    // Method using country and region names (String parameters)
+    public List<Offer> searchByFilters(String title, String location, String region, String before, String after) {
         LocalDateTime beforeTime = null;
         LocalDateTime afterTime = null;
 
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        if (before != null){
+        if (before != null) {
             before = before + " 00:00:01";
             beforeTime = LocalDateTime.parse(before, formatter1);
         }
-        if (after != null){
+        if (after != null) {
             after = after + " 23:59:59";
             afterTime = LocalDateTime.parse(after, formatter1);
         }
-        System.out.println(beforeTime+" : "+afterTime + ":::" + title);
-        LocalDateTime MinimumDate = LocalDateTime.parse("1900-01-01 00:00:01", formatter1);
+        System.out.println(beforeTime + " : " + afterTime + ":::" + title);
+        LocalDateTime minimumDate = LocalDateTime.parse("1900-01-01 00:00:01", formatter1);
         if (beforeTime != null && afterTime != null) {
             return offerRepository.findByQueryAndFilters(title, location, region, afterTime, beforeTime);
         } else if (beforeTime != null) {
-            return offerRepository.findByQueryAndFilters(title, location, region, MinimumDate, beforeTime); // Until now
+            return offerRepository.findByQueryAndFilters(title, location, region, minimumDate, beforeTime);
         } else if (afterTime != null) {
-            return offerRepository.findByQueryAndFilters(title, location, region, afterTime, LocalDateTime.now()); // From start until afterTime
+            return offerRepository.findByQueryAndFilters(title, location, region, afterTime, LocalDateTime.now());
         }
-        return offerRepository.findByQueryAndFilters(title, location, region, MinimumDate, LocalDateTime.now());
+        return offerRepository.findByQueryAndFilters(title, location, region, minimumDate, LocalDateTime.now());
+    }
+
+    // Overloaded method using countryId and regionId (Long parameters)
+    public List<Offer> searchByFilters(String title, Long countryId, Long regionId, String before, String after) {
+        LocalDateTime beforeTime = null;
+        LocalDateTime afterTime = null;
+
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        if (before != null) {
+            before = before + " 00:00:01";
+            beforeTime = LocalDateTime.parse(before, formatter1);
+        }
+        if (after != null) {
+            after = after + " 23:59:59";
+            afterTime = LocalDateTime.parse(after, formatter1);
+        }
+        System.out.println(beforeTime + " : " + afterTime + ":::" + title);
+        LocalDateTime minimumDate = LocalDateTime.parse("1900-01-01 00:00:01", formatter1);
+        if (beforeTime != null && afterTime != null) {
+            return offerRepository.findByQueryAndFilters(title, countryId, regionId, afterTime, beforeTime);
+        } else if (beforeTime != null) {
+            return offerRepository.findByQueryAndFilters(title, countryId, regionId, minimumDate, beforeTime);
+        } else if (afterTime != null) {
+            return offerRepository.findByQueryAndFilters(title, countryId, regionId, afterTime, LocalDateTime.now());
+        }
+        return offerRepository.findByQueryAndFilters(title, countryId, regionId, minimumDate, LocalDateTime.now());
     }
 }

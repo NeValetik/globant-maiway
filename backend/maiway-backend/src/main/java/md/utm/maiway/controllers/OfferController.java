@@ -238,13 +238,22 @@ public class OfferController {
 
     @GetMapping("/search")
     public List<OfferResponseDTO> getSearch(
+            @RequestParam(required = false) String query,
+            @RequestParam(required = false) String location,
+            @RequestParam(required = false) String region,
+            @RequestParam(required = false) Long countryId,
+            @RequestParam(required = false) Long regionId,
+            @RequestParam(required = false) String before,
+            @RequestParam(required = false) String after) {
 
-    @RequestParam(required = false) String query, 
-    @RequestParam(required = false) String location, 
-    @RequestParam(required = false) String region, 
-    @RequestParam(required = false) String before, 
-    @RequestParam(required = false) String after) {
-        List<Offer> filteredOffers = offerService.searchByFilters(query, location, region, before, after);
+        List<Offer> filteredOffers;
+
+        if (countryId != null || regionId != null) {
+            filteredOffers = offerService.searchByFilters(query, countryId, regionId, before, after);
+        } else {
+            filteredOffers = offerService.searchByFilters(query, location, region, before, after);
+        }
+
         return filteredOffers.stream()
                 .map(OffersMapping::mapOfferToDTO)
                 .collect(Collectors.toList());
