@@ -1,0 +1,11 @@
+md.utm.maiway
+md.utm.maiway.config
+md.utm.maiway.controllers
+md.utm.maiway.dto
+md.utm.maiway.dto.auth
+md.utm.maiway.enums
+md.utm.maiway.filters
+md.utm.maiway.mappers
+md.utm.maiway.models
+md.utm.maiway.repository
+md.utm.maiway.service

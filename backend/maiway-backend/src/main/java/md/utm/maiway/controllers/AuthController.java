@@ -5,6 +5,7 @@ import md.utm.maiway.dto.auth.SignUpRequest;
 import md.utm.maiway.enums.Roles;
 import md.utm.maiway.models.User;
 import md.utm.maiway.service.JwtService;
+import md.utm.maiway.service.SecurityValidation;
 import md.utm.maiway.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +19,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
+/**
+ * AuthController handles user authentication.
+ * It has endpoints for user registration with input validation and login
+ * with password verification. JWT tokens are generated on registrastion
+ * and login to support authenticated access to other services.
+ */
 @Controller
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -35,7 +41,14 @@ public class AuthController {
     AuthController(UserService userService) {
         this.userService = userService;
     }
-
+    /**
+     * Registers a new user.
+     * Validates username and password, then encodes the password and saves the user.
+     * Returns a JWT token for the registered user if successful.
+     *
+     * @param signUpRequest contains username and password from the request body.
+     * @return ResponseEntity with JWT token or an error message.
+     */
     @PostMapping("/register")
     public ResponseEntity<?> signup(@RequestBody SignUpRequest signUpRequest) {
         Logger logger = LoggerFactory.getLogger(AuthController.class);
@@ -44,16 +57,14 @@ public class AuthController {
         String username = signUpRequest.getUsername();
         String password = signUpRequest.getPassword();
 
-        // Username validation regex: at least 6 chars, can include lowercase letters, digits, and optional underscore
-        String usernamePattern = "^[a-z0-9](_?[a-z0-9]){5,}$";
 
         // Check if username is valid
-        if (!username.matches(usernamePattern)) {
+        if (SecurityValidation.isInvalidUsername(username)) {
             return ResponseEntity.badRequest().body("Invalid username. Must be at least 6 characters and can contain lowercase letters, digits, and an optional underscore.");
         }
 
         // Check if password is at least 6 characters long
-        if (password.length() < 6) {
+        if (SecurityValidation.isInvalidPasswordLen(password)) {
             return ResponseEntity.badRequest().body("Password must be at least 6 characters long.");
         }
 
@@ -75,7 +86,13 @@ public class AuthController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(jwt);
     }
-
+    /**
+     * Authenticates a user login.
+     * Verifies the username and password, generates and returns a JWT if authentication succeeds.
+     *
+     * @param loginRequest contains username and password from the request body.
+     * @return ResponseEntity with JWT token or an error message.
+     */
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
         Logger logger = LoggerFactory.getLogger(AuthController.class);

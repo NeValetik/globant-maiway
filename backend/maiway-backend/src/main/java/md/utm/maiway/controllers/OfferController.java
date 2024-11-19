@@ -2,8 +2,11 @@ package md.utm.maiway.controllers;
 
 import jakarta.annotation.security.RolesAllowed;
 import md.utm.maiway.dto.OfferResponseDTO;
+import md.utm.maiway.mappers.OffersMapping;
 import md.utm.maiway.models.Offer;
+import md.utm.maiway.models.Region;
 import md.utm.maiway.models.User;
+import md.utm.maiway.service.LocationService;
 import md.utm.maiway.service.OfferService;
 import md.utm.maiway.service.UserService;
 import org.slf4j.Logger;
@@ -23,6 +26,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Controller to manage offer-related API endpoints.
+ */
 @RestController
 @RequestMapping("/api/offer")
 public class OfferController {
@@ -30,16 +36,24 @@ public class OfferController {
     private static final Logger logger = LoggerFactory.getLogger(OfferController.class);
     private final OfferService offerService;
     private final UserService userService;
+    private final LocationService locationService;
 
     public final int PAGE_OFFERS_LIMIT = 9;
 
     @Autowired
-    public OfferController(OfferService offerService, UserService userService) {
+    public OfferController(OfferService offerService, UserService userService, LocationService locationService) {
         this.offerService = offerService;
         this.userService = userService;
+        this.locationService = locationService;
     }
 
-    // Get offer by ID
+    
+    /**
+     * Fetches an offer by its ID.
+     *
+     * @param id The ID of the offer
+     * @return ResponseEntity containing the offer data if found, or 404 if not found
+     */
     @GetMapping("/{id}")
     public ResponseEntity<OfferResponseDTO> getOfferById(@PathVariable Long id) {
         Optional<Offer> offer = offerService.getOfferById(id);
@@ -50,7 +64,11 @@ public class OfferController {
         return ResponseEntity.notFound().build();
     }
 
-    // Get all offers
+    /**
+     * Fetches all available offers.
+     *
+     * @return ResponseEntity containing the list of all offers
+     */
     @GetMapping
     public ResponseEntity<List<OfferResponseDTO>> getAllOffers() {
         List<Offer> offers = offerService.getAllOffers();
@@ -60,7 +78,12 @@ public class OfferController {
         return ResponseEntity.ok(responseDTOs);
     }
 
-    // Get offers by page
+    /**
+     * Fetches a page of offers.
+     *
+     * @param number The page number
+     * @return List of OfferResponseDTO for the requested page
+     */
     @GetMapping("/page/{number}")
     public List<OfferResponseDTO> getOffersPerPage(@PathVariable int number) {
         logger.info("Received request to get offers for page {}", number);
@@ -86,14 +109,12 @@ public class OfferController {
             @RequestParam("photo") MultipartFile photo,
             @RequestParam("title") String title,
             @RequestParam("location") String location,
-            @RequestParam("region") String region,
+            @RequestParam("regionId") Long regionId,
             @RequestParam("body") String body)  {
-
         try {
-            // Convert MultipartFile to byte array
+
             byte[] photoBytes = photo.getBytes();
 
-            // Retrieve the current authenticated user
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication == null || !authentication.isAuthenticated()) {
                 return new ResponseEntity<>("User is not authenticated for creating offer", HttpStatus.UNAUTHORIZED);
@@ -108,7 +129,15 @@ public class OfferController {
             }
             User user = userOptional.get();
 
-            Offer newOffer = new Offer(user, title, body, photoBytes, location, region);
+            Optional<Region> region = locationService.getRegionWithCountry(regionId);
+
+            if (region.isEmpty()) {
+                return new ResponseEntity<>("No such region", HttpStatus.BAD_REQUEST);
+            }
+
+            Region region1 = region.get();
+
+            Offer newOffer = new Offer(user, title, body, photoBytes, region1);
             offerService.saveOffer(newOffer);
 
             logger.info("New offer created with title: {}", title);
@@ -131,15 +160,13 @@ public class OfferController {
     @RolesAllowed("ROLE_USER")
     public ResponseEntity<String> editOffer(
             @RequestParam("id") Long id,
-//            @RequestParam("userId") Long userId,
             @RequestParam(value = "photo", required = false) MultipartFile photo,
             @RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "location", required = false) String location,
-            @RequestParam(value = "region", required = false) String region,
+            @RequestParam(value = "regionId", required = false) Long regionId,
             @RequestParam(value = "body", required = false) String body) {
 
         try {
-            // Fetch the offer by offer id
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication == null || !authentication.isAuthenticated()) {
@@ -161,13 +188,19 @@ public class OfferController {
             };
 
 
+            Optional<Region> region = locationService.getRegionWithCountry(regionId);
+
+            if (region.isEmpty()) {
+                return new ResponseEntity<>("No such region", HttpStatus.BAD_REQUEST);
+            }
+
+            Region region1 = region.get();
+
             User user = (User) userDetails;
 
             existingOffer.setTitle(title);
             existingOffer.setDescription(body);
-            existingOffer.setLocation(location);
-            existingOffer.setRegion(region);
-
+            existingOffer.setRegion(region1);
             // Update the photo if it's provided
             if (photo != null && !photo.isEmpty()) {
                 byte[] photoBytes = photo.getBytes();
@@ -185,7 +218,12 @@ public class OfferController {
             return new ResponseEntity<>("Error updating offer", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    // Request to delete an offer
+    /**
+     * Deletes an offer by ID.
+     *
+     * @param id The ID of the offer to delete
+     * @return ResponseEntity indicating success or failure
+     */
     @DeleteMapping("/delete")
     @RolesAllowed("ROLE_USER")
     public ResponseEntity<String> deleteOffer(
@@ -221,16 +259,34 @@ public class OfferController {
         }
     }
 
-
+    /**
+     * Searches for offers based on various filters.
+     *
+     * @param query Search query (optional)
+     * @param location Filter by location (optional)
+     * @param region Filter by region (optional)
+     * @param before Filter offers before a date (optional)
+     * @param after Filter offers after a date (optional)
+     * @return ResponseEntity containing a list of offers matching filters
+     */
     @GetMapping("/search")
     public List<OfferResponseDTO> getSearch(
+            @RequestParam(required = false) String query,
+            @RequestParam(required = false) String location,
+            @RequestParam(required = false) String region,
+            @RequestParam(required = false) Long countryId,
+            @RequestParam(required = false) Long regionId,
+            @RequestParam(required = false) String before,
+            @RequestParam(required = false) String after) {
 
-    @RequestParam(required = false) String query, 
-    @RequestParam(required = false) String location, 
-    @RequestParam(required = false) String region, 
-    @RequestParam(required = false) String before, 
-    @RequestParam(required = false) String after) {
-        List<Offer> filteredOffers = offerService.searchByFilters(query, location, region, before, after);
+        List<Offer> filteredOffers;
+
+        if (countryId != null || regionId != null) {
+            filteredOffers = offerService.searchByFilters(query, countryId, regionId, before, after);
+        } else {
+            filteredOffers = offerService.searchByFilters(query, location, region, before, after);
+        }
+
         return filteredOffers.stream()
                 .map(OffersMapping::mapOfferToDTO)
                 .collect(Collectors.toList());
