@@ -5,6 +5,7 @@ import md.utm.maiway.dto.auth.SignUpRequest;
 import md.utm.maiway.enums.Roles;
 import md.utm.maiway.models.User;
 import md.utm.maiway.service.JwtService;
+import md.utm.maiway.service.SecurityValidation;
 import md.utm.maiway.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,16 +57,14 @@ public class AuthController {
         String username = signUpRequest.getUsername();
         String password = signUpRequest.getPassword();
 
-        // Username validation regex: at least 6 chars, can include lowercase letters, digits, and optional underscore
-        String usernamePattern = "^[a-z0-9](_?[a-z0-9]){5,}$";
 
         // Check if username is valid
-        if (!username.matches(usernamePattern)) {
+        if (SecurityValidation.isInvalidUsername(username)) {
             return ResponseEntity.badRequest().body("Invalid username. Must be at least 6 characters and can contain lowercase letters, digits, and an optional underscore.");
         }
 
         // Check if password is at least 6 characters long
-        if (password.length() < 6) {
+        if (SecurityValidation.isInvalidPasswordLen(password)) {
             return ResponseEntity.badRequest().body("Password must be at least 6 characters long.");
         }
 
