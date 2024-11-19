@@ -18,7 +18,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
+/**
+ * AuthController handles user authentication.
+ * It has endpoints for user registration with input validation and login
+ * with password verification. JWT tokens are generated on registrastion
+ * and login to support authenticated access to other services.
+ */
 @Controller
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -35,7 +40,14 @@ public class AuthController {
     AuthController(UserService userService) {
         this.userService = userService;
     }
-
+    /**
+     * Registers a new user.
+     * Validates username and password, then encodes the password and saves the user.
+     * Returns a JWT token for the registered user if successful.
+     *
+     * @param signUpRequest contains username and password from the request body.
+     * @return ResponseEntity with JWT token or an error message.
+     */
     @PostMapping("/register")
     public ResponseEntity<?> signup(@RequestBody SignUpRequest signUpRequest) {
         Logger logger = LoggerFactory.getLogger(AuthController.class);
@@ -75,7 +87,13 @@ public class AuthController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(jwt);
     }
-
+    /**
+     * Authenticates a user login.
+     * Verifies the username and password, generates and returns a JWT if authentication succeeds.
+     *
+     * @param loginRequest contains username and password from the request body.
+     * @return ResponseEntity with JWT token or an error message.
+     */
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
         Logger logger = LoggerFactory.getLogger(AuthController.class);

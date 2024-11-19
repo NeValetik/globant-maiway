@@ -1,6 +1,6 @@
 package md.utm.maiway.dto;
 
-import md.utm.maiway.controllers.OffersMapping;
+import md.utm.maiway.mappers.OffersMapping;
 import md.utm.maiway.models.User;
 
 import java.util.List;

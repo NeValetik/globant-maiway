@@ -18,7 +18,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-
+/**
+ * Controller for managing user-related operations.
+ * Has endpoints for retrieving, updating, and managing user data, including
+ * user profile details and photos.
+ */
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -28,14 +32,16 @@ public class UserController {
     @Autowired
     private UserService service;
 
-
-
     @Autowired
     UserController(UserService userService) {
         this.userService = userService;
     }
 
-    // Get user by ID
+    /**
+     * Retrieves a user by their ID.
+     * @param id the ID of the user
+     * @return ResponseEntity containing the user if found, otherwise 404 status
+     */
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         Optional<User> user = userService.getUserById(id);
@@ -43,7 +49,11 @@ public class UserController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-
+    /**
+     * Retrieves the photo of a user by their ID.
+     * @param id the ID of the user
+     * @return ResponseEntity containing the user's photo in JPEG format if available, otherwise 404 status
+     */
     @GetMapping("/{id}/photo")
     public ResponseEntity<?> getUserPhoto(@PathVariable Long id) {
         Optional<User> userOptional = userService.getUserById(id);
@@ -63,6 +73,11 @@ public class UserController {
                 .body(user.getPhoto());
     }
 
+    /**
+     * Retrieves the username of a user by their ID.
+     * @param id the ID of the user
+     * @return ResponseEntity containing the username if found, otherwise 404 status
+     */
     @GetMapping("/{id}/username")
     public ResponseEntity<?> getUserName(@PathVariable Long id) {
         Optional<User> userOptional = userService.getUserById(id);
@@ -79,13 +94,28 @@ public class UserController {
         return ResponseEntity.ok(user.getUsername());
     }
 
-    // Get a list of all users
+    /**
+     * Retrieves a list of all users.
+     * @return ResponseEntity containing the list of users
+     */
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
 
+    /**
+     * Updates a user's profile details including photo, name, age, sex, email, Instagram link, and about section.
+     * @param photo user's profile photo as a MultipartFile
+     * @param name user's name
+     * @param age user's age
+     * @param sex user's sex
+     * @param email user's email
+     * @param instagramLink link to user's Instagram profile
+     * @param about additional information about the user
+     * @param id the ID of the user to be updated
+     * @return ResponseEntity indicating the update status
+     */
     @PostMapping("/{id}/update")
     public ResponseEntity<?> updateUser(
             @RequestParam(value = "photo", required = false) MultipartFile photo,
@@ -130,16 +160,22 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-
-
-
-    // Get user by username
+    /**
+     * Retrieves a user by their username.
+     * @param username the username of the user
+     * @return ResponseEntity containing the user if found, otherwise 404 status
+     */
     @GetMapping("/username/{username}")
     public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
         Optional<User> user = userService.getUserByUsername(username);
         return user.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
+    /**
+     * Retrieves user details by their username, formatted for a user page.
+     * @param username the username of the user
+     * @return UserResponseDTO containing user details if found, otherwise null
+     */
     @GetMapping("/userpage/username/{username}")
     public UserResponseDTO getUserByUsernameUserPage(@PathVariable String username) {
         Optional<User> user = userService.getUserByUsername(username);
