@@ -6,8 +6,8 @@ public class OfferResponseDTO {
     private byte[] photo; // Still in byte[] format
     private String title;
     private String body;
-    private String location;
-    private String region;
+    private String country; // Added field for country
+    private String region;  // Updated field for region
     private String creationDate;
 
     public static class AuthorDTO {
@@ -25,6 +25,7 @@ public class OfferResponseDTO {
         public String getEmail() {
             return this.email;
         }
+
         public String getName() {
             return name;
         }
@@ -108,27 +109,27 @@ public class OfferResponseDTO {
         this.body = body;
     }
 
-    public String getLocation(){
-        return location;
+    public String getCountry() {
+        return country;
     }
 
-    public void setLocation(String location){
-        this.location = location;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
-    public String getRegion(){
+    public String getRegion() {
         return region;
     }
 
-    public void setRegion(String region){
+    public void setRegion(String region) {
         this.region = region;
     }
 
-    public void setCreationDate(String creationDate){
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 
-    public String getCreationDate(){
+    public String getCreationDate() {
         return this.creationDate;
     }
 }

@@ -15,20 +15,19 @@ public class OffersMapping {
             throw new RuntimeException("User not found");
         }
 
-        // Map offer data to DTO
         OfferResponseDTO responseDTO = new OfferResponseDTO();
         responseDTO.setId(offer.getId());
         responseDTO.setTitle(offer.getTitle());
         responseDTO.setBody(offer.getDescription());
-        responseDTO.setLocation(offer.getLocation());
-        responseDTO.setRegion(offer.getRegion());
-        //Format the date object into a string object
+        responseDTO.setCountry(offer.getRegion().getCountry().getName());
+        responseDTO.setRegion(offer.getRegion().getName());
+
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime createdDateTime = offer.getCreatedAt();
         if (createdDateTime != null) {
             responseDTO.setCreationDate(createdDateTime.format(formatter1));
         }
-        // Set Author details
+
         OfferResponseDTO.AuthorDTO authorDTO = new OfferResponseDTO.AuthorDTO();
         authorDTO.setUserId(user.getId());
         authorDTO.setUsername(user.getUsername());
@@ -36,10 +35,9 @@ public class OffersMapping {
         authorDTO.setUserPfp(user.getPhoto());
         authorDTO.setEmail(user.getEmail());
         authorDTO.setName(user.getName());
-        // Set author info
+
         responseDTO.setAuthor(authorDTO);
 
-        // Set offer photo
         responseDTO.setPhoto(offer.getPhoto());
 
         return responseDTO;
