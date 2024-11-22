@@ -2,12 +2,11 @@
 
 ## November 9-22, 2024
 
->Added SecurityValidation layer for AuthController - MNicolae
-
 > Adjusted the offers to contain reference to region. Refactored filters and search for being in healtly relationships with DB - CTimur
 
 > Applied backend changes on offers for frontend. Regions and Countries are not hardcoded and are obtained from backend `/api/location/getCountriesJson` - VVladimir
 
+> Added SecurityValidation layer for AuthController - MNicolae
 
 ## November 1-8, 2024
 
