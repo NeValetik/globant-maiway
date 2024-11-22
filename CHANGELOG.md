@@ -2,7 +2,7 @@
 
 ## November 9-22, 2024
 
->Refactored mappers in its own package. Added javadoc documentation for api controllers - MNicolae
+>Added SecurityValidation layer for AuthController - MNicolae
 
 > Adjusted the offers to contain reference to region. Refactored filters and search for being in healtly relationships with DB - CTimur
 
@@ -15,4 +15,5 @@
 
 >completed, bug appeared on the backend part, asked to fix - VVladimir
 
->Added SecurityValidation layer for AuthController - MNicolae
+>Refactored mappers in its own package. Added javadoc documentation for api controllers - MNicolae
+
