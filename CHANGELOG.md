@@ -15,3 +15,4 @@
 
 >completed, bug appeared on the backend part, asked to fix - VVladimir
 
+>Added SecurityValidation layer for AuthController - MNicolae
