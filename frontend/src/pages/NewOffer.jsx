@@ -46,6 +46,7 @@ const NewOffer = () => {
         formData.append('location', location);
         formData.append('region',region)
         formData.append('userId', userId);
+        console.log(formData)
         const token = localStorage.getItem("token")
         console.log(token)
 
@@ -59,6 +60,7 @@ const NewOffer = () => {
             });
 
             if (!response.ok) {
+                console.log(response.text())
                 throw new Error('Network response was not ok');
             }
 
