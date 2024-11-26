@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import useDominantColor from "../components/utils/useDominantColor";
 import themeChangerDescriptionString from "../components/utils/themeChangerDescriptionString";
 import { useTheme } from '../context/ThemeContext';
-import CardWide from "../components/CardWide";
+import Card from "../components/Card";
 import { MdOutlineEmail, MdAddAPhoto } from "react-icons/md";
 import { FaInstagram, FaMale, FaFemale } from "react-icons/fa";
 import { FaGenderless } from "react-icons/fa6";
@@ -355,7 +355,7 @@ const UserPage = () => {
                     {offers.length > 0 ? (
                         <div className="flex flex-col gap-6">
                             {offers.map((offer, index) => (
-                                <CardWide key={index} offer={offer}/>
+                                <Card key={index} sizeType='wide' offer={offer}/>
                             ))}
                         </div>
                     ) : (
