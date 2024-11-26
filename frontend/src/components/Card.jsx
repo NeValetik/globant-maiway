@@ -115,6 +115,15 @@ const Card = ({ offer, sizeType = "default" }) => {
                     >
                         {offer.creationDate && offer.creationDate.substring(0, 16)}
                     </div>
+                    {/* Trash Bin */}
+                    <div className="absolute top-2 right-2">
+                    <CiTrash 
+                            className={themeChangerDescriptionString(
+                                theme,
+                                "text-black hover:text-red-500 transition-colors duration-200",
+                                "text-gray-50 hover:text-red-500 transition-colors duration-200"
+                            )} />
+                    </div>
                 </div>
 
                 {/* Title and Description */}
