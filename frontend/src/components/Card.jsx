@@ -3,6 +3,7 @@ import { useTheme } from "../context/ThemeContext";
 import themeChangerDescriptionString from "./utils/themeChangerDescriptionString";
 import { Link,useNavigate } from 'react-router-dom';
 import { MdOutlineEmail } from "react-icons/md";
+import { CiTrash } from "react-icons/ci";
 import Tags from './Tags';
 
 
