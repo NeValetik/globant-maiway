@@ -8,7 +8,10 @@ import {
     FaGithubSquare,
     FaInstagram,
     FaTwitterSquare,
+
   } from 'react-icons/fa';
+
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   const {theme, toggleTheme} = useTheme()
@@ -20,10 +23,11 @@ const Footer = () => {
           <h1 className='w-full text-3xl font-bold text-indigo-500'>Măi Way</h1>
           <p className={themeChangerDescriptionString(theme, 'py-4 text-gray-400', 'py-4 text-white')}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id odit ullam iste repellat consequatur libero reiciendis, blanditiis accusantium.</p>
           <div className={themeChangerDescriptionString(theme, 'flex justify-between md:w-[75%] my-6 text-gray-400', 'flex justify-between md:w-[75%] my-6 text-white')}>
-              <a><FaFacebookSquare size={30}/></a>
-              <a><FaInstagram size={30} /></a>
-              <a><FaTwitterSquare size={30} /></a>
-              <a><FaGithubSquare size={30} /></a>
+              <a target="_blank" href={"https://www.facebook.com/timurcravtov"}><FaFacebookSquare size={30}/></a>
+              <a target="_blank" href={"https://www.instagram.com/daredenger/"}><FaInstagram size={30} /></a>
+              <a target="_blank" href={"https://x.com/elonmusk"}><FaXTwitter size={30} /></a>
+
+              <a target="_blank" href={"https://github.com/NeValetik/globant-maiway"}><FaGithubSquare size={30} /></a>
           </div>
         </div>
         <div className='lg:col-span-2 flex justify-between mt-6'>
