@@ -105,7 +105,7 @@ const Navbar = () => {
                     <ul className="py-2 text-sm text-gray-800 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                       <li>
                         <Link to={`/user/${username}`} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-white">
-                          Dashboard
+                          Profile
                         </Link>
                       </li>
                       <li>
@@ -114,14 +114,12 @@ const Navbar = () => {
                         </a>
                       </li>
                       <li>
-                        <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-white">
-                          Earnings
+                        <a className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-white">
+                          <button onClick={clearToken}>
+                            Sign out
+                          </button>
                         </a>
-                      </li>
-                      <li>
-                        <button onClick={clearToken} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-white">
-                          Sign out
-                        </button>
+
                       </li>
                     </ul>
                   </div>
