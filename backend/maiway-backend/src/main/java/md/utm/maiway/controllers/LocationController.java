@@ -6,11 +6,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 /**
  * LocationController provides an endpoint for retrieving country and region data.
  * It interacts with CountryService to fetch structured country information with associated regions.
  */
-@Controller("/api/location/")
+@Controller
+@RequestMapping("/api/location/")
 public class LocationController {
 
     private final CountryService countryService;

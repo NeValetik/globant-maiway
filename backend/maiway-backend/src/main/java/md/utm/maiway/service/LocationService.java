@@ -25,4 +25,8 @@ public class LocationService {
     public Optional<Region> getRegionWithCountry(Long regionId) {
         return Optional.ofNullable(regionRepository.findRegionWithCountryById(regionId));
     }
+
+    public Optional<Region> getRegionWithCountryByCode(String countryCode, String regionCode) {
+        return Optional.ofNullable(regionRepository.findRegionWithCountryByName(countryCode, regionCode));
+    }
 }

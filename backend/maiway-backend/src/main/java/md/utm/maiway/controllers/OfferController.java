@@ -88,6 +88,7 @@ public class OfferController {
     public List<OfferResponseDTO> getOffersPerPage(@PathVariable int number) {
         logger.info("Received request to get offers for page {}", number);
         List<Offer> offers = offerService.getOffersPerPage(number - 1, PAGE_OFFERS_LIMIT);
+        logger.info("Gave " + offers.size() + " offers ");
         return offers.stream()
                 .map(OffersMapping::mapOfferToDTO)
                 .collect(Collectors.toList());
@@ -108,8 +109,8 @@ public class OfferController {
     public ResponseEntity<String> createOffer(
             @RequestParam("photo") MultipartFile photo,
             @RequestParam("title") String title,
-            @RequestParam("location") String location,
-            @RequestParam("regionId") Long regionId,
+            @RequestParam("location") String locationCode,
+            @RequestParam("region") String regionCode,
             @RequestParam("body") String body)  {
         try {
 
@@ -129,7 +130,7 @@ public class OfferController {
             }
             User user = userOptional.get();
 
-            Optional<Region> region = locationService.getRegionWithCountry(regionId);
+            Optional<Region> region = locationService.getRegionWithCountryByCode(locationCode, regionCode);
 
             if (region.isEmpty()) {
                 return new ResponseEntity<>("No such region", HttpStatus.BAD_REQUEST);
