@@ -48,7 +48,7 @@ const Filters = ({ location, setLocation, region, setRegion, before, setBefore, 
           className={themeChangerDescriptionString(
             theme,
             'bg-[#ffffff] border-amber-50 text-gray-700',
-            'bg-[#212223] border-gray-500 text-white'," p-2 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500")}
+            'bg-[#212223] border-gray-500 text-white'," p-2 rounded-md shadow-md focus:outline-none")}
         >
           <option value="">Choose a country</option>
           {countries.map((selLocation) => (
@@ -66,7 +66,7 @@ const Filters = ({ location, setLocation, region, setRegion, before, setBefore, 
           className={themeChangerDescriptionString(
             theme,
             'bg-[#ffffff] border-amber-50 text-gray-700',
-            'bg-[#212223] border-gray-500 text-white'," p-2 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500")}>
+            'bg-[#212223] border-gray-500 text-white'," p-2 rounded-md shadow-md focus:outline-none")}>
           <option value="">Choose a region</option>
           {regions.map((region) => (
             <option key={region.code} value={region.code}>
@@ -148,14 +148,14 @@ const Filters = ({ location, setLocation, region, setRegion, before, setBefore, 
         </LocalizationProvider>
       </div>
       <div className='flex mb-2'>
-        <button type="submit" className={themeChangerDescriptionString(theme, 'hover:bg-[#067a89] bg-mwlightgreen ',
-                    'bg-[#067a89] hover:bg-[#07b2a0] text-white',
+        <button type="submit" className={themeChangerDescriptionString(theme, 'hover:bg-mwdarkgreen bg-mwlightgreen ',
+                    'bg-mwdarkgreen hover:bg-mwlightgreen text-white',
                     'text-gray-200 focus:ring-4' +
-                    ' focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 mx-auto py-2')}>Submit</button>
+                    ' focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 mx-auto py-2 transition-all')}>Submit</button>
         <button type="button" className={themeChangerDescriptionString(theme, 'hover:bg-[#067a89] bg-mwlightgreen ',
                     'bg-[#067a89] hover:bg-[#07b2a0] text-white',
                     'text-gray-200 focus:ring-4' +
-                    ' focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 mx-auto py-2')}>Refresh</button>
+                    ' focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 mx-auto py-2 transition-all')}>Refresh</button>
       </div>
     </div>
   );

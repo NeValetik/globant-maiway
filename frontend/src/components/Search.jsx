@@ -79,7 +79,7 @@ const Search = () => {
 
                     className={themeChangerDescriptionString(theme, 'hover:bg-mwdarkgreen bg-mwlightgreen',
                         'bg-mwdarkgreen hover:bg-mwlightgreen text-white',
-                        'text-white absolute end-2.5 bottom-2.5' +
+                        'text-white absolute end-2.5 bottom-2.5 transition-all' +
                         ' focus:outline-none font-semibold rounded-lg text-sm px-4 py-2  ')}>
               <FaSearch size={19} />
             </button>
@@ -88,7 +88,7 @@ const Search = () => {
         <div className="flex justify-end py-2 mr-auto my-5 ">
           <button type="button" className={themeChangerDescriptionString(theme, 'hover:bg-mwdarkgreen bg-mwlightgreen',
                       'bg-mwdarkgreen hover:bg-mwlightgreen ',
-                      ' text-white focus:outline-none font-medium rounded-lg text-sm px-4')} onClick={toggleFilters}>
+                      ' text-white focus:outline-none font-medium rounded-lg text-sm px-4 transition-all')} onClick={toggleFilters}>
             <FaFilter size={19} className={themeChangerDescriptionString(theme,
             'gray-300','white', ) }/>
           </button>
