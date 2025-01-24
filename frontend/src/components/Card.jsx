@@ -147,20 +147,29 @@ const Card = ({ offer, sizeType = "default" }) => {
 
             {/* Tags Section */}
             <div className="flex flex-wrap gap-2 px-6 pb-4">
+                <Link
+                    to={`/search?location=${offer.country}`}
+                    className={themeChangerDescriptionString(
+                        theme,
+                        "bg-gray-500 text-gray-50 hover:bg-gray-300",
+                        "bg-[#0d0f13] text-gray-300 hover:bg-black",
+                        "text-sm font-medium px-3 py-1 rounded-full transition-all"
+                    )}
+                >
+                    {offer.country}
+                </Link>
 
-             <span className={themeChangerDescriptionString(theme,
-                 "bg-gray-500 text-gray-50 hover:bg-gray-300",
-                 "bg-[#0d0f13] text-gray-300 hover:bg-black",
-                 "text-sm font-medium px-3 py-1 rounded-full transition-all")}>
-        {offer.country}
-             </span>
-
-                <span className={themeChangerDescriptionString(theme,
-                    "bg-gray-500 text-gray-50 hover:bg-gray-300",
-                    "bg-[#0d0f13] text-gray-300 hover:bg-black",
-                    "text-sm font-medium px-3 py-1 rounded-full transition-all")}>
+                <Link
+                    to={`/search?location=${offer.region}`}
+                    className={themeChangerDescriptionString(
+                        theme,
+                        "bg-gray-500 text-gray-50 hover:bg-gray-300",
+                        "bg-[#0d0f13] text-gray-300 hover:bg-black",
+                        "text-sm font-medium px-3 py-1 rounded-full transition-all"
+                    )}
+                >
                     {offer.region}
-            </span>
+                </Link>
             </div>
         </Link>
     );

@@ -20,6 +20,7 @@ public class OffersMapping {
         responseDTO.setTitle(offer.getTitle());
         responseDTO.setBody(offer.getDescription());
         responseDTO.setCountry(offer.getRegion().getCountry().getName());
+
         responseDTO.setRegion(offer.getRegion().getName());
 
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

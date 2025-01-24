@@ -18,22 +18,22 @@ public interface OfferRepository extends JpaRepository<Offer, Long> {
     @NonNull
     Page<Offer> findAll(@NonNull Pageable pageable);
 
-    // Method using country and region names
     @Query("SELECT o FROM Offer o " +
             "JOIN o.region r " +
             "JOIN r.country c " +
-            "WHERE (COALESCE(:titleQuery, '') = '' OR UPPER(o.title) LIKE CONCAT('%', UPPER(:titleQuery), '%') " +
+            "WHERE (:titleQuery IS NULL OR :titleQuery = '' OR UPPER(o.title) LIKE CONCAT('%', UPPER(:titleQuery), '%') " +
             "OR UPPER(o.description) LIKE CONCAT('%', UPPER(:titleQuery), '%')) AND " +
-            "(COALESCE(:countryFilter, '') = '' OR UPPER(c.name) = UPPER(:countryFilter)) AND " +
-            "(COALESCE(:regionFilter, '') = '' OR UPPER(r.name) = UPPER(:regionFilter)) AND " +
+            "(:location IS NULL OR :location = '' OR (UPPER(:location) IN (UPPER(c.code), UPPER(c.name)))) AND " +
+            "(:region IS NULL OR :region = '' OR (UPPER(:region) IN (UPPER(r.name), UPPER(r.code)))) AND " +
             "(o.created_at BETWEEN :startDate AND :endDate)")
     List<Offer> findByQueryAndFilters(
             @Param("titleQuery") String titleQuery,
-            @Param("countryFilter") String countryFilter,
-            @Param("regionFilter") String regionFilter,
+            @Param("location") String location,
+            @Param("region") String region,
             @Param("startDate") LocalDateTime startDate,
             @Param("endDate") LocalDateTime endDate
     );
+
 
     // Overloaded method using countryId and regionId
     @Query("SELECT o FROM Offer o " +

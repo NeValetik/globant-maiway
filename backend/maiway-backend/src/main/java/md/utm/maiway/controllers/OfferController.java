@@ -141,7 +141,7 @@ public class OfferController {
             Offer newOffer = new Offer(user, title, body, photoBytes, region1);
             offerService.saveOffer(newOffer);
 
-            logger.info("New offer created with title: {}", title);
+            logger.debug("New offer created with title: {}", title);
             return new ResponseEntity<>("Offer created successfully", HttpStatus.OK);
 
         } catch (IOException e) {
@@ -280,6 +280,7 @@ public class OfferController {
             @RequestParam(required = false) String before,
             @RequestParam(required = false) String after) {
 
+        System.out.println("In search");
         List<Offer> filteredOffers;
 
         if (countryId != null || regionId != null) {

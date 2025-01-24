@@ -12,4 +12,8 @@ public interface RegionRepository extends JpaRepository<Region, Long> {
     @Query("SELECT r FROM Region r JOIN FETCH r.country WHERE r.id = :regionId")
     Region findRegionWithCountryById(@Param("regionId") Long regionId);
 
+    @Query("SELECT r from Region r join fetch r.country where r.country.code = :countryCode and r.code = :regionCode")
+    Region findRegionWithCountryByName(@Param("countryCode") String countryCode, @Param("regionCode") String regionCode);
+
+
 }
