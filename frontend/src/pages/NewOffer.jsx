@@ -75,7 +75,7 @@ const NewOffer = () => {
                 throw new Error('Failed to submit offer');
             }
 
-            const data = await response.json();
+            const data = await response.text();
             console.log('Offer created successfully:', data);
             window.location.href = "/";
         } catch (error) {
@@ -178,20 +178,8 @@ const NewOffer = () => {
                     </select>
                 </div>
 
-                <div className="mb-4 flex items-center space-x-2">
-                    <IoIosSettings fill={'white'} />
-                    <input
-                        id="userId"
-                        type="text"
-                        value={userId}
-                        onChange={(e) => setUserId(e.target.value)}
-                        placeholder="Enter user ID"
-                        className={themeChangerDescriptionString(theme, '', 'bg-[#282a2c]', "flex-grow p-2 rounded")}
-                    />
-                </div>
-
                 <button type="submit"
-                        className={themeChangerDescriptionString(theme, 'hover:bg-[#016960] bg-[#629a8d]', 'bg-[#016960] hover:bg-[#629a8d]', "w-full py-2 px-4 rounded text-")}>
+                        className={themeChangerDescriptionString(theme, 'hover:bg-[#016960] bg-[#629a8d]', 'bg-[#016960] hover:bg-[#629a8d]', "w-full py-2 px-4 text-white rounded text-")}>
                     Submit Offer
                 </button>
             </form>

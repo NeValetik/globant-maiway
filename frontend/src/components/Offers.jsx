@@ -29,7 +29,7 @@ const Offers = ({ query }) => {
     if (fetchInProgress.current) return;
     fetchInProgress.current = true;
     setLoading(true);
-   
+   console.log(currentQuery)
     try {
       const response = await fetch(currentQuery === null 
         ? `http://localhost:6969/api/offer/page/${currentPage}` 

@@ -11,6 +11,7 @@ const Card = ({ offer, sizeType = "default" }) => {
     const [isHovered, setIsHovered] = useState(false);
     const navigate = useNavigate();
 
+    console.log(offer)
     const handleClick = () => {
         navigate(`offer/${offer.id}`);
     };
@@ -144,8 +145,23 @@ const Card = ({ offer, sizeType = "default" }) => {
                 </div>
             </div>
 
-            {/* Tags */}
-            <Tags tags={{ region: offer.region, location: offer.location }} />
+            {/* Tags Section */}
+            <div className="flex flex-wrap gap-2 px-6 pb-4">
+
+             <span className={themeChangerDescriptionString(theme,
+                 "bg-gray-500 text-gray-50 hover:bg-gray-300",
+                 "bg-[#0d0f13] text-gray-300 hover:bg-black",
+                 "text-sm font-medium px-3 py-1 rounded-full transition-all")}>
+        {offer.country}
+             </span>
+
+                <span className={themeChangerDescriptionString(theme,
+                    "bg-gray-500 text-gray-50 hover:bg-gray-300",
+                    "bg-[#0d0f13] text-gray-300 hover:bg-black",
+                    "text-sm font-medium px-3 py-1 rounded-full transition-all")}>
+                    {offer.region}
+            </span>
+            </div>
         </Link>
     );
 };
