@@ -1,11 +1,20 @@
 -- RUN ONCE pls
 
+
+delete from region cascade;
+delete from country;
+
 -- Insert countries
 INSERT INTO country (id, code, name) VALUES
                                          (1, 'UK', 'United Kingdom'),
                                          (2, 'US', 'United States'),
                                          (3, 'CA', 'Canada'),
-                                         (4, 'MD', 'Moldova');
+                                         (4, 'MD', 'Moldova'),
+                                         (5, 'AU', 'Australia'),
+                                         (6, 'IN', 'India'),
+                                         (7, 'DE', 'Germany'),
+                                         (8, 'FR', 'France'),
+                                         (9, 'JP', 'Japan');
 
 -- Insert regions for the United Kingdom
 INSERT INTO region (code, country_id, region_name) VALUES
@@ -16,7 +25,7 @@ INSERT INTO region (code, country_id, region_name) VALUES
 
 -- Insert regions for the United States
 INSERT INTO region (code, country_id, region_name) VALUES
-                                                       ('ALB', 2, 'Alabama'),
+                                                       ('AL', 2, 'Alabama'),
                                                        ('AK', 2, 'Alaska'),
                                                        ('AZ', 2, 'Arizona'),
                                                        ('AR', 2, 'Arkansas'),
@@ -93,3 +102,66 @@ INSERT INTO region (code, country_id, region_name) VALUES
                                                        ('UH', 4, 'Ungheni'),
                                                        ('RI', 4, 'Rîbnița'),
                                                        ('TI', 4, 'Tiraspol');
+
+-- Insert regions for Australia
+INSERT INTO region (code, country_id, region_name) VALUES
+                                                       ('NSW', 5, 'New South Wales'),
+                                                       ('QLD', 5, 'Queensland'),
+                                                       ('SA', 5, 'South Australia'),
+                                                       ('TAS', 5, 'Tasmania'),
+                                                       ('VIC', 5, 'Victoria'),
+                                                       ('WA', 5, 'Western Australia'),
+                                                       ('ACT', 5, 'Australian Capital Territory'),
+                                                       ('NT', 5, 'Northern Territory');
+
+-- Insert regions for India
+INSERT INTO region (code, country_id, region_name) VALUES
+                                                       ('AP', 6, 'Andhra Pradesh'),
+                                                       ('DL', 6, 'Delhi'),
+                                                       ('KA', 6, 'Karnataka'),
+                                                       ('MH', 6, 'Maharashtra'),
+                                                       ('TN', 6, 'Tamil Nadu'),
+                                                       ('WB', 6, 'West Bengal'),
+                                                       ('UP', 6, 'Uttar Pradesh'),
+                                                       ('RJ', 6, 'Rajasthan');
+
+-- Insert regions for Germany
+INSERT INTO region (code, country_id, region_name) VALUES
+                                                       ('BW', 7, 'Baden-Württemberg'),
+                                                       ('BY', 7, 'Bavaria'),
+                                                       ('BE', 7, 'Berlin'),
+                                                       ('BB', 7, 'Brandenburg'),
+                                                       ('HB', 7, 'Bremen'),
+                                                       ('HH', 7, 'Hamburg'),
+                                                       ('HE', 7, 'Hesse'),
+                                                       ('MV', 7, 'Mecklenburg-Vorpommern'),
+                                                       ('NI', 7, 'Lower Saxony'),
+                                                       ('NW', 7, 'North Rhine-Westphalia'),
+                                                       ('RP', 7, 'Rhineland-Palatinate'),
+                                                       ('SL', 7, 'Saarland'),
+                                                       ('SN', 7, 'Saxony'),
+                                                       ('ST', 7, 'Saxony-Anhalt'),
+                                                       ('SH', 7, 'Schleswig-Holstein'),
+                                                       ('TH', 7, 'Thuringia');
+
+-- Insert regions for France
+INSERT INTO region (code, country_id, region_name) VALUES
+                                                       ('IDF', 8, 'Île-de-France'),
+                                                       ('NAQ', 8, 'Nouvelle-Aquitaine'),
+                                                       ('PAC', 8, 'Provence-Alpes-Côte d`Azur'),
+                                                       ('OCC', 8, 'Occitanie'),
+                                                       ('ARA', 8, 'Auvergne-Rhône-Alpes'),
+                                                       ('HDF', 8, 'Hauts-de-France'),
+                                                       ('GE', 8, 'Grand Est'),
+                                                       ('BRE', 8, 'Brittany');
+
+-- Insert regions for Japan
+INSERT INTO region (code, country_id, region_name) VALUES
+                                                       ('HOK', 9, 'Hokkaido'),
+                                                       ('TOH', 9, 'Tohoku'),
+                                                       ('KNT', 9, 'Kanto'),
+                                                       ('CHK', 9, 'Chubu'),
+                                                       ('KNS', 9, 'Kansai'),
+                                                       ('CHG', 9, 'Chugoku'),
+                                                       ('SHK', 9, 'Shikoku'),
+                                                       ('KYU', 9, 'Kyushu');
