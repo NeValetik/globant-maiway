@@ -11,8 +11,13 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        'mwlightgreen' : '#0796a8',
+        'mwdarkgreen': '#067a89',
+        'mvcontainergrey' : '#1e1f20'
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+  ],
 } satisfies Config;
