@@ -56,8 +56,6 @@ const Card = ({ offer, sizeType = "default" }) => {
           src={offer.photo}
           alt="Offer image"
           layout="fill"
-          width={'100%'}
-          height={'100%'}
         />
       </div>
 
