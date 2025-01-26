@@ -111,7 +111,10 @@ const NewOffer = () => {
                 </div>
 
                 {previewUrl && (
-                    <Image src={previewUrl} alt="Preview" className="mb-4 h-[200px] w-auto rounded" />
+                    <Image src={previewUrl} alt="Preview" className="mb-4 h-[200px] w-auto rounded" 
+											width={'100%'}
+											height={'100%'}
+										/>
                 )}
 
                 <div className="mb-4">

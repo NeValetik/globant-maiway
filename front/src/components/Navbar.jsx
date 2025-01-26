@@ -39,7 +39,10 @@ const Navbar = () => {
       <nav className={`mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8`} aria-label="Header">
         <div className="flex lg:flex-1">
           <a href="/" className="-m-1.5 p-1.5">
-            <Image className="h-12 w-auto" src={theme === 'light' ? headerLogoBlack : headerLogoWhite} alt="Logo" />
+            <Image className="h-12 w-auto" src={theme === 'light' ? headerLogoBlack : headerLogoWhite} alt="Logo"  
+              width={'100%'}
+              height={'100%'}
+            />
           </a>
           <a href="/" className={`py-3 text-3xl font-mono font-bold leading-6 ${theme === 'light' ? 'text-gray-700' : 'text-gray-50'} ml-4`}>
             Măi Way
@@ -94,6 +97,8 @@ const Navbar = () => {
                   onBlur={handleBlur}
                   src={authUserPhoto || BlankPfp}
                   alt="User Profile"
+                  width={'100%'}
+                  height={'100%'}
                 />
                 {isDropdownVisible && (
                   <div
