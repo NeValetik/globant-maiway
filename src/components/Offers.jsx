@@ -7,6 +7,7 @@ import sad_robot from '../assets/sad_robot.png';
 import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 import {useTheme} from "../context/ThemeContext";
 import themeChangerDescriptionString from "./utils/themeChangerDescriptionString";
+import Image from 'next/image';
 
 const Offers = ({ query }) => {
   const [offers, setOffers] = useState([]);
@@ -86,11 +87,11 @@ const Offers = ({ query }) => {
     <>
       {loading && offers.length === 0 ? (
         <div className="flex justify-center items-center">
-          <img src={loading_cat} width={'20%'} height={'auto'} alt="Loading" />
+          <Image src={loading_cat} width={'20%'} height={'auto'} alt="Loading" />
         </div>
       ) : offers.length === 0 ? (
         <div className="flex justify-center items-center">
-          <img className={'w-[250px]'} src={sad_robot} alt={"sad robot picture"} />
+          <Image className={'w-[250px]'} src={sad_robot} alt={"sad robot picture"} />
           <p className={themeChangerDescriptionString(theme, '', 'text-white','text-3xl font-mono')}> Sorry, I couldn't find any results.</p>
         </div>
       ) : (

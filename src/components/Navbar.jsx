@@ -9,6 +9,7 @@ import ThemeToggler from "./ThemeTogglerButton";
 import themeChangerDescriptionString from "./utils/themeChangerDescriptionString";
 import Link from 'next/link';
 import BlankPfp from '../assets/blank-pfp.png'
+import Image from 'next/image';
 
 
 const Navbar = () => {
@@ -38,7 +39,7 @@ const Navbar = () => {
       <nav className={`mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8`} aria-label="Header">
         <div className="flex lg:flex-1">
           <a href="/" className="-m-1.5 p-1.5">
-            <img className="h-12 w-auto" src={theme === 'light' ? headerLogoBlack : headerLogoWhite} alt="Logo" />
+            <Image className="h-12 w-auto" src={theme === 'light' ? headerLogoBlack : headerLogoWhite} alt="Logo" />
           </a>
           <a href="/" className={`py-3 text-3xl font-mono font-bold leading-6 ${theme === 'light' ? 'text-gray-700' : 'text-gray-50'} ml-4`}>
             Măi Way
@@ -86,7 +87,7 @@ const Navbar = () => {
                 Create Offer
               </Link>
               <div className="relative">
-                <img
+                <Image
                   className="h-11 w-11 cursor-pointer rounded-full object-cover "
                   tabIndex="0"
                   onFocus={handleCascade}

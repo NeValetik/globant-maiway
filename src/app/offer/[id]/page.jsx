@@ -11,6 +11,7 @@ import loading_cat from 'src/assets/loading_cat.gif';
 import locationsData from 'src/assets/locations.json';
 import { JWTContext } from "src/context/JWTContext";
 import { IoIosSettings } from "react-icons/io";
+import Image from 'next/image';
 
 const processImage = (photo) => {
     let imageUrl = '';
@@ -24,7 +25,7 @@ const processImage = (photo) => {
 };
 
 function OfferPage({ params }) {
-    const { id } = React.use(params); // Get the offer ID from the URL parameters
+    const { id } = React.use(params);
     const [offer, setOffer] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const { theme } = useTheme();
@@ -130,7 +131,7 @@ function OfferPage({ params }) {
     if (!offer) {
         return (
             <div className="justify-items-center justify-center flex my-auto">
-                <img src={loading_cat} width={'20%'} height={'auto'} alt="Loading" />
+                <Image src={loading_cat} width={'20%'} height={'auto'} alt="Loading" />
             </div>
         );
     }
@@ -141,7 +142,7 @@ return (
         <Navbar />
         {!isEditing ? (
             <div className="flex-col relative mt-5">
-                <img className="mx-auto w-[653px] h-80 rounded-lg" src={offer.photo} alt="Offer Image" />
+                <Image className="mx-auto w-[653px] h-80 rounded-lg" src={offer.photo} alt="Offer Image" />
                 <div className={themeChangerDescriptionString(theme, 'text-black', 'text-white', "flex flex-col mx-auto w-[653px]")}>
                     <div className="py-4 text-[25px]">{offer.title}</div>
                     <div className="pb-4">{offer.body}</div>
@@ -167,7 +168,7 @@ return (
                 </div>
 
                 {previewUrl && (
-                    <img src={previewUrl} alt="Preview" className="mx-auto w-[653px] h-80 rounded-lg mb-5" />
+                    <Image src={previewUrl} alt="Preview" className="mx-auto w-[653px] h-80 rounded-lg mb-5" />
                 )}
 
                 <div className="mb-4">

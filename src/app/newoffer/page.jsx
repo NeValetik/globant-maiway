@@ -6,6 +6,7 @@ import Navbar from "../../components/Navbar";
 import themeChangerDescriptionString from "../../components/utils/themeChangerDescriptionString";
 import { useTheme } from "../../context/ThemeContext";
 import { IoIosSettings } from "react-icons/io";
+import Image from 'next/image';
 
 const NewOffer = () => {
     const { theme, toggleTheme } = useTheme();
@@ -110,7 +111,7 @@ const NewOffer = () => {
                 </div>
 
                 {previewUrl && (
-                    <img src={previewUrl} alt="Preview" className="mb-4 h-[200px] w-auto rounded" />
+                    <Image src={previewUrl} alt="Preview" className="mb-4 h-[200px] w-auto rounded" />
                 )}
 
                 <div className="mb-4">
