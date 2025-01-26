@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import UserPage from "./pages/UserPage";
 import LoginSignupForm from "./components/LogInForm";
 import OfferPage from "./pages/OfferPage";
+import PolicyPage from "./pages/PolicyPage";
 
 
 function App() {
@@ -23,6 +24,8 @@ function App() {
             <Router>
                 <Routes>
                     <Route path='/' element={<Homepage />} />
+                    <Route path='/policy' element={<PolicyPage />} />
+
                     <Route path='/newoffer' element={<NewOffer />} />
                     <Route path='/search' element={<Homepage />} />
                     <Route path='/auth/*' element={<LoginSignupForm />} />

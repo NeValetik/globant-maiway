@@ -111,7 +111,7 @@ const Card = ({ offer, sizeType = "default" }) => {
                             theme,
                             "text-black",
                             "text-gray-50",
-                            "text-xs italic"
+                            "text-xs"
                         )}
                     >
                         {offer.creationDate && offer.creationDate.substring(0, 16)}
@@ -160,7 +160,7 @@ const Card = ({ offer, sizeType = "default" }) => {
                 </Link>
 
                 <Link
-                    to={`/search?location=${offer.region}`}
+                    to={`/search?region=${offer.region}`}
                     className={themeChangerDescriptionString(
                         theme,
                         "bg-gray-500 text-gray-50 hover:bg-gray-300",

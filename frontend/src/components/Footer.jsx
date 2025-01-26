@@ -1,7 +1,7 @@
 import React from 'react';
 import themeChangerDescriptionString from "./utils/themeChangerDescriptionString";
 import {useTheme} from "../context/ThemeContext";
-
+import { Link, useNavigate } from "react-router-dom";
 
 import {
     FaFacebookSquare,
@@ -62,8 +62,7 @@ const Footer = () => {
           <div>
             <h6 className={themeChangerDescriptionString(theme, 'font-medium text-gray-500', 'font-medium text-gray-200')}>Legal</h6>
             <ul className={ themeChangerDescriptionString(theme, 'py-2 text-sm font-semibold leading-6 text-gray-400', 'py-2 text-sm font-semibold leading-6 text-white')}>
-                <li className='py-2 text-sm'>Claim</li>
-                <li className='py-2 text-sm'>Policy</li>
+                <li className='py-2 text-sm'><Link to={"/policy"}>Policy</Link></li>
                 <li className='py-2 text-sm'>Terms</li>
             </ul>
           </div>

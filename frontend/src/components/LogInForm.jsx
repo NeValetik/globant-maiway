@@ -4,7 +4,7 @@ import { FaLock, FaUser } from "react-icons/fa";
 import { useTheme } from '../context/ThemeContext';
 import themeChangerDescriptionString from "../components/utils/themeChangerDescriptionString";
 import Navbar from "./Navbar";
-import { useLocation, useParams } from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 
 function LoginSignupForm() {
 
@@ -21,6 +21,8 @@ function LoginSignupForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const { theme } = useTheme();
+
+  const {navigate} = useNavigate();
 
   // Update `isLogin` when the query parameters change
   useEffect(() => {
@@ -88,7 +90,8 @@ function LoginSignupForm() {
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                   <div className="flex items-center">
-                    <FaUser className={themeChangerDescriptionString(theme, 'text-gray-600', 'text-gray-400')} size={20} />
+                    <FaUser className={themeChangerDescriptionString(theme, 'text-gray-600', 'text-gray-400')}
+                            size={20}/>
                     <input
                         type="text"
                         placeholder="Username"
@@ -102,7 +105,8 @@ function LoginSignupForm() {
 
                 <div className="mb-4">
                   <div className="flex items-center">
-                    <FaLock className={themeChangerDescriptionString(theme, 'text-gray-600', 'text-gray-400')} size={20} />
+                    <FaLock className={themeChangerDescriptionString(theme, 'text-gray-600', 'text-gray-400')}
+                            size={20}/>
                     <input
                         type="password"
                         placeholder="Password"
@@ -117,7 +121,8 @@ function LoginSignupForm() {
                 {!isLogin && (
                     <div className="mb-4">
                       <div className="flex items-center">
-                        <FaLock className={themeChangerDescriptionString(theme, 'text-gray-600', 'text-gray-400')} size={20} />
+                        <FaLock className={themeChangerDescriptionString(theme, 'text-gray-600', 'text-gray-400')}
+                                size={20}/>
                         <input
                             type="password"
                             placeholder="Confirm Password"
@@ -139,7 +144,15 @@ function LoginSignupForm() {
                 >
                   {loading ? 'Processing...' : isLogin ? 'Log In' : 'Sign Up'}
                 </button>
+
+                {!isLogin && (
+                    <p className={`${themeChangerDescriptionString(theme, 'text-gray-600', 'text-gray-400')} text-center mt-4 text-sm`}>
+                      By registering, you accept our <a href="/policy"
+                                                        className="text-mwlightgreen hover:underline">policy</a>.
+                    </p>
+                )}
               </form>
+
 
               <p className={`${themeChangerDescriptionString(theme, 'text-gray-600', 'text-gray-400')} text-center mt-4`}>
                 {isLogin ? "Don't have an account?" : 'Already have an account?'}{' '}
