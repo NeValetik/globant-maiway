@@ -114,19 +114,32 @@ const Card = ({ offer, sizeType = "default" }) => {
 
           {/* Trash Bin */}
           <div className="absolute top-2 right-2">
-            <CiTrash
-              className={themeChangerDescriptionString(
-                theme,
-                "text-black hover:text-red-500 transition-colors duration-200",
-                "text-gray-50 hover:text-red-500 transition-colors duration-200"
-              )}
-            />
+            <button>
+              <CiTrash
+                className={themeChangerDescriptionString(
+                  theme,
+                  "text-black hover:text-red-500 transition-colors duration-200",
+                  "text-gray-50 hover:text-red-500 transition-colors duration-200"
+                )}
+                />
+            </button>
           </div>
         </div>
 
         {/* Title and Description */}
         <div className="flex-grow">
-          <div className={`font-bold ${isWide ? "text-xl" : "text-[16px]"} mb-2 line-clamp-2`}>
+          <div 
+            className={themeChangerDescriptionString(
+              theme,
+              "text-gray-700",
+              "text-gray-300",
+              `
+                mb-2 line-clamp-2 
+                font-bold 
+                ${isWide ? "text-xl" : "text-[16px]"}
+              `
+            )}
+          >
             {offer.title}
           </div>
           <p
@@ -143,7 +156,7 @@ const Card = ({ offer, sizeType = "default" }) => {
       </div>
 
       {/* Tags Section */}
-      <div className="flex flex-wrap gap-2 px-6 pb-4">
+      <div className={`flex ${isWide && "flex-col"} gap-2 px-6 pb-4 items-center justify-center`}>
         <Link
           href={`/search?location=${offer.country}`}
           className={themeChangerDescriptionString(
