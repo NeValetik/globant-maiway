@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Find the Travel Buddy
 
-## Getting Started
+## This is A Find Travel Buddy application created by UTM Students for Autumns intership at Pentalog Global Division
 
-First, run the development server:
+**The idea**: Lorem ipsum 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Frontend
+Frontend uses React library with npm build tool. To install npm, you have to install node.js use the instructions provided on their official site. Also for styling will be used framework tailwindcss.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+*Download links*:
+https://nodejs.org/en/download/package-manager
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+*Documentation links*:
+https://react.dev/learn
+https://tailwindcss.com/docs/installation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To install tailwindcss enter in this directory `frontend` write in terminal `npm install`(don't worry if any vulnerabilities appear just skip 'em).
+To start the server use `npm start` in the directory `frontend`
 
-## Learn More
+### Backend:
+Backend uses Spring boot with maven build tool. To install Maven, use the instructions provided on their official site. You also need a JDK installed (17+ version).
 
-To learn more about Next.js, take a look at the following resources:
+*Download links*: 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+https://maven.apache.org/download.cgi.
+https://www.oracle.com/cis/java/technologies/downloads/
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+After Maven in configured, go to `backend/travelbuddy` and run `mvn clean install` for intalling the dependencies listed in [requirements](/backend/travelbuddy/pom.xml)
 
-## Deploy on Vercel
+### Database 
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
