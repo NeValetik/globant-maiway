@@ -59,7 +59,7 @@ const UserPage = ({ params }) => {
                     id: data.id,
                 });
 
-                const processedOffers = data.offers.map((offer) => ({
+                const processedOffers = data?.offers?.map((offer) => ({
                     ...offer,
                     photo: offer.photo
                         ? Array.isArray(offer.photo)

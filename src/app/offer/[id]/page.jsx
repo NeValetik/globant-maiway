@@ -142,7 +142,7 @@ return (
         <Navbar />
         {!isEditing ? (
             <div className="flex-col relative mt-5">
-                <Image className="mx-auto w-[653px] h-80 rounded-lg" src={offer.photo} alt="Offer Image" />
+                <Image className="mx-auto w-[653px] h-80 rounded-lg" src={offer.photo} alt="Offer Image" width={1000} height={320}/>
                 <div className={themeChangerDescriptionString(theme, 'text-black', 'text-white', "flex flex-col mx-auto w-[653px]")}>
                     <div className="py-4 text-[25px]">{offer.title}</div>
                     <div className="pb-4">{offer.body}</div>

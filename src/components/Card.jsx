@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useCallback, useState, useContext } from 'react';
 import { useTheme } from "src/context/ThemeContext"; // Update import path as per your project structure
 import themeChangerDescriptionString from "src/components/utils/themeChangerDescriptionString"; // Update path
 import { useRouter } from "next/navigation";
@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MdOutlineEmail } from "react-icons/md";
 import { CiTrash } from "react-icons/ci";
+import { JWTContext } from 'src/context/JWTContext';
 import Tags from "src/components/Tags"; // Update path
 
 
@@ -15,10 +16,23 @@ const Card = ({ offer, sizeType = "default" }) => {
   const { theme } = useTheme();
   const [isHovered, setIsHovered] = useState(false);
   const router = useRouter();
+  const { token } = useContext(JWTContext);
 
   const handleClick = () => {
     router.push(`/offer/${offer.id}`);
   };
+
+  const handleTrashClick = useCallback(async () => {
+    const res = await fetch(`http://localhost:6969/api/offer/delete/${offer.id}`, {
+      method:"DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    console.log(res.json());
+
+  }, [offer.id, token])
 
   const isWide = sizeType === "wide";
 
@@ -113,17 +127,19 @@ const Card = ({ offer, sizeType = "default" }) => {
           </div>
 
           {/* Trash Bin */}
-          <div className="absolute top-2 right-2">
-            <button>
-              <CiTrash
-                className={themeChangerDescriptionString(
-                  theme,
-                  "text-black hover:text-red-500 transition-colors duration-200",
-                  "text-gray-50 hover:text-red-500 transition-colors duration-200"
-                )}
-                />
-            </button>
-          </div>
+          <button
+            onClick={handleTrashClick}
+            className="absolute top-2 right-2 w-6 h-6"
+          >
+            <CiTrash
+              className={themeChangerDescriptionString(
+                theme,
+                "text-black hover:text-red-500 transition-colors duration-200",
+                "text-gray-50 hover:text-red-500 transition-colors duration-200",
+                "hover:z-50"
+              )}
+              />
+          </button>
         </div>
 
         {/* Title and Description */}
