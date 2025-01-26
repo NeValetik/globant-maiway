@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation.js';
 import Navbar from "../../../components/Navbar.jsx";
 import Footer from "../../../components/Footer.jsx";
 import useDominantColor from "../../../components/utils/useDominantColor.jsx";
@@ -16,7 +16,7 @@ import BlankPhoto from "src/assets/blank-pfp.png";
 
 const UserPage = ({ params }) => {
     const { token, userId, isAuthenticated } = useContext(JWTContext);
-    const { username } = params ;
+    const { username } = React.use(params) ;
     const [userdata, setUserdata] = useState(null);
     const [userPfpUrl, setUserPfpUrl] = useState(null);
     const [offers, setOffers] = useState([]);
