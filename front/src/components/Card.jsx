@@ -23,16 +23,30 @@ const Card = ({ offer, sizeType = "default" }) => {
   };
 
   const handleTrashClick = useCallback(async () => {
-    const res = await fetch(`http://localhost:6969/api/offer/delete/${offer.id}`, {
-      method:"DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    console.log(res.json());
-
-  }, [offer.id, token])
+    try {
+      console.log("Offer ID:", offer.id);
+      console.log("Token:", token);
+  
+      const response = await fetch(`http://localhost:6969/api/offer/delete?id=${offer.id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+  
+      const data = await response; // Parse the response if applicable
+      console.log("Delete Response:", data);
+      
+      window.location.reload();
+    } catch (error) {
+      console.error("Error deleting offer:", error);
+    }
+  }, [offer.id, token]);
+  
 
   const isWide = sizeType === "wide";
 
@@ -128,7 +142,11 @@ const Card = ({ offer, sizeType = "default" }) => {
 
           {/* Trash Bin */}
           <button
-            onClick={handleTrashClick}
+            onClick={(e) => {
+              e.preventDefault(); // Prevent link navigation
+              e.stopPropagation(); // Stop event bubbling to the parent link
+              handleTrashClick(); // Call the delete function
+            }}
             className="absolute top-2 right-2 w-6 h-6"
           >
             <CiTrash
@@ -174,7 +192,7 @@ const Card = ({ offer, sizeType = "default" }) => {
       {/* Tags Section */}
       <div className={`flex ${isWide && "flex-col"} gap-2 px-6 pb-4 items-center justify-center`}>
         <Link
-          href={`/search?location=${offer.country}`}
+          href={`?location=${offer.country}`}
           className={themeChangerDescriptionString(
             theme,
             "bg-gray-500 text-gray-50 hover:bg-gray-300",
@@ -186,7 +204,7 @@ const Card = ({ offer, sizeType = "default" }) => {
         </Link>
 
         <Link
-          href={`/search?location=${offer.region}`}
+          href={`?location=${offer.region}`}
           className={themeChangerDescriptionString(
             theme,
             "bg-gray-500 text-gray-50 hover:bg-gray-300",

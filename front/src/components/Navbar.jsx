@@ -40,8 +40,7 @@ const Navbar = () => {
         <div className="flex lg:flex-1">
           <a href="/" className="-m-1.5 p-1.5">
             <Image className="h-12 w-auto" src={theme === 'light' ? headerLogoBlack : headerLogoWhite} alt="Logo"  
-              width={'100%'}
-              height={'100%'}
+              width={1000}
             />
           </a>
           <a href="/" className={`py-3 text-3xl font-mono font-bold leading-6 ${theme === 'light' ? 'text-gray-700' : 'text-gray-50'} ml-4`}>
@@ -97,8 +96,8 @@ const Navbar = () => {
                   onBlur={handleBlur}
                   src={authUserPhoto || BlankPfp}
                   alt="User Profile"
-                  width={'100%'}
-                  height={'100%'}
+                  width={1000}
+                  height={1000}
                 />
                 {isDropdownVisible && (
                   <div

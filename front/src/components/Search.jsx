@@ -33,7 +33,7 @@ const Search = () => {
     if (after) queryParams.append('after', after);
 
     const queryString = queryParams.toString();
-    router.push(`/search${queryString ? `?${queryString}` : ''}`);
+    router.push(`${queryString ? `?${queryString}` : ''}`);
   };
 
   return (

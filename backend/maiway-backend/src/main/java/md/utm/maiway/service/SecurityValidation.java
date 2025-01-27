@@ -10,7 +10,6 @@ public class SecurityValidation {
         return !username.matches(usernamePattern);
     }
     public static Boolean isInvalidPasswordLen(String password){
-        
         return password.length() < 6;
     }
 }

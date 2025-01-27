@@ -32,11 +32,11 @@ const Offers = ({ query }) => {
     if (fetchInProgress.current) return;
     fetchInProgress.current = true;
     setLoading(true);
-   console.log(currentQuery)
+    console.log(currentQuery)
     try {
       const response = await fetch(currentQuery === null 
         ? `http://localhost:6969/api/offer/page/${currentPage}` 
-        : `http://localhost:6969/api/offer/search?${currentQuery}`
+        : `http://localhost:6969/api/offer/search?query=${currentQuery.query}`
       );
       const data = await response.json();
       console.log(data);
